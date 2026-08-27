@@ -1,0 +1,291 @@
+from __future__ import annotations
+
+from datetime import datetime
+from pathlib import Path
+import json
+import sqlite3
+from typing import Any, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from atlas.execution.controlled_demo_gate import DemoExecutionTicket
+
+
+ACTIVE_RISK_STATUSES = {
+    "SEND_ATTEMPTED",
+    "SEND_ACKED",
+    "RECONCILIATION_REQUIRED",
+    "VERIFIED",
+    "REVIEW_REQUIRED",
+    "CRITICAL_PROTECTION_REVIEW",
+}
+
+
+class SQLiteExecutionLedger:
+    """Transactional execution ledger and authoritative idempotency store.
+
+    The PRIMARY KEY(account_id, signal_id) is the claim. There is no JSON
+    execution-ledger fallback in the runtime path. SEND_ATTEMPTED is persisted
+    before calling MT5 so an uncertain/crashed send consumes the daily bullet
+    until reconciliation proves otherwise.
+    """
+
+    def __init__(self, path: str | Path = "runtime/demo_execution.sqlite3") -> None:
+        self.path = Path(path)
+        self.path.parent.mkdir(parents=True, exist_ok=True)
+        self._init()
+
+    def _connect(self) -> sqlite3.Connection:
+        con = sqlite3.connect(self.path, timeout=10.0, isolation_level=None)
+        con.row_factory = sqlite3.Row
+        con.execute("PRAGMA journal_mode=WAL")
+        con.execute("PRAGMA synchronous=FULL")
+        con.execute("PRAGMA busy_timeout=10000")
+        return con
+
+    def _init(self) -> None:
+        with self._connect() as con:
+            con.execute(
+                """
+                CREATE TABLE IF NOT EXISTS execution_claims (
+                    account_id TEXT NOT NULL,
+                    signal_id TEXT NOT NULL,
+                    ticket_id TEXT NOT NULL,
+                    symbol TEXT NOT NULL DEFAULT '',
+                    risk_pct REAL NOT NULL DEFAULT 0,
+                    status TEXT NOT NULL,
+                    prepared_at_utc TEXT NOT NULL,
+                    details_json TEXT NOT NULL DEFAULT '{}',
+                    updated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
+                    PRIMARY KEY(account_id, signal_id)
+                )
+                """
+            )
+            cols = {r[1] for r in con.execute("PRAGMA table_info(execution_claims)")}
+            if "symbol" not in cols:
+                con.execute("ALTER TABLE execution_claims ADD COLUMN symbol TEXT NOT NULL DEFAULT ''")
+            if "risk_pct" not in cols:
+                con.execute("ALTER TABLE execution_claims ADD COLUMN risk_pct REAL NOT NULL DEFAULT 0")
+            con.execute("CREATE INDEX IF NOT EXISTS idx_exec_account_time ON execution_claims(account_id, prepared_at_utc)")
+            con.execute("CREATE INDEX IF NOT EXISTS idx_exec_status ON execution_claims(status)")
+            con.execute(
+                """
+                CREATE TABLE IF NOT EXISTS management_actions (
+                    idempotency_key TEXT PRIMARY KEY,
+                    management_id TEXT NOT NULL,
+                    account_id TEXT NOT NULL,
+                    position_id TEXT NOT NULL,
+                    signal_id TEXT NOT NULL,
+                    symbol TEXT NOT NULL,
+                    action TEXT NOT NULL,
+                    status TEXT NOT NULL,
+                    prepared_at_utc TEXT NOT NULL,
+                    details_json TEXT NOT NULL DEFAULT '{}',
+                    updated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now'))
+                )
+                """
+            )
+            con.execute("CREATE INDEX IF NOT EXISTS idx_mgt_account_status ON management_actions(account_id,status)")
+            con.execute("CREATE INDEX IF NOT EXISTS idx_mgt_position ON management_actions(account_id,position_id)")
+
+    def is_claimed(self, account_id: str, signal_id: str) -> bool:
+        return self.get(account_id, signal_id) is not None
+
+    def claim(self, ticket: "DemoExecutionTicket") -> None:
+        with self._connect() as con:
+            con.execute("BEGIN IMMEDIATE")
+            try:
+                con.execute(
+                    """INSERT INTO execution_claims
+                    (account_id,signal_id,ticket_id,symbol,risk_pct,status,prepared_at_utc,details_json)
+                    VALUES(?,?,?,?,?,?,?,?)""",
+                    (
+                        ticket.account_id, ticket.signal_id, ticket.ticket_id,
+                        ticket.symbol, float(ticket.risk_pct), "PREPARED",
+                        ticket.prepared_at_utc,
+                        json.dumps({"ticket": ticket.to_dict()}, sort_keys=True, default=str),
+                    ),
+                )
+                con.execute("COMMIT")
+            except sqlite3.IntegrityError as exc:
+                con.execute("ROLLBACK")
+                raise PermissionError("DUPLICATE_SIGNAL_ACCOUNT_ALREADY_CLAIMED") from exc
+            except Exception:
+                con.execute("ROLLBACK")
+                raise
+
+    def mark(self, account_id: str, signal_id: str, status: str, **details: Any) -> None:
+        with self._connect() as con:
+            con.execute("BEGIN IMMEDIATE")
+            try:
+                row = con.execute(
+                    "SELECT details_json FROM execution_claims WHERE account_id=? AND signal_id=?",
+                    (account_id, signal_id),
+                ).fetchone()
+                if row is None:
+                    raise KeyError("execution claim not found")
+                previous = json.loads(row[0] or "{}")
+                previous.update(details)
+                con.execute(
+                    """UPDATE execution_claims
+                    SET status=?, details_json=?, updated_at=strftime('%Y-%m-%dT%H:%M:%fZ','now')
+                    WHERE account_id=? AND signal_id=?""",
+                    (str(status), json.dumps(previous, sort_keys=True, default=str), account_id, signal_id),
+                )
+                con.execute("COMMIT")
+            except Exception:
+                con.execute("ROLLBACK")
+                raise
+
+    def get(self, account_id: str, signal_id: str) -> dict[str, Any] | None:
+        with self._connect() as con:
+            row = con.execute(
+                """SELECT ticket_id,symbol,risk_pct,status,prepared_at_utc,details_json,updated_at
+                FROM execution_claims WHERE account_id=? AND signal_id=?""",
+                (account_id, signal_id),
+            ).fetchone()
+        if row is None:
+            return None
+        return {
+            "account_id": account_id,
+            "signal_id": signal_id,
+            "ticket_id": row[0],
+            "symbol": row[1],
+            "risk_pct": float(row[2]),
+            "status": row[3],
+            "prepared_at_utc": row[4],
+            "details": json.loads(row[5] or "{}"),
+            "updated_at": row[6],
+        }
+
+    def list_by_status(self, account_id: str, statuses: set[str]) -> list[dict[str, Any]]:
+        if not statuses:
+            return []
+        marks = ",".join("?" for _ in statuses)
+        args = [account_id, *sorted(statuses)]
+        with self._connect() as con:
+            rows = con.execute(
+                f"""SELECT signal_id,ticket_id,symbol,risk_pct,status,prepared_at_utc,details_json,updated_at
+                FROM execution_claims WHERE account_id=? AND status IN ({marks}) ORDER BY prepared_at_utc""",
+                args,
+            ).fetchall()
+        return [
+            {
+                "account_id": account_id, "signal_id": r[0], "ticket_id": r[1], "symbol": r[2],
+                "risk_pct": float(r[3]), "status": r[4], "prepared_at_utc": r[5],
+                "details": json.loads(r[6] or "{}"), "updated_at": r[7],
+            }
+            for r in rows
+        ]
+
+    def daily_summary(self, account_id: str, symbol: str, start_utc: datetime, end_utc: datetime) -> dict[str, Any]:
+        statuses = sorted(ACTIVE_RISK_STATUSES)
+        marks = ",".join("?" for _ in statuses)
+        args = [account_id, start_utc.isoformat(), end_utc.isoformat(), *statuses]
+        with self._connect() as con:
+            rows = con.execute(
+                f"""SELECT symbol,risk_pct,status FROM execution_claims
+                WHERE account_id=? AND prepared_at_utc>=? AND prepared_at_utc<? AND status IN ({marks})""",
+                args,
+            ).fetchall()
+        return {
+            "trades_today": len(rows),
+            "symbol_trades_today": sum(1 for r in rows if str(r[0]).upper() == symbol.upper()),
+            "daily_risk_used_pct": sum(float(r[1]) for r in rows),
+            "statuses": [str(r[2]) for r in rows],
+        }
+    def find_execution_for_position(self, account_id: str, position_id: str) -> dict[str, Any] | None:
+        """Locate the execution claim that owns a broker position id."""
+        with self._connect() as con:
+            rows = con.execute(
+                """SELECT signal_id,ticket_id,symbol,risk_pct,status,prepared_at_utc,details_json,updated_at
+                FROM execution_claims WHERE account_id=? ORDER BY prepared_at_utc DESC""",
+                (account_id,),
+            ).fetchall()
+        wanted = str(position_id)
+        for r in rows:
+            details = json.loads(r[6] or "{}")
+            if str(details.get("broker_position_id") or "") == wanted:
+                return {
+                    "account_id": account_id, "signal_id": r[0], "ticket_id": r[1], "symbol": r[2],
+                    "risk_pct": float(r[3]), "status": r[4], "prepared_at_utc": r[5],
+                    "details": details, "updated_at": r[7],
+                }
+        return None
+
+    def claim_management_action(self, ticket: Any) -> None:
+        """Atomically claim one management mutation using its idempotency key."""
+        with self._connect() as con:
+            con.execute("BEGIN IMMEDIATE")
+            try:
+                con.execute(
+                    """INSERT INTO management_actions
+                    (idempotency_key,management_id,account_id,position_id,signal_id,symbol,action,status,prepared_at_utc,details_json)
+                    VALUES(?,?,?,?,?,?,?,?,?,?)""",
+                    (
+                        ticket.idempotency_key, ticket.management_id, ticket.account_id, ticket.position_id,
+                        ticket.signal_id, ticket.symbol, ticket.action, "PREPARED", ticket.prepared_at_utc,
+                        json.dumps({"ticket": ticket.to_dict()}, sort_keys=True, default=str),
+                    ),
+                )
+                con.execute("COMMIT")
+            except sqlite3.IntegrityError as exc:
+                con.execute("ROLLBACK")
+                raise PermissionError("DUPLICATE_MANAGEMENT_ACTION_ALREADY_CLAIMED") from exc
+            except Exception:
+                con.execute("ROLLBACK")
+                raise
+
+    def mark_management_action(self, idempotency_key: str, status: str, **details: Any) -> None:
+        with self._connect() as con:
+            con.execute("BEGIN IMMEDIATE")
+            try:
+                row = con.execute(
+                    "SELECT details_json FROM management_actions WHERE idempotency_key=?",
+                    (idempotency_key,),
+                ).fetchone()
+                if row is None:
+                    raise KeyError("management action not found")
+                previous = json.loads(row[0] or "{}")
+                previous.update(details)
+                con.execute(
+                    """UPDATE management_actions SET status=?,details_json=?,
+                    updated_at=strftime('%Y-%m-%dT%H:%M:%fZ','now') WHERE idempotency_key=?""",
+                    (str(status), json.dumps(previous, sort_keys=True, default=str), idempotency_key),
+                )
+                con.execute("COMMIT")
+            except Exception:
+                con.execute("ROLLBACK")
+                raise
+
+    def get_management_action(self, idempotency_key: str) -> dict[str, Any] | None:
+        with self._connect() as con:
+            r = con.execute(
+                """SELECT management_id,account_id,position_id,signal_id,symbol,action,status,prepared_at_utc,details_json,updated_at
+                FROM management_actions WHERE idempotency_key=?""", (idempotency_key,)
+            ).fetchone()
+        if r is None:
+            return None
+        return {
+            "idempotency_key": idempotency_key, "management_id": r[0], "account_id": r[1],
+            "position_id": r[2], "signal_id": r[3], "symbol": r[4], "action": r[5],
+            "status": r[6], "prepared_at_utc": r[7], "details": json.loads(r[8] or "{}"),
+            "updated_at": r[9],
+        }
+
+    def list_management_by_status(self, account_id: str, statuses: set[str]) -> list[dict[str, Any]]:
+        if not statuses:
+            return []
+        marks = ",".join("?" for _ in statuses)
+        args = [account_id, *sorted(statuses)]
+        with self._connect() as con:
+            rows = con.execute(
+                f"""SELECT idempotency_key,management_id,position_id,signal_id,symbol,action,status,prepared_at_utc,details_json,updated_at
+                FROM management_actions WHERE account_id=? AND status IN ({marks}) ORDER BY prepared_at_utc""", args
+            ).fetchall()
+        return [{
+            "idempotency_key": r[0], "management_id": r[1], "account_id": account_id,
+            "position_id": r[2], "signal_id": r[3], "symbol": r[4], "action": r[5],
+            "status": r[6], "prepared_at_utc": r[7], "details": json.loads(r[8] or "{}"),
+            "updated_at": r[9],
+        } for r in rows]
+

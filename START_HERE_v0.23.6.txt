@@ -1,0 +1,20 @@
+ATLAS v0.23.6 - DEEP TECHNICAL AUDIT / DEMO READINESS BASE
+
+Active watchlist: EURUSD, USDJPY, USDCAD, XAUUSD.
+GBPUSD is not active.
+Channel Boundary Rejection is the only channel strategy.
+Pair-specific pattern permissions and H4/H1 policies are frozen from v0.23.4.
+Fibonacci is not an entry permission gate.
+Risk: 0.50% per trade, maximum 2 trades/day, maximum 1.00% new daily risk, maximum 1 trade/symbol/day.
+Pattern-specific targets are preserved in paper review, including 3R Channel Boundary Rejection for USDCAD and XAUUSD.
+
+AI/API COST POLICY
+- Core Atlas trading logic is deterministic/local and makes no AI API calls.
+- Provider adapters remain disconnected from the trading pipeline.
+- Optional future AI advisory is disabled by default.
+- AI usage is event-driven only, cacheable, and protected by daily/monthly call caps before a provider may be enabled.
+
+SAFETY
+- Demo/read-only launchers do not send orders.
+- MT5 order methods exist only in the isolated execution bridge and are not invoked by the demo observer/validator.
+- Use run_m15_first_observer.py and run_mt5_demo_probe.py for the next readiness stage.

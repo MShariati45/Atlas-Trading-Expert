@@ -1,0 +1,30 @@
+{
+  "checkpoint": "v0.22.0",
+  "regression_tests": "166/166",
+  "research_basis": [
+    "https://cmtassociation.org/wp-content/uploads/2023/12/2024-Level-I-Exam-Information-and-Learning-Objective-Statements.pdf",
+    "https://cmtassociation.org/technically_speaking/technically-speaking-september-2010/",
+    "https://cmtassociation.org/technically_speaking/technically-speaking-march-2015/"
+  ],
+  "real_gated_eurusd_2021_05_01_to_2021_05_12": {
+    "eligible_m15_bars": 330,
+    "flag_valid_triggers": 3,
+    "descending_triangle_valid_triggers": 1,
+    "rising_wedge_valid_triggers": 1,
+    "pennant_valid_triggers": 0,
+    "ascending_triangle_valid_triggers": 0,
+    "falling_wedge_valid_triggers": 0,
+    "note": "Fresh-trigger rediscovery suppression reduced repeated same-geometry emissions."
+  },
+  "real_history_geometry_scan_last_60000_eurusd_m15_bars": {
+    "ascending_triangle_candidates": 776,
+    "descending_triangle_candidates": 756,
+    "symmetrical_triangle_candidates": 1944,
+    "rising_wedge_candidates": 1385,
+    "falling_wedge_candidates": 1289,
+    "pennant_directional_breakout_examples": 68,
+    "note": "Geometry scan is real-price evidence but is not HTF/Fibonacci gated and therefore is not trade-performance evidence."
+  },
+  "freeze_status": "NOT_FULLY_FROZEN",
+  "remaining_gap": "Obtain HTF/Fibonacci-gated live-runtime examples for PENNANT, ASCENDING_TRIANGLE, and FALLING_WEDGE before freezing the complete family discovery layer."
+}

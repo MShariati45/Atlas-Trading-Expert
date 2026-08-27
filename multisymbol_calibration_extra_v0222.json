@@ -1,0 +1,332 @@
+{
+  "summary": {
+    "windows": 5,
+    "symbols": [
+      "EURUSD"
+    ],
+    "total_eligible_bars": 2554,
+    "supervisor_ready_events": 52,
+    "resolved_events": 52,
+    "wins": 14,
+    "losses": 38,
+    "win_rate_pct": 26.923076923076923,
+    "gross_R_sum": -10.0,
+    "expectancy_R": -0.19230769230769232,
+    "unresolved": 0,
+    "stop_pips": {
+      "count": 52,
+      "min": 5.599999999998939,
+      "median": 21.981250000000507,
+      "mean": 25.68350961538427,
+      "p90": 46.51999999999878,
+      "max": 94.28250000000249
+    },
+    "by_symbol": {
+      "EURUSD": {
+        "events": 52,
+        "resolved": 52,
+        "wins": 14,
+        "losses": 38,
+        "win_rate_pct": 26.923076923076923,
+        "gross_R_sum": -10.0,
+        "expectancy_R": -0.19230769230769232,
+        "median_stop_pips": 21.981250000000507
+      }
+    },
+    "by_agent": {
+      "M15_FLAG_PENNANT": {
+        "events": 31,
+        "resolved": 31,
+        "wins": 12,
+        "losses": 19,
+        "win_rate_pct": 38.70967741935484,
+        "gross_R_sum": 5.0,
+        "expectancy_R": 0.16129032258064516,
+        "median_stop_pips": 23.200000000000998
+      },
+      "M15_TRIANGLE_WEDGE": {
+        "events": 13,
+        "resolved": 13,
+        "wins": 1,
+        "losses": 12,
+        "win_rate_pct": 7.6923076923076925,
+        "gross_R_sum": -10.0,
+        "expectancy_R": -0.7692307692307693,
+        "median_stop_pips": 19.699999999998052
+      },
+      "M15_CHANNEL": {
+        "events": 3,
+        "resolved": 3,
+        "wins": 0,
+        "losses": 3,
+        "win_rate_pct": 0.0,
+        "gross_R_sum": -3.0,
+        "expectancy_R": -1.0,
+        "median_stop_pips": 14.300000000000423
+      },
+      "M15_IMPULSE_CORRECTION": {
+        "events": 2,
+        "resolved": 2,
+        "wins": 1,
+        "losses": 1,
+        "win_rate_pct": 50.0,
+        "gross_R_sum": 1.0,
+        "expectancy_R": 0.5,
+        "median_stop_pips": 28.973749999999797
+      },
+      "M15_HEAD_SHOULDERS": {
+        "events": 3,
+        "resolved": 3,
+        "wins": 0,
+        "losses": 3,
+        "win_rate_pct": 0.0,
+        "gross_R_sum": -3.0,
+        "expectancy_R": -1.0,
+        "median_stop_pips": 7.399999999999629
+      }
+    },
+    "by_pattern": {
+      "BEAR_FLAG": {
+        "events": 14,
+        "resolved": 14,
+        "wins": 3,
+        "losses": 11,
+        "win_rate_pct": 21.428571428571427,
+        "gross_R_sum": -5.0,
+        "expectancy_R": -0.35714285714285715,
+        "median_stop_pips": 27.856250000000138
+      },
+      "BULL_FLAG": {
+        "events": 15,
+        "resolved": 15,
+        "wins": 8,
+        "losses": 7,
+        "win_rate_pct": 53.333333333333336,
+        "gross_R_sum": 9.0,
+        "expectancy_R": 0.6,
+        "median_stop_pips": 18.899999999997252
+      },
+      "BULL_PENNANT": {
+        "events": 2,
+        "resolved": 2,
+        "wins": 1,
+        "losses": 1,
+        "win_rate_pct": 50.0,
+        "gross_R_sum": 1.0,
+        "expectancy_R": 0.5,
+        "median_stop_pips": 43.61999999999977
+      },
+      "SYMMETRICAL_TRIANGLE": {
+        "events": 6,
+        "resolved": 6,
+        "wins": 0,
+        "losses": 6,
+        "win_rate_pct": 0.0,
+        "gross_R_sum": -6.0,
+        "expectancy_R": -1.0,
+        "median_stop_pips": 21.6462499999992
+      },
+      "None": {
+        "events": 5,
+        "resolved": 5,
+        "wins": 1,
+        "losses": 4,
+        "win_rate_pct": 20.0,
+        "gross_R_sum": -2.0,
+        "expectancy_R": -0.4,
+        "median_stop_pips": 14.300000000000423
+      },
+      "ASCENDING_TRIANGLE": {
+        "events": 6,
+        "resolved": 6,
+        "wins": 0,
+        "losses": 6,
+        "win_rate_pct": 0.0,
+        "gross_R_sum": -6.0,
+        "expectancy_R": -1.0,
+        "median_stop_pips": 21.546250000000768
+      },
+      "HEAD_SHOULDERS": {
+        "events": 1,
+        "resolved": 1,
+        "wins": 0,
+        "losses": 1,
+        "win_rate_pct": 0.0,
+        "gross_R_sum": -1.0,
+        "expectancy_R": -1.0,
+        "median_stop_pips": 5.599999999998939
+      },
+      "INVERSE_HEAD_SHOULDERS": {
+        "events": 2,
+        "resolved": 2,
+        "wins": 0,
+        "losses": 2,
+        "win_rate_pct": 0.0,
+        "gross_R_sum": -2.0,
+        "expectancy_R": -1.0,
+        "median_stop_pips": 9.799999999999809
+      },
+      "FALLING_WEDGE": {
+        "events": 1,
+        "resolved": 1,
+        "wins": 1,
+        "losses": 0,
+        "win_rate_pct": 100.0,
+        "gross_R_sum": 2.0,
+        "expectancy_R": 2.0,
+        "median_stop_pips": 19.699999999998052
+      }
+    },
+    "rejection_reason_counts": {
+      "NO_ACTIONABLE_M15_TRIGGER": 2311,
+      "M15_PACKAGE_READY": 187,
+      "EARLY_PATTERN_SIGNAL_STRUCTURE_CONFIRMATION_PENDING": 56
+    }
+  },
+  "windows": [
+    {
+      "symbol": "EURUSD",
+      "window": "2015_A",
+      "start": "2015-03-09T00:00:00+00:00",
+      "end": "2015-03-20T23:59:00+00:00",
+      "bars": 948,
+      "eligible": 511,
+      "alignment": {
+        "ALIGNED_BEARISH": 511,
+        "NOT_ALIGNED": 437
+      },
+      "fib": {
+        "ACTIVE_SHALLOW": 471,
+        "ACTIVE_FLAG_ZONE": 40
+      },
+      "packages": {
+        "COLLECTING_REPORTS": 471,
+        "READY_FOR_SUPERVISOR_REVIEW": 40
+      },
+      "reasons": {
+        "NO_ACTIONABLE_M15_TRIGGER": 471,
+        "M15_PACKAGE_READY": 40
+      }
+    },
+    {
+      "symbol": "EURUSD",
+      "window": "2015_B",
+      "start": "2015-08-17T00:00:00+00:00",
+      "end": "2015-08-28T23:59:00+00:00",
+      "bars": 948,
+      "eligible": 472,
+      "alignment": {
+        "ALIGNED_BULLISH": 495,
+        "WAIT": 120,
+        "NOT_ALIGNED": 333
+      },
+      "fib": {
+        "STRUCTURE_RISK": 23,
+        "ACTIVE_SHALLOW": 331,
+        "ACTIVE_FLAG_ZONE": 40,
+        "ACTIVE_PRIMARY_CORRECTION": 40,
+        "ACTIVE_LATCHED_RECOVERY": 61
+      },
+      "packages": {
+        "COLLECTING_REPORTS": 427,
+        "READY_FOR_SUPERVISOR_REVIEW": 45
+      },
+      "reasons": {
+        "NO_ACTIONABLE_M15_TRIGGER": 427,
+        "M15_PACKAGE_READY": 45
+      }
+    },
+    {
+      "symbol": "EURUSD",
+      "window": "2017_A",
+      "start": "2017-01-16T00:00:00+00:00",
+      "end": "2017-01-27T23:59:00+00:00",
+      "bars": 952,
+      "eligible": 477,
+      "alignment": {
+        "NOT_ALIGNED": 75,
+        "WAIT": 368,
+        "ALIGNED_BULLISH": 376,
+        "ALIGNED_BEARISH": 133
+      },
+      "fib": {
+        "ACTIVE_PRIMARY_CORRECTION": 92,
+        "ACTIVE_LATCHED_RECOVERY": 258,
+        "ACTIVE_SHALLOW": 95,
+        "ACTIVE_FLAG_ZONE": 23,
+        "ACTIVE_DEEP_CORRECTION": 9,
+        "STRUCTURE_RISK": 32
+      },
+      "packages": {
+        "COLLECTING_REPORTS": 429,
+        "WAITING_FOR_CONFIRMATION": 25,
+        "READY_FOR_SUPERVISOR_REVIEW": 23
+      },
+      "reasons": {
+        "NO_ACTIONABLE_M15_TRIGGER": 429,
+        "EARLY_PATTERN_SIGNAL_STRUCTURE_CONFIRMATION_PENDING": 25,
+        "M15_PACKAGE_READY": 23
+      }
+    },
+    {
+      "symbol": "EURUSD",
+      "window": "2019_A",
+      "start": "2019-01-07T00:00:00+00:00",
+      "end": "2019-01-18T23:59:00+00:00",
+      "bars": 952,
+      "eligible": 303,
+      "alignment": {
+        "ALIGNED_BULLISH": 103,
+        "WAIT": 460,
+        "NOT_ALIGNED": 100,
+        "ALIGNED_BEARISH": 289
+      },
+      "fib": {
+        "ACTIVE_FLAG_ZONE": 57,
+        "ACTIVE_SHALLOW": 66,
+        "ACTIVE_LATCHED_RECOVERY": 108,
+        "ACTIVE_PRIMARY_CORRECTION": 56,
+        "ACTIVE_DEEP_CORRECTION": 16,
+        "STRUCTURE_RISK": 89
+      },
+      "packages": {
+        "COLLECTING_REPORTS": 250,
+        "WAITING_FOR_CONFIRMATION": 31,
+        "READY_FOR_SUPERVISOR_REVIEW": 22
+      },
+      "reasons": {
+        "NO_ACTIONABLE_M15_TRIGGER": 250,
+        "EARLY_PATTERN_SIGNAL_STRUCTURE_CONFIRMATION_PENDING": 31,
+        "M15_PACKAGE_READY": 22
+      }
+    },
+    {
+      "symbol": "EURUSD",
+      "window": "2019_B",
+      "start": "2019-08-05T00:00:00+00:00",
+      "end": "2019-08-16T23:59:00+00:00",
+      "bars": 948,
+      "eligible": 791,
+      "alignment": {
+        "ALIGNED_BULLISH": 799,
+        "WAIT": 149
+      },
+      "fib": {
+        "ACTIVE_SHALLOW": 82,
+        "ACTIVE_FLAG_ZONE": 29,
+        "ACTIVE_LATCHED_RECOVERY": 468,
+        "ACTIVE_PRIMARY_CORRECTION": 167,
+        "ACTIVE_DEEP_CORRECTION": 45,
+        "STRUCTURE_RISK": 8
+      },
+      "packages": {
+        "COLLECTING_REPORTS": 734,
+        "READY_FOR_SUPERVISOR_REVIEW": 57
+      },
+      "reasons": {
+        "NO_ACTIONABLE_M15_TRIGGER": 734,
+        "M15_PACKAGE_READY": 57
+      }
+    }
+  ]
+}

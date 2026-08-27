@@ -1,0 +1,3765 @@
+{
+  "summary": {
+    "dataset": {
+      "source": "GitHub jaxontn/historical-Data EURUSD_M15.csv",
+      "start": "2021-05-01T00:00:00+00:00",
+      "end": "2021-06-15T06:00:00+00:00",
+      "m15_rows_total": 200000,
+      "replay_rows": 3012
+    },
+    "eligible_m15_bars": 950,
+    "alignment_states": {
+      "ALIGNED_BEARISH": 335,
+      "WAIT": 1156,
+      "ALIGNED_BULLISH": 788,
+      "NOT_ALIGNED": 733
+    },
+    "fibonacci_states": {
+      "ACTIVE_SHALLOW": 312,
+      "ACTIVE_FLAG_ZONE": 40,
+      "ACTIVE_PRIMARY_CORRECTION": 87,
+      "ACTIVE_LATCHED_RECOVERY": 504,
+      "ACTIVE_DEEP_CORRECTION": 7,
+      "STRUCTURE_RISK": 173
+    },
+    "coordinator_states": {
+      "COLLECTING_REPORTS": 873,
+      "READY_FOR_SUPERVISOR_REVIEW": 65,
+      "WAITING_FOR_CONFIRMATION": 12
+    },
+    "reason_codes": {
+      "NO_ACTIONABLE_M15_TRIGGER": 873,
+      "M15_PACKAGE_READY": 65,
+      "EARLY_PATTERN_SIGNAL_STRUCTURE_CONFIRMATION_PENDING": 12
+    },
+    "unique_actionable_events": {
+      "M15_FLAG_PENNANT|VALID_TRIGGER": 13,
+      "M15_HEAD_SHOULDERS|VALID_TRIGGER": 2,
+      "M15_MULTIPLE_TOP_BOTTOM|EARLY_REVERSAL_CANDIDATE": 3,
+      "M15_TRIANGLE_WEDGE|VALID_TRIGGER": 25,
+      "M15_IMPULSE_CORRECTION|VALID_TRIGGER": 2,
+      "M15_CHANNEL|VALID_TRIGGER": 1
+    },
+    "duplicates_observed": 1,
+    "conflicts_observed": 0,
+    "independent_confirmations_observed": 4,
+    "stop_pips": {
+      "count": 46,
+      "min": 6.299999999999084,
+      "median": 15.449999999999076,
+      "mean": 18.556521739129927,
+      "max": 91.39999999999925
+    },
+    "primary_packages": 45
+  },
+  "flagpole_reasons": {
+    "FLAGPOLE_TOO_WEAK": 123,
+    "STRONG_FLAGPOLE_VALIDATED": 68
+  },
+  "flag_consolidation_reasons": {
+    "FLAGPOLE_TOO_WEAK": 116,
+    "FLAG_PENNANT_MATURE": 54,
+    "FLAG_CONSOLIDATION_TOO_DEEP": 21
+  },
+  "triangle_candidate_reasons": {
+    "TRIANGLE_WEDGE_MATURE": 102
+  },
+  "triangle_candidates": [
+    {
+      "time": "2021-05-03T18:45:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "SHORT",
+      "upper": 1.207155,
+      "lower": 1.20465,
+      "sr": 1.20239,
+      "sr_gap_atr": 4.19684308263667
+    },
+    {
+      "time": "2021-05-03T19:00:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "SHORT",
+      "upper": 1.207155,
+      "lower": 1.20465,
+      "sr": 1.20239,
+      "sr_gap_atr": 4.475247524752138
+    },
+    {
+      "time": "2021-05-03T19:15:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "SHORT",
+      "upper": 1.207155,
+      "lower": 1.20465,
+      "sr": 1.20239,
+      "sr_gap_atr": 4.698544698544352
+    },
+    {
+      "time": "2021-05-03T19:30:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "SHORT",
+      "upper": 1.207155,
+      "lower": 1.20465,
+      "sr": 1.20239,
+      "sr_gap_atr": 4.939890710382122
+    },
+    {
+      "time": "2021-05-03T19:45:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "SHORT",
+      "upper": 1.207155,
+      "lower": 1.2056149999999999,
+      "sr": 1.20311,
+      "sr_gap_atr": 5.706150341685308
+    },
+    {
+      "time": "2021-05-03T20:00:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "SHORT",
+      "upper": 1.207155,
+      "lower": 1.2056149999999999,
+      "sr": 1.20311,
+      "sr_gap_atr": 6.192830655129453
+    },
+    {
+      "time": "2021-05-03T20:15:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "SHORT",
+      "upper": 1.206615,
+      "lower": 1.2056149999999999,
+      "sr": 1.20311,
+      "sr_gap_atr": 6.301886792452504
+    },
+    {
+      "time": "2021-05-03T20:30:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "SHORT",
+      "upper": 1.206615,
+      "lower": 1.2056149999999999,
+      "sr": 1.20311,
+      "sr_gap_atr": 6.540469973889906
+    },
+    {
+      "time": "2021-05-04T18:15:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "SHORT",
+      "upper": 1.20291,
+      "lower": 1.20123,
+      "sr": 1.2007,
+      "sr_gap_atr": 0.5638297872339656
+    },
+    {
+      "time": "2021-05-04T18:30:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "SHORT",
+      "upper": 1.20291,
+      "lower": 1.20123,
+      "sr": 1.2007,
+      "sr_gap_atr": 0.5689747718732452
+    },
+    {
+      "time": "2021-05-04T22:15:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "SHORT",
+      "upper": 1.20175,
+      "lower": 1.20085,
+      "sr": 1.2007,
+      "sr_gap_atr": 0.36809815950888486
+    },
+    {
+      "time": "2021-05-04T22:30:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "SHORT",
+      "upper": 1.20175,
+      "lower": 1.20085,
+      "sr": 1.2007,
+      "sr_gap_atr": 0.3685503685500535
+    },
+    {
+      "time": "2021-05-04T22:45:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "SHORT",
+      "upper": 1.20175,
+      "lower": 1.20085,
+      "sr": 1.2007,
+      "sr_gap_atr": 0.388601036269091
+    },
+    {
+      "time": "2021-05-04T23:00:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "SHORT",
+      "upper": 1.20175,
+      "lower": 1.20085,
+      "sr": 1.2007,
+      "sr_gap_atr": 0.40214477211760735
+    },
+    {
+      "time": "2021-05-04T23:15:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "SHORT",
+      "upper": 1.20175,
+      "lower": 1.20085,
+      "sr": 1.2007,
+      "sr_gap_atr": 0.40927694406513304
+    },
+    {
+      "time": "2021-05-05T19:30:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "SHORT",
+      "upper": 1.20069,
+      "lower": 1.19943,
+      "sr": 1.1987,
+      "sr_gap_atr": 1.6459977452083492
+    },
+    {
+      "time": "2021-05-05T19:45:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "SHORT",
+      "upper": 1.20069,
+      "lower": 1.19943,
+      "sr": 1.1987,
+      "sr_gap_atr": 1.7548076923074702
+    },
+    {
+      "time": "2021-05-05T20:00:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "SHORT",
+      "upper": 1.20069,
+      "lower": 1.19943,
+      "sr": 1.1987,
+      "sr_gap_atr": 1.7739975698661021
+    },
+    {
+      "time": "2021-05-05T20:15:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "SHORT",
+      "upper": 1.20069,
+      "lower": 1.19943,
+      "sr": 1.1987,
+      "sr_gap_atr": 1.8790218790216555
+    },
+    {
+      "time": "2021-05-19T21:30:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.21952,
+      "lower": 1.21651,
+      "sr": 1.22154,
+      "sr_gap_atr": 2.389118864577364
+    },
+    {
+      "time": "2021-05-19T21:45:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.21952,
+      "lower": 1.21651,
+      "sr": 1.22154,
+      "sr_gap_atr": 2.3848878394335196
+    },
+    {
+      "time": "2021-05-19T22:00:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.21952,
+      "lower": 1.21651,
+      "sr": 1.22154,
+      "sr_gap_atr": 2.3891188645773958
+    },
+    {
+      "time": "2021-05-19T22:15:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2178749999999998,
+      "lower": 1.21651,
+      "sr": 1.22154,
+      "sr_gap_atr": 4.4370460048430145
+    },
+    {
+      "time": "2021-05-19T22:30:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2178749999999998,
+      "lower": 1.217165,
+      "sr": 1.22154,
+      "sr_gap_atr": 4.521900061690732
+    },
+    {
+      "time": "2021-05-19T22:45:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2178749999999998,
+      "lower": 1.217165,
+      "sr": 1.22154,
+      "sr_gap_atr": 4.578388507183429
+    },
+    {
+      "time": "2021-05-19T23:00:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2178749999999998,
+      "lower": 1.217165,
+      "sr": 1.22154,
+      "sr_gap_atr": 5.735524256651604
+    },
+    {
+      "time": "2021-05-19T23:15:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2178749999999998,
+      "lower": 1.217165,
+      "sr": 1.22154,
+      "sr_gap_atr": 6.768236380425415
+    },
+    {
+      "time": "2021-05-19T23:30:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2178749999999998,
+      "lower": 1.2170649999999998,
+      "sr": 1.22154,
+      "sr_gap_atr": 7.5644994840048385
+    },
+    {
+      "time": "2021-05-19T23:45:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.217755,
+      "lower": 1.2170649999999998,
+      "sr": 1.22154,
+      "sr_gap_atr": 8.411111111111747
+    },
+    {
+      "time": "2021-05-20T00:00:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.217755,
+      "lower": 1.2170649999999998,
+      "sr": 1.22154,
+      "sr_gap_atr": 9.065868263473567
+    },
+    {
+      "time": "2021-05-20T00:15:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.217755,
+      "lower": 1.2170649999999998,
+      "sr": 1.22154,
+      "sr_gap_atr": 8.990498812352273
+    },
+    {
+      "time": "2021-05-20T02:15:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.21845,
+      "lower": 1.216925,
+      "sr": 1.22108,
+      "sr_gap_atr": 5.340101522842744
+    },
+    {
+      "time": "2021-05-20T02:30:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.21845,
+      "lower": 1.216925,
+      "sr": 1.22108,
+      "sr_gap_atr": 5.32388663967611
+    },
+    {
+      "time": "2021-05-20T02:45:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.21845,
+      "lower": 1.217105,
+      "sr": 1.22108,
+      "sr_gap_atr": 5.345528455284453
+    },
+    {
+      "time": "2021-05-20T03:00:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.21845,
+      "lower": 1.217105,
+      "sr": 1.22108,
+      "sr_gap_atr": 5.340101522842503
+    },
+    {
+      "time": "2021-05-20T03:15:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.21845,
+      "lower": 1.217105,
+      "sr": 1.22108,
+      "sr_gap_atr": 5.2442671984047315
+    },
+    {
+      "time": "2021-05-20T03:30:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.21845,
+      "lower": 1.217105,
+      "sr": 1.22108,
+      "sr_gap_atr": 5.177165354330672
+    },
+    {
+      "time": "2021-05-20T03:45:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.21845,
+      "lower": 1.217105,
+      "sr": 1.22108,
+      "sr_gap_atr": 5.121713729308601
+    },
+    {
+      "time": "2021-05-20T04:00:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.21845,
+      "lower": 1.217105,
+      "sr": 1.22108,
+      "sr_gap_atr": 5.197628458497894
+    },
+    {
+      "time": "2021-05-20T18:30:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2224300000000001,
+      "lower": 1.2209599999999998,
+      "sr": 1.22248,
+      "sr_gap_atr": 0.07189072609616441
+    },
+    {
+      "time": "2021-05-20T18:45:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2224300000000001,
+      "lower": 1.2209599999999998,
+      "sr": 1.22248,
+      "sr_gap_atr": 0.07331378299102977
+    },
+    {
+      "time": "2021-05-20T19:00:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2224300000000001,
+      "lower": 1.2209599999999998,
+      "sr": 1.22248,
+      "sr_gap_atr": 0.07656967840717052
+    },
+    {
+      "time": "2021-05-20T19:15:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2224300000000001,
+      "lower": 1.221345,
+      "sr": 1.22248,
+      "sr_gap_atr": 0.0772797527046102
+    },
+    {
+      "time": "2021-05-20T19:30:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2224300000000001,
+      "lower": 1.221345,
+      "sr": 1.22248,
+      "sr_gap_atr": 0.0802568218296676
+    },
+    {
+      "time": "2021-05-20T19:45:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2224300000000001,
+      "lower": 1.221345,
+      "sr": 1.22248,
+      "sr_gap_atr": 0.0843170320402758
+    },
+    {
+      "time": "2021-05-20T20:00:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2224300000000001,
+      "lower": 1.221345,
+      "sr": 1.22248,
+      "sr_gap_atr": 0.08613264427197918
+    },
+    {
+      "time": "2021-05-20T20:15:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2224300000000001,
+      "lower": 1.221345,
+      "sr": 1.22248,
+      "sr_gap_atr": 0.09090909090887987
+    },
+    {
+      "time": "2021-05-20T20:30:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2224300000000001,
+      "lower": 1.221345,
+      "sr": 1.22248,
+      "sr_gap_atr": 0.10384215991668397
+    },
+    {
+      "time": "2021-05-20T20:45:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2224300000000001,
+      "lower": 1.221345,
+      "sr": 1.22248,
+      "sr_gap_atr": 0.10718113611979238
+    },
+    {
+      "time": "2021-05-23T21:30:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2189649999999999,
+      "lower": 1.216645,
+      "sr": 1.21978,
+      "sr_gap_atr": 1.717597471022618
+    },
+    {
+      "time": "2021-05-23T21:45:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2189649999999999,
+      "lower": 1.216645,
+      "sr": 1.21978,
+      "sr_gap_atr": 1.9853836784414791
+    },
+    {
+      "time": "2021-05-23T22:00:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2189649999999999,
+      "lower": 1.216645,
+      "sr": 1.21978,
+      "sr_gap_atr": 2.007389162562172
+    },
+    {
+      "time": "2021-05-23T22:15:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2189649999999999,
+      "lower": 1.216645,
+      "sr": 1.21978,
+      "sr_gap_atr": 1.9685990338170232
+    },
+    {
+      "time": "2021-05-23T22:30:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.218455,
+      "lower": 1.216645,
+      "sr": 1.21847,
+      "sr_gap_atr": 0.03554502369639101
+    },
+    {
+      "time": "2021-05-23T22:45:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.218455,
+      "lower": 1.21722,
+      "sr": 1.21847,
+      "sr_gap_atr": 0.03550295857959027
+    },
+    {
+      "time": "2021-05-23T23:00:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.218455,
+      "lower": 1.21722,
+      "sr": 1.21847,
+      "sr_gap_atr": 0.034522439585447276
+    },
+    {
+      "time": "2021-05-23T23:15:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.218455,
+      "lower": 1.21722,
+      "sr": 1.21847,
+      "sr_gap_atr": 0.03397508493743325
+    },
+    {
+      "time": "2021-05-24T05:15:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.218435,
+      "lower": 1.217685,
+      "sr": 1.21847,
+      "sr_gap_atr": 0.10447761194032819
+    },
+    {
+      "time": "2021-05-24T05:30:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.218435,
+      "lower": 1.217685,
+      "sr": 1.21847,
+      "sr_gap_atr": 0.10670731707320169
+    },
+    {
+      "time": "2021-05-24T05:45:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.218435,
+      "lower": 1.217685,
+      "sr": 1.21847,
+      "sr_gap_atr": 0.10558069381601824
+    },
+    {
+      "time": "2021-05-24T06:00:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.218435,
+      "lower": 1.217685,
+      "sr": 1.21847,
+      "sr_gap_atr": 0.10204081632656364
+    },
+    {
+      "time": "2021-05-24T06:15:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.218435,
+      "lower": 1.217685,
+      "sr": 1.21847,
+      "sr_gap_atr": 0.10385756676561089
+    },
+    {
+      "time": "2021-05-24T06:30:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.218435,
+      "lower": 1.217685,
+      "sr": 1.21847,
+      "sr_gap_atr": 0.0990099009901301
+    },
+    {
+      "time": "2021-05-24T06:45:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.218435,
+      "lower": 1.217685,
+      "sr": 1.21847,
+      "sr_gap_atr": 0.09549795361531024
+    },
+    {
+      "time": "2021-05-24T07:00:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.218435,
+      "lower": 1.217685,
+      "sr": 1.21847,
+      "sr_gap_atr": 0.09067357512956087
+    },
+    {
+      "time": "2021-05-24T07:15:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.218435,
+      "lower": 1.217685,
+      "sr": 1.21847,
+      "sr_gap_atr": 0.08515815085160713
+    },
+    {
+      "time": "2021-05-24T07:30:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.218435,
+      "lower": 1.217685,
+      "sr": 1.21847,
+      "sr_gap_atr": 0.08413461538464073
+    },
+    {
+      "time": "2021-05-24T07:45:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.218435,
+      "lower": 1.217685,
+      "sr": 1.21847,
+      "sr_gap_atr": 0.08403361344540279
+    },
+    {
+      "time": "2021-05-24T08:00:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.218435,
+      "lower": 1.217685,
+      "sr": 1.21847,
+      "sr_gap_atr": 0.08323424494651582
+    },
+    {
+      "time": "2021-05-24T08:15:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.218435,
+      "lower": 1.217685,
+      "sr": 1.21847,
+      "sr_gap_atr": 0.08139534883723092
+    },
+    {
+      "time": "2021-05-24T08:30:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.218435,
+      "lower": 1.217685,
+      "sr": 1.21847,
+      "sr_gap_atr": 0.06261180679787018
+    },
+    {
+      "time": "2021-05-24T12:30:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.221765,
+      "lower": 1.21899,
+      "sr": 1.22177,
+      "sr_gap_atr": 0.006176652254518396
+    },
+    {
+      "time": "2021-05-24T12:45:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.221765,
+      "lower": 1.21899,
+      "sr": 1.22177,
+      "sr_gap_atr": 0.006157635468020539
+    },
+    {
+      "time": "2021-05-24T13:00:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.221765,
+      "lower": 1.21899,
+      "sr": 1.22177,
+      "sr_gap_atr": 0.006042296072547033
+    },
+    {
+      "time": "2021-05-24T13:15:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.221765,
+      "lower": 1.21899,
+      "sr": 1.22177,
+      "sr_gap_atr": 0.0057570523892144215
+    },
+    {
+      "time": "2021-05-24T17:15:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2222499999999998,
+      "lower": 1.22039,
+      "sr": 1.22264,
+      "sr_gap_atr": 0.5058365758756472
+    },
+    {
+      "time": "2021-05-24T17:30:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2222499999999998,
+      "lower": 1.22039,
+      "sr": 1.22264,
+      "sr_gap_atr": 0.5131578947370017
+    },
+    {
+      "time": "2021-05-24T17:45:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2222499999999998,
+      "lower": 1.22039,
+      "sr": 1.22264,
+      "sr_gap_atr": 0.5179282868527518
+    },
+    {
+      "time": "2021-05-24T18:00:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2222499999999998,
+      "lower": 1.22039,
+      "sr": 1.22264,
+      "sr_gap_atr": 0.5420430854762017
+    },
+    {
+      "time": "2021-05-24T18:15:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.222375,
+      "lower": 1.22039,
+      "sr": 1.22264,
+      "sr_gap_atr": 0.39819684447779097
+    },
+    {
+      "time": "2021-05-24T18:30:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.222375,
+      "lower": 1.22039,
+      "sr": 1.22264,
+      "sr_gap_atr": 0.4253611556981877
+    },
+    {
+      "time": "2021-05-24T18:45:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.222375,
+      "lower": 1.22039,
+      "sr": 1.22264,
+      "sr_gap_atr": 0.43478260869560464
+    },
+    {
+      "time": "2021-05-24T19:00:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.222375,
+      "lower": 1.220735,
+      "sr": 1.22264,
+      "sr_gap_atr": 0.4409317803660006
+    },
+    {
+      "time": "2021-05-24T19:15:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.222375,
+      "lower": 1.220735,
+      "sr": 1.22264,
+      "sr_gap_atr": 0.45068027210878386
+    },
+    {
+      "time": "2021-05-24T19:30:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.222375,
+      "lower": 1.220735,
+      "sr": 1.22264,
+      "sr_gap_atr": 0.4862385321100317
+    },
+    {
+      "time": "2021-05-24T19:45:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.222375,
+      "lower": 1.220735,
+      "sr": 1.22264,
+      "sr_gap_atr": 0.542476970317237
+    },
+    {
+      "time": "2021-05-24T20:00:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.222375,
+      "lower": 1.220735,
+      "sr": 1.22264,
+      "sr_gap_atr": 0.5674518201284128
+    },
+    {
+      "time": "2021-05-24T20:15:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.222375,
+      "lower": 1.220735,
+      "sr": 1.22264,
+      "sr_gap_atr": 0.5767138193688314
+    },
+    {
+      "time": "2021-05-24T21:45:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2217799999999999,
+      "lower": 1.22113,
+      "sr": 1.22192,
+      "sr_gap_atr": 0.39160839160850974
+    },
+    {
+      "time": "2021-05-24T22:00:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2217799999999999,
+      "lower": 1.22113,
+      "sr": 1.22192,
+      "sr_gap_atr": 0.44025157232718676
+    },
+    {
+      "time": "2021-05-24T22:15:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2217799999999999,
+      "lower": 1.22113,
+      "sr": 1.22192,
+      "sr_gap_atr": 0.49645390070939294
+    },
+    {
+      "time": "2021-05-24T22:30:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2217799999999999,
+      "lower": 1.22113,
+      "sr": 1.22192,
+      "sr_gap_atr": 0.5063291139242336
+    },
+    {
+      "time": "2021-05-24T22:45:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2217799999999999,
+      "lower": 1.22133,
+      "sr": 1.22192,
+      "sr_gap_atr": 0.5185185185187042
+    },
+    {
+      "time": "2021-05-24T23:00:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2217799999999999,
+      "lower": 1.22133,
+      "sr": 1.22192,
+      "sr_gap_atr": 0.5128205128206796
+    },
+    {
+      "time": "2021-05-24T23:15:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.22174,
+      "lower": 1.22133,
+      "sr": 1.22177,
+      "sr_gap_atr": 0.1092896174862548
+    },
+    {
+      "time": "2021-05-24T23:30:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.22174,
+      "lower": 1.22133,
+      "sr": 1.22177,
+      "sr_gap_atr": 0.11472275334599101
+    },
+    {
+      "time": "2021-05-25T03:15:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2229299999999999,
+      "lower": 1.221705,
+      "sr": 1.22298,
+      "sr_gap_atr": 0.14367816091984184
+    },
+    {
+      "time": "2021-05-25T03:30:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2229299999999999,
+      "lower": 1.221705,
+      "sr": 1.22298,
+      "sr_gap_atr": 0.14326647564500633
+    },
+    {
+      "time": "2021-05-25T03:45:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.2229299999999999,
+      "lower": 1.221705,
+      "sr": 1.22298,
+      "sr_gap_atr": 0.14184397163150497
+    },
+    {
+      "time": "2021-05-25T04:00:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.22294,
+      "lower": 1.221705,
+      "sr": 1.22298,
+      "sr_gap_atr": 0.113475177305078
+    },
+    {
+      "time": "2021-05-25T04:15:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.22294,
+      "lower": 1.222405,
+      "sr": 1.22298,
+      "sr_gap_atr": 0.11065006915640622
+    },
+    {
+      "time": "2021-05-25T04:30:00+00:00",
+      "reason": "TRIANGLE_WEDGE_MATURE",
+      "state": "MATURE",
+      "direction": "LONG",
+      "upper": 1.22294,
+      "lower": 1.222405,
+      "sr": 1.22298,
+      "sr_gap_atr": 0.11126564673168245
+    }
+  ],
+  "flag_candidates": [
+    {
+      "time": "2021-05-02T21:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "SCANNING",
+      "atr_mult": null
+    },
+    {
+      "time": "2021-05-02T21:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "SCANNING",
+      "retr": null
+    },
+    {
+      "time": "2021-05-02T21:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "SCANNING",
+      "atr_mult": null
+    },
+    {
+      "time": "2021-05-02T21:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "SCANNING",
+      "retr": null
+    },
+    {
+      "time": "2021-05-02T22:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "SCANNING",
+      "atr_mult": null
+    },
+    {
+      "time": "2021-05-02T22:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "SCANNING",
+      "retr": null
+    },
+    {
+      "time": "2021-05-02T23:30:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "SCANNING",
+      "atr_mult": null
+    },
+    {
+      "time": "2021-05-02T23:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "SCANNING",
+      "retr": null
+    },
+    {
+      "time": "2021-05-03T00:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "SCANNING",
+      "atr_mult": null
+    },
+    {
+      "time": "2021-05-03T00:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "SCANNING",
+      "retr": null
+    },
+    {
+      "time": "2021-05-03T00:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "SCANNING",
+      "atr_mult": null
+    },
+    {
+      "time": "2021-05-03T00:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "SCANNING",
+      "retr": null
+    },
+    {
+      "time": "2021-05-03T03:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "SCANNING",
+      "atr_mult": null
+    },
+    {
+      "time": "2021-05-03T03:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "SCANNING",
+      "retr": null
+    },
+    {
+      "time": "2021-05-03T03:15:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.288686605981913
+    },
+    {
+      "time": "2021-05-03T03:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 27.27272727272957
+    },
+    {
+      "time": "2021-05-03T03:30:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.9870129870130167
+    },
+    {
+      "time": "2021-05-03T03:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 6.086956521740474
+    },
+    {
+      "time": "2021-05-03T03:45:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.4967148488831
+    },
+    {
+      "time": "2021-05-03T03:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 12.631578947357596
+    },
+    {
+      "time": "2021-05-03T04:00:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 3.5309973045820096
+    },
+    {
+      "time": "2021-05-03T04:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 34.35114503817467
+    },
+    {
+      "time": "2021-05-03T04:15:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.5165562913907635
+    },
+    {
+      "time": "2021-05-03T04:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 14.73684210526611
+    },
+    {
+      "time": "2021-05-03T04:30:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "VALID_TRIGGER",
+      "atr_mult": 2.5165562913907635
+    },
+    {
+      "time": "2021-05-03T04:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "VALID_TRIGGER",
+      "retr": 14.73684210526611
+    },
+    {
+      "time": "2021-05-03T05:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "VALID_TRIGGER",
+      "atr_mult": 2.5165562913907635
+    },
+    {
+      "time": "2021-05-03T05:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "VALID_TRIGGER",
+      "retr": 14.73684210526611
+    },
+    {
+      "time": "2021-05-03T05:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "VALID_TRIGGER",
+      "atr_mult": 2.5165562913907635
+    },
+    {
+      "time": "2021-05-03T05:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "VALID_TRIGGER",
+      "retr": 14.73684210526611
+    },
+    {
+      "time": "2021-05-03T05:30:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "STALE",
+      "atr_mult": 2.5165562913907635
+    },
+    {
+      "time": "2021-05-03T05:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "STALE",
+      "retr": 14.73684210526611
+    },
+    {
+      "time": "2021-05-03T05:45:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "STALE",
+      "atr_mult": 2.5165562913907635
+    },
+    {
+      "time": "2021-05-03T05:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "STALE",
+      "retr": 14.73684210526611
+    },
+    {
+      "time": "2021-05-03T06:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "STALE",
+      "atr_mult": 2.5165562913907635
+    },
+    {
+      "time": "2021-05-03T06:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "STALE",
+      "retr": 14.73684210526611
+    },
+    {
+      "time": "2021-05-03T06:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "STALE",
+      "atr_mult": 2.5165562913907635
+    },
+    {
+      "time": "2021-05-03T06:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "STALE",
+      "retr": 14.73684210526611
+    },
+    {
+      "time": "2021-05-03T06:30:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "STALE",
+      "atr_mult": 2.5165562913907635
+    },
+    {
+      "time": "2021-05-03T06:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "STALE",
+      "retr": 14.73684210526611
+    },
+    {
+      "time": "2021-05-03T06:45:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "STALE",
+      "atr_mult": 2.5165562913907635
+    },
+    {
+      "time": "2021-05-03T06:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "STALE",
+      "retr": 14.73684210526611
+    },
+    {
+      "time": "2021-05-03T07:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "STALE",
+      "atr_mult": 2.5165562913907635
+    },
+    {
+      "time": "2021-05-03T07:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "STALE",
+      "retr": 14.73684210526611
+    },
+    {
+      "time": "2021-05-03T09:30:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "STALE",
+      "atr_mult": 2.5165562913907635
+    },
+    {
+      "time": "2021-05-03T09:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "STALE",
+      "retr": 14.73684210526611
+    },
+    {
+      "time": "2021-05-04T07:45:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "STALE",
+      "atr_mult": 2.5165562913907635
+    },
+    {
+      "time": "2021-05-04T07:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "STALE",
+      "retr": 14.73684210526611
+    },
+    {
+      "time": "2021-05-04T08:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "STALE",
+      "atr_mult": 2.5165562913907635
+    },
+    {
+      "time": "2021-05-04T08:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "STALE",
+      "retr": 14.73684210526611
+    },
+    {
+      "time": "2021-05-04T08:15:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 3.375363724539414
+    },
+    {
+      "time": "2021-05-04T08:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 20.689655172420835
+    },
+    {
+      "time": "2021-05-04T08:30:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 3.3490122295387947
+    },
+    {
+      "time": "2021-05-04T08:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 19.662921348319863
+    },
+    {
+      "time": "2021-05-04T08:45:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 3.738626964433318
+    },
+    {
+      "time": "2021-05-04T08:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 33.1858407079669
+    },
+    {
+      "time": "2021-05-04T09:00:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 3.0110935023771814
+    },
+    {
+      "time": "2021-05-04T09:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 33.157894736848746
+    },
+    {
+      "time": "2021-05-04T09:15:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.275915822291549
+    },
+    {
+      "time": "2021-05-04T09:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 17.80821917809219
+    },
+    {
+      "time": "2021-05-04T09:30:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.142298670836761
+    },
+    {
+      "time": "2021-05-04T09:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 16.788321167878596
+    },
+    {
+      "time": "2021-05-04T09:45:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "MATURE",
+      "atr_mult": 2.142298670836761
+    },
+    {
+      "time": "2021-05-04T09:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 0.0
+    },
+    {
+      "time": "2021-05-04T10:00:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.3529411764707113
+    },
+    {
+      "time": "2021-05-04T10:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_CONSOLIDATION_TOO_DEEP",
+      "state": "INVALIDATED",
+      "retr": 52.66666666665443
+    },
+    {
+      "time": "2021-05-04T10:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.3529411764707113
+    },
+    {
+      "time": "2021-05-04T10:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 52.66666666665443
+    },
+    {
+      "time": "2021-05-04T10:30:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.3529411764707113
+    },
+    {
+      "time": "2021-05-04T10:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 52.66666666665443
+    },
+    {
+      "time": "2021-05-04T10:45:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.3529411764707113
+    },
+    {
+      "time": "2021-05-04T10:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 52.66666666665443
+    },
+    {
+      "time": "2021-05-04T11:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.3529411764707113
+    },
+    {
+      "time": "2021-05-04T11:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 52.66666666665443
+    },
+    {
+      "time": "2021-05-04T11:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.3529411764707113
+    },
+    {
+      "time": "2021-05-04T11:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 52.66666666665443
+    },
+    {
+      "time": "2021-05-05T06:45:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.2641509433961025
+    },
+    {
+      "time": "2021-05-05T06:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 17.857142857128697
+    },
+    {
+      "time": "2021-05-05T07:00:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.368715083798519
+    },
+    {
+      "time": "2021-05-05T07:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 34.90566037736205
+    },
+    {
+      "time": "2021-05-05T07:15:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.9308565531479926
+    },
+    {
+      "time": "2021-05-05T07:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 0.704225352117191
+    },
+    {
+      "time": "2021-05-05T07:30:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 3.386773547094244
+    },
+    {
+      "time": "2021-05-05T07:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 11.242603550290882
+    },
+    {
+      "time": "2021-05-05T07:45:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.7246925260168786
+    },
+    {
+      "time": "2021-05-05T07:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 6.94444444444423
+    },
+    {
+      "time": "2021-05-05T08:00:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 3.224637681159711
+    },
+    {
+      "time": "2021-05-05T08:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 29.213483146069798
+    },
+    {
+      "time": "2021-05-05T08:15:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 4.34080717488814
+    },
+    {
+      "time": "2021-05-05T08:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 27.272727272730606
+    },
+    {
+      "time": "2021-05-05T08:30:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 4.36901653611847
+    },
+    {
+      "time": "2021-05-05T08:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_CONSOLIDATION_TOO_DEEP",
+      "state": "INVALIDATED",
+      "retr": 45.019920318727884
+    },
+    {
+      "time": "2021-05-05T08:45:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 3.0845771144278826
+    },
+    {
+      "time": "2021-05-05T08:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_CONSOLIDATION_TOO_DEEP",
+      "state": "INVALIDATED",
+      "retr": 40.322580645163406
+    },
+    {
+      "time": "2021-05-05T09:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 3.0845771144278826
+    },
+    {
+      "time": "2021-05-05T09:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 40.322580645163406
+    },
+    {
+      "time": "2021-05-05T09:15:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.4405705229795798
+    },
+    {
+      "time": "2021-05-05T09:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_CONSOLIDATION_TOO_DEEP",
+      "state": "INVALIDATED",
+      "retr": 53.24675324675269
+    },
+    {
+      "time": "2021-05-05T09:30:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.4405705229795798
+    },
+    {
+      "time": "2021-05-05T09:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 53.24675324675269
+    },
+    {
+      "time": "2021-05-18T06:45:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "SCANNING",
+      "atr_mult": null
+    },
+    {
+      "time": "2021-05-18T06:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "SCANNING",
+      "retr": null
+    },
+    {
+      "time": "2021-05-18T07:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "SCANNING",
+      "atr_mult": null
+    },
+    {
+      "time": "2021-05-18T07:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "SCANNING",
+      "retr": null
+    },
+    {
+      "time": "2021-05-18T07:15:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.6910656620022824
+    },
+    {
+      "time": "2021-05-18T07:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 0.800000000005258
+    },
+    {
+      "time": "2021-05-18T07:30:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 3.936170212765915
+    },
+    {
+      "time": "2021-05-18T07:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 23.783783783784756
+    },
+    {
+      "time": "2021-05-18T07:45:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 4.056508577194945
+    },
+    {
+      "time": "2021-05-18T07:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 7.960199004971772
+    },
+    {
+      "time": "2021-05-18T08:00:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 3.346379647749234
+    },
+    {
+      "time": "2021-05-18T08:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 0.0
+    },
+    {
+      "time": "2021-05-18T08:15:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 5.24150268336284
+    },
+    {
+      "time": "2021-05-18T08:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 9.55631399317644
+    },
+    {
+      "time": "2021-05-18T08:30:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 5.4482758620689244
+    },
+    {
+      "time": "2021-05-18T08:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 8.860759493672576
+    },
+    {
+      "time": "2021-05-18T08:45:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 3.6873406966863427
+    },
+    {
+      "time": "2021-05-18T08:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 0.0
+    },
+    {
+      "time": "2021-05-18T09:00:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 3.2554257095159094
+    },
+    {
+      "time": "2021-05-18T09:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 14.358974358976461
+    },
+    {
+      "time": "2021-05-18T09:15:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.6688102893889627
+    },
+    {
+      "time": "2021-05-18T09:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 0.0
+    },
+    {
+      "time": "2021-05-18T09:30:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 4.567420109119206
+    },
+    {
+      "time": "2021-05-18T09:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 9.215017064845847
+    },
+    {
+      "time": "2021-05-18T09:45:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 3.3257055682684475
+    },
+    {
+      "time": "2021-05-18T09:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 22.018348623854145
+    },
+    {
+      "time": "2021-05-18T10:00:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.9093567251459347
+    },
+    {
+      "time": "2021-05-18T10:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 26.63316582914253
+    },
+    {
+      "time": "2021-05-18T10:15:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.480058013052928
+    },
+    {
+      "time": "2021-05-18T10:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 26.900584795327486
+    },
+    {
+      "time": "2021-05-18T10:30:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.1478382147835107
+    },
+    {
+      "time": "2021-05-18T10:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_CONSOLIDATION_TOO_DEEP",
+      "state": "INVALIDATED",
+      "retr": 54.545454545455854
+    },
+    {
+      "time": "2021-05-18T10:45:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.5688073394496613
+    },
+    {
+      "time": "2021-05-18T10:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_CONSOLIDATION_TOO_DEEP",
+      "state": "INVALIDATED",
+      "retr": 61.224489795917215
+    },
+    {
+      "time": "2021-05-18T11:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.5688073394496613
+    },
+    {
+      "time": "2021-05-18T11:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 61.224489795917215
+    },
+    {
+      "time": "2021-05-18T11:45:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.5688073394496613
+    },
+    {
+      "time": "2021-05-18T11:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 61.224489795917215
+    },
+    {
+      "time": "2021-05-18T12:45:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.5688073394496613
+    },
+    {
+      "time": "2021-05-18T12:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 61.224489795917215
+    },
+    {
+      "time": "2021-05-18T13:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.5688073394496613
+    },
+    {
+      "time": "2021-05-18T13:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 61.224489795917215
+    },
+    {
+      "time": "2021-05-18T13:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.5688073394496613
+    },
+    {
+      "time": "2021-05-18T13:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 61.224489795917215
+    },
+    {
+      "time": "2021-05-18T13:30:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.5688073394496613
+    },
+    {
+      "time": "2021-05-18T13:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 61.224489795917215
+    },
+    {
+      "time": "2021-05-18T13:45:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.8077753779696666
+    },
+    {
+      "time": "2021-05-18T13:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_CONSOLIDATION_TOO_DEEP",
+      "state": "INVALIDATED",
+      "retr": 89.23076923076643
+    },
+    {
+      "time": "2021-05-18T14:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.8077753779696666
+    },
+    {
+      "time": "2021-05-18T14:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 89.23076923076643
+    },
+    {
+      "time": "2021-05-18T16:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.8077753779696666
+    },
+    {
+      "time": "2021-05-18T16:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 89.23076923076643
+    },
+    {
+      "time": "2021-05-18T17:45:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.8077753779696666
+    },
+    {
+      "time": "2021-05-18T17:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 89.23076923076643
+    },
+    {
+      "time": "2021-05-18T18:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.8077753779696666
+    },
+    {
+      "time": "2021-05-18T18:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 89.23076923076643
+    },
+    {
+      "time": "2021-05-18T18:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.8077753779696666
+    },
+    {
+      "time": "2021-05-18T18:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 89.23076923076643
+    },
+    {
+      "time": "2021-05-18T18:30:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.2575516693164115
+    },
+    {
+      "time": "2021-05-18T18:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 5.633802816907134
+    },
+    {
+      "time": "2021-05-18T18:45:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.408462164361253
+    },
+    {
+      "time": "2021-05-18T18:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 5.405405405396079
+    },
+    {
+      "time": "2021-05-18T19:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "MATURE",
+      "atr_mult": 2.408462164361253
+    },
+    {
+      "time": "2021-05-18T19:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 0.0
+    },
+    {
+      "time": "2021-05-18T19:15:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.3746701846965754
+    },
+    {
+      "time": "2021-05-18T19:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 20.0
+    },
+    {
+      "time": "2021-05-18T19:30:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "MATURE",
+      "atr_mult": 2.3746701846965754
+    },
+    {
+      "time": "2021-05-18T19:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 20.0
+    },
+    {
+      "time": "2021-05-18T19:45:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.4248496993991386
+    },
+    {
+      "time": "2021-05-18T19:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 27.272727272737285
+    },
+    {
+      "time": "2021-05-18T20:00:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.5465838509313503
+    },
+    {
+      "time": "2021-05-18T20:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 24.390243902439465
+    },
+    {
+      "time": "2021-05-18T20:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "MATURE",
+      "atr_mult": 2.5465838509313503
+    },
+    {
+      "time": "2021-05-18T20:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_CONSOLIDATION_TOO_DEEP",
+      "state": "INVALIDATED",
+      "retr": 45.528455284550056
+    },
+    {
+      "time": "2021-05-18T20:30:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.5465838509313503
+    },
+    {
+      "time": "2021-05-18T20:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 45.528455284550056
+    },
+    {
+      "time": "2021-05-18T20:45:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.5465838509313503
+    },
+    {
+      "time": "2021-05-18T20:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 45.528455284550056
+    },
+    {
+      "time": "2021-05-18T23:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.5465838509313503
+    },
+    {
+      "time": "2021-05-18T23:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 45.528455284550056
+    },
+    {
+      "time": "2021-05-18T23:30:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.5465838509313503
+    },
+    {
+      "time": "2021-05-18T23:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 45.528455284550056
+    },
+    {
+      "time": "2021-05-19T00:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.5465838509313503
+    },
+    {
+      "time": "2021-05-19T00:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 45.528455284550056
+    },
+    {
+      "time": "2021-05-19T00:45:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.5465838509313503
+    },
+    {
+      "time": "2021-05-19T00:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 45.528455284550056
+    },
+    {
+      "time": "2021-05-19T01:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.5465838509313503
+    },
+    {
+      "time": "2021-05-19T01:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 45.528455284550056
+    },
+    {
+      "time": "2021-05-19T01:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.5465838509313503
+    },
+    {
+      "time": "2021-05-19T01:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 45.528455284550056
+    },
+    {
+      "time": "2021-05-19T01:30:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.5465838509313503
+    },
+    {
+      "time": "2021-05-19T01:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 45.528455284550056
+    },
+    {
+      "time": "2021-05-19T01:45:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.0991253644315493
+    },
+    {
+      "time": "2021-05-19T01:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_CONSOLIDATION_TOO_DEEP",
+      "state": "INVALIDATED",
+      "retr": 138.8888888888632
+    },
+    {
+      "time": "2021-05-19T02:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.0991253644315493
+    },
+    {
+      "time": "2021-05-19T02:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 138.8888888888632
+    },
+    {
+      "time": "2021-05-19T02:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.0991253644315493
+    },
+    {
+      "time": "2021-05-19T02:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 138.8888888888632
+    },
+    {
+      "time": "2021-05-19T02:30:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.0991253644315493
+    },
+    {
+      "time": "2021-05-19T02:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 138.8888888888632
+    },
+    {
+      "time": "2021-05-19T04:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.0991253644315493
+    },
+    {
+      "time": "2021-05-19T04:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 138.8888888888632
+    },
+    {
+      "time": "2021-05-19T04:30:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.0991253644315493
+    },
+    {
+      "time": "2021-05-19T04:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 138.8888888888632
+    },
+    {
+      "time": "2021-05-19T04:45:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.3514538558782285
+    },
+    {
+      "time": "2021-05-19T04:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 4.301075268822082
+    },
+    {
+      "time": "2021-05-19T05:00:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.205128205127777
+    },
+    {
+      "time": "2021-05-19T05:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 0.0
+    },
+    {
+      "time": "2021-05-19T05:15:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.6439790575913977
+    },
+    {
+      "time": "2021-05-19T05:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 25.742574257419648
+    },
+    {
+      "time": "2021-05-19T05:30:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 3.391188251000922
+    },
+    {
+      "time": "2021-05-19T05:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_CONSOLIDATION_TOO_DEEP",
+      "state": "INVALIDATED",
+      "retr": 38.582677165348414
+    },
+    {
+      "time": "2021-05-19T05:45:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 3.391188251000922
+    },
+    {
+      "time": "2021-05-19T05:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 38.582677165348414
+    },
+    {
+      "time": "2021-05-19T06:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 3.391188251000922
+    },
+    {
+      "time": "2021-05-19T06:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 38.582677165348414
+    },
+    {
+      "time": "2021-05-19T06:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 3.391188251000922
+    },
+    {
+      "time": "2021-05-19T06:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 38.582677165348414
+    },
+    {
+      "time": "2021-05-19T06:30:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 3.391188251000922
+    },
+    {
+      "time": "2021-05-19T06:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 38.582677165348414
+    },
+    {
+      "time": "2021-05-19T06:45:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 3.391188251000922
+    },
+    {
+      "time": "2021-05-19T06:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 38.582677165348414
+    },
+    {
+      "time": "2021-05-19T07:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 3.391188251000922
+    },
+    {
+      "time": "2021-05-19T07:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 38.582677165348414
+    },
+    {
+      "time": "2021-05-19T07:15:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.4503311258280434
+    },
+    {
+      "time": "2021-05-19T07:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_CONSOLIDATION_TOO_DEEP",
+      "state": "INVALIDATED",
+      "retr": 67.56756756755999
+    },
+    {
+      "time": "2021-05-19T07:30:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.695924764890163
+    },
+    {
+      "time": "2021-05-19T07:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_CONSOLIDATION_TOO_DEEP",
+      "state": "INVALIDATED",
+      "retr": 98.44961240310785
+    },
+    {
+      "time": "2021-05-19T07:45:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.695924764890163
+    },
+    {
+      "time": "2021-05-19T07:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 98.44961240310785
+    },
+    {
+      "time": "2021-05-19T08:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.695924764890163
+    },
+    {
+      "time": "2021-05-19T08:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 98.44961240310785
+    },
+    {
+      "time": "2021-05-19T08:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.695924764890163
+    },
+    {
+      "time": "2021-05-19T08:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 98.44961240310785
+    },
+    {
+      "time": "2021-05-19T13:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.695924764890163
+    },
+    {
+      "time": "2021-05-19T13:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 98.44961240310785
+    },
+    {
+      "time": "2021-05-19T13:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.695924764890163
+    },
+    {
+      "time": "2021-05-19T13:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 98.44961240310785
+    },
+    {
+      "time": "2021-05-19T13:30:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.695924764890163
+    },
+    {
+      "time": "2021-05-19T13:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 98.44961240310785
+    },
+    {
+      "time": "2021-05-19T13:45:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.695924764890163
+    },
+    {
+      "time": "2021-05-19T13:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 98.44961240310785
+    },
+    {
+      "time": "2021-05-19T14:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.695924764890163
+    },
+    {
+      "time": "2021-05-19T14:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 98.44961240310785
+    },
+    {
+      "time": "2021-05-19T14:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.695924764890163
+    },
+    {
+      "time": "2021-05-19T14:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 98.44961240310785
+    },
+    {
+      "time": "2021-05-19T14:30:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.695924764890163
+    },
+    {
+      "time": "2021-05-19T14:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 98.44961240310785
+    },
+    {
+      "time": "2021-05-19T14:45:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.051282051281944
+    },
+    {
+      "time": "2021-05-19T14:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_CONSOLIDATION_TOO_DEEP",
+      "state": "INVALIDATED",
+      "retr": 88.26530612245118
+    },
+    {
+      "time": "2021-05-19T15:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.051282051281944
+    },
+    {
+      "time": "2021-05-19T15:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 88.26530612245118
+    },
+    {
+      "time": "2021-05-19T15:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.051282051281944
+    },
+    {
+      "time": "2021-05-19T15:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 88.26530612245118
+    },
+    {
+      "time": "2021-05-19T15:30:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.1964097148891635
+    },
+    {
+      "time": "2021-05-19T15:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_CONSOLIDATION_TOO_DEEP",
+      "state": "INVALIDATED",
+      "retr": 80.76923076922297
+    },
+    {
+      "time": "2021-05-19T15:45:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.1964097148891635
+    },
+    {
+      "time": "2021-05-19T15:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 80.76923076922297
+    },
+    {
+      "time": "2021-05-19T16:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.1964097148891635
+    },
+    {
+      "time": "2021-05-19T16:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 80.76923076922297
+    },
+    {
+      "time": "2021-05-25T07:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.1964097148891635
+    },
+    {
+      "time": "2021-05-25T07:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 80.76923076922297
+    },
+    {
+      "time": "2021-05-25T07:30:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.1964097148891635
+    },
+    {
+      "time": "2021-05-25T07:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 80.76923076922297
+    },
+    {
+      "time": "2021-05-25T07:45:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 3.3411764705882288
+    },
+    {
+      "time": "2021-05-25T07:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_CONSOLIDATION_TOO_DEEP",
+      "state": "INVALIDATED",
+      "retr": 40.84507042253242
+    },
+    {
+      "time": "2021-05-25T08:00:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.4910007199424653
+    },
+    {
+      "time": "2021-05-25T08:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 10.982658959532452
+    },
+    {
+      "time": "2021-05-25T08:15:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 4.214819850442079
+    },
+    {
+      "time": "2021-05-25T08:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 33.225806451614595
+    },
+    {
+      "time": "2021-05-25T08:30:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 4.868073878628275
+    },
+    {
+      "time": "2021-05-25T08:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_CONSOLIDATION_TOO_DEEP",
+      "state": "INVALIDATED",
+      "retr": 44.986449864496144
+    },
+    {
+      "time": "2021-05-25T08:45:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 3.4782608695653656
+    },
+    {
+      "time": "2021-05-25T08:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_CONSOLIDATION_TOO_DEEP",
+      "state": "INVALIDATED",
+      "retr": 43.38235294117407
+    },
+    {
+      "time": "2021-05-25T09:00:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 3.2930705657980446
+    },
+    {
+      "time": "2021-05-25T09:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_CONSOLIDATION_TOO_DEEP",
+      "state": "INVALIDATED",
+      "retr": 45.55984555984235
+    },
+    {
+      "time": "2021-05-25T09:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 3.2930705657980446
+    },
+    {
+      "time": "2021-05-25T09:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 45.55984555984235
+    },
+    {
+      "time": "2021-05-25T09:30:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 3.2930705657980446
+    },
+    {
+      "time": "2021-05-25T09:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 45.55984555984235
+    },
+    {
+      "time": "2021-05-25T10:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 3.2930705657980446
+    },
+    {
+      "time": "2021-05-25T10:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 45.55984555984235
+    },
+    {
+      "time": "2021-05-25T10:30:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 3.2930705657980446
+    },
+    {
+      "time": "2021-05-25T10:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 45.55984555984235
+    },
+    {
+      "time": "2021-05-25T10:45:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 3.2930705657980446
+    },
+    {
+      "time": "2021-05-25T10:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 45.55984555984235
+    },
+    {
+      "time": "2021-05-25T11:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 3.2930705657980446
+    },
+    {
+      "time": "2021-05-25T11:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 45.55984555984235
+    },
+    {
+      "time": "2021-05-25T11:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 3.2930705657980446
+    },
+    {
+      "time": "2021-05-25T11:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 45.55984555984235
+    },
+    {
+      "time": "2021-05-25T12:30:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 3.2930705657980446
+    },
+    {
+      "time": "2021-05-25T12:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 45.55984555984235
+    },
+    {
+      "time": "2021-05-25T13:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 3.2930705657980446
+    },
+    {
+      "time": "2021-05-25T13:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 45.55984555984235
+    },
+    {
+      "time": "2021-05-25T13:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 3.2930705657980446
+    },
+    {
+      "time": "2021-05-25T13:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 45.55984555984235
+    },
+    {
+      "time": "2021-05-25T13:30:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 3.2930705657980446
+    },
+    {
+      "time": "2021-05-25T13:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 45.55984555984235
+    },
+    {
+      "time": "2021-05-25T13:45:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 3.2930705657980446
+    },
+    {
+      "time": "2021-05-25T13:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 45.55984555984235
+    },
+    {
+      "time": "2021-05-25T14:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 3.2930705657980446
+    },
+    {
+      "time": "2021-05-25T14:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 45.55984555984235
+    },
+    {
+      "time": "2021-05-25T18:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 3.2930705657980446
+    },
+    {
+      "time": "2021-05-25T18:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 45.55984555984235
+    },
+    {
+      "time": "2021-05-25T18:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 3.2930705657980446
+    },
+    {
+      "time": "2021-05-25T18:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 45.55984555984235
+    },
+    {
+      "time": "2021-05-25T18:30:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 3.2930705657980446
+    },
+    {
+      "time": "2021-05-25T18:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 45.55984555984235
+    },
+    {
+      "time": "2021-05-25T18:45:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.284843869002472
+    },
+    {
+      "time": "2021-05-25T18:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 9.333333333334911
+    },
+    {
+      "time": "2021-05-25T19:00:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.162162162162315
+    },
+    {
+      "time": "2021-05-25T19:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 10.294117647060745
+    },
+    {
+      "time": "2021-05-25T19:15:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.514101531023506
+    },
+    {
+      "time": "2021-05-25T19:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 16.66666666666192
+    },
+    {
+      "time": "2021-05-25T19:30:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "MATURE",
+      "atr_mult": 2.514101531023506
+    },
+    {
+      "time": "2021-05-25T19:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 13.461538461541197
+    },
+    {
+      "time": "2021-05-25T19:45:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 3.188662533215396
+    },
+    {
+      "time": "2021-05-25T19:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_CONSOLIDATION_TOO_DEEP",
+      "state": "INVALIDATED",
+      "retr": 48.33333333334094
+    },
+    {
+      "time": "2021-05-25T20:00:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.2773186409548676
+    },
+    {
+      "time": "2021-05-25T20:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_CONSOLIDATION_TOO_DEEP",
+      "state": "INVALIDATED",
+      "retr": 79.03225806452046
+    },
+    {
+      "time": "2021-05-25T20:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.2773186409548676
+    },
+    {
+      "time": "2021-05-25T20:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 79.03225806452046
+    },
+    {
+      "time": "2021-05-25T20:30:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.2773186409548676
+    },
+    {
+      "time": "2021-05-25T20:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 79.03225806452046
+    },
+    {
+      "time": "2021-05-25T22:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.2773186409548676
+    },
+    {
+      "time": "2021-05-25T22:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 79.03225806452046
+    },
+    {
+      "time": "2021-05-25T22:30:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.2773186409548676
+    },
+    {
+      "time": "2021-05-25T22:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 79.03225806452046
+    },
+    {
+      "time": "2021-05-25T22:45:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.2773186409548676
+    },
+    {
+      "time": "2021-05-25T22:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 79.03225806452046
+    },
+    {
+      "time": "2021-05-25T23:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.2773186409548676
+    },
+    {
+      "time": "2021-05-25T23:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 79.03225806452046
+    },
+    {
+      "time": "2021-05-25T23:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.2773186409548676
+    },
+    {
+      "time": "2021-05-25T23:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 79.03225806452046
+    },
+    {
+      "time": "2021-05-25T23:30:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.2773186409548676
+    },
+    {
+      "time": "2021-05-25T23:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 79.03225806452046
+    },
+    {
+      "time": "2021-05-25T23:45:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.2773186409548676
+    },
+    {
+      "time": "2021-05-25T23:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 79.03225806452046
+    },
+    {
+      "time": "2021-05-26T00:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.2773186409548676
+    },
+    {
+      "time": "2021-05-26T00:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 79.03225806452046
+    },
+    {
+      "time": "2021-05-26T00:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.2773186409548676
+    },
+    {
+      "time": "2021-05-26T00:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 79.03225806452046
+    },
+    {
+      "time": "2021-05-26T01:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.2773186409548676
+    },
+    {
+      "time": "2021-05-26T01:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 79.03225806452046
+    },
+    {
+      "time": "2021-05-26T03:30:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.2773186409548676
+    },
+    {
+      "time": "2021-05-26T03:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 79.03225806452046
+    },
+    {
+      "time": "2021-05-26T03:45:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.2773186409548676
+    },
+    {
+      "time": "2021-05-26T03:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 79.03225806452046
+    },
+    {
+      "time": "2021-05-26T04:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.2773186409548676
+    },
+    {
+      "time": "2021-05-26T04:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 79.03225806452046
+    },
+    {
+      "time": "2021-05-26T04:15:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 3.0402010050255286
+    },
+    {
+      "time": "2021-05-26T04:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 9.917355371909471
+    },
+    {
+      "time": "2021-05-26T04:30:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 3.4643734643733257
+    },
+    {
+      "time": "2021-05-26T04:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 12.056737588653487
+    },
+    {
+      "time": "2021-05-26T04:45:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.50608272506107
+    },
+    {
+      "time": "2021-05-26T04:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 20.38834951456562
+    },
+    {
+      "time": "2021-05-26T05:00:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.493638676844742
+    },
+    {
+      "time": "2021-05-26T05:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 20.40816326530427
+    },
+    {
+      "time": "2021-05-26T05:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "VALID_TRIGGER",
+      "atr_mult": 2.493638676844742
+    },
+    {
+      "time": "2021-05-26T05:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "VALID_TRIGGER",
+      "retr": 20.40816326530427
+    },
+    {
+      "time": "2021-05-26T05:30:00+00:00",
+      "event": "pole",
+      "reason": "STRONG_FLAGPOLE_VALIDATED",
+      "state": "FLAGPOLE_VALID",
+      "atr_mult": 2.97157622739011
+    },
+    {
+      "time": "2021-05-26T05:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 35.65217391304583
+    },
+    {
+      "time": "2021-05-26T05:45:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "MATURE",
+      "atr_mult": 2.97157622739011
+    },
+    {
+      "time": "2021-05-26T05:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_PENNANT_MATURE",
+      "state": "MATURE",
+      "retr": 31.30434782608007
+    },
+    {
+      "time": "2021-05-26T06:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "MATURE",
+      "atr_mult": 2.97157622739011
+    },
+    {
+      "time": "2021-05-26T06:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAG_CONSOLIDATION_TOO_DEEP",
+      "state": "INVALIDATED",
+      "retr": 49.565217391301495
+    },
+    {
+      "time": "2021-05-26T06:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.97157622739011
+    },
+    {
+      "time": "2021-05-26T06:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 49.565217391301495
+    },
+    {
+      "time": "2021-05-26T06:30:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.97157622739011
+    },
+    {
+      "time": "2021-05-26T06:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 49.565217391301495
+    },
+    {
+      "time": "2021-05-26T06:45:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.97157622739011
+    },
+    {
+      "time": "2021-05-26T06:45:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 49.565217391301495
+    },
+    {
+      "time": "2021-05-26T09:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.97157622739011
+    },
+    {
+      "time": "2021-05-26T09:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 49.565217391301495
+    },
+    {
+      "time": "2021-05-26T10:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.97157622739011
+    },
+    {
+      "time": "2021-05-26T10:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 49.565217391301495
+    },
+    {
+      "time": "2021-05-26T10:30:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.97157622739011
+    },
+    {
+      "time": "2021-05-26T10:30:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 49.565217391301495
+    },
+    {
+      "time": "2021-05-26T11:00:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.97157622739011
+    },
+    {
+      "time": "2021-05-26T11:00:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 49.565217391301495
+    },
+    {
+      "time": "2021-05-26T11:15:00+00:00",
+      "event": "pole",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "atr_mult": 2.97157622739011
+    },
+    {
+      "time": "2021-05-26T11:15:00+00:00",
+      "event": "cons",
+      "reason": "FLAGPOLE_TOO_WEAK",
+      "state": "INVALIDATED",
+      "retr": 49.565217391301495
+    }
+  ]
+}

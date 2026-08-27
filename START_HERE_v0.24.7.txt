@@ -1,0 +1,32 @@
+ATLAS v0.24.7 - STRUCTURE V2.1 ORIGIN PERSISTENCE (READ-ONLY RESEARCH)
+
+Purpose
+-------
+Teach H4/H1/M15 to preserve the active strategic impulse origin and reject wick-only/local-pivot resets.
+
+Key teaching changes
+--------------------
+1. Fibonacci 38.2% is only a candidate-depth gate.
+2. A strategic correction must move BEYOND 38.2% and show candle-body/close acceptance there.
+3. A strategic correction must contain developed multi-candle countertrend price action.
+4. A later local HL/LH cannot reset the active strategic origin unless it qualifies against the FULL active impulse, not merely a local 3-pivot fragment.
+5. Range retains the prior dominant trend until the strategic control pivot is decisively broken and opposite structure develops.
+6. H4, H1 and M15 remain independent.
+
+Gold H4 teaching audit
+----------------------
+Expected structural event: approximately Aug 14, 2026 near 4310.66 as the last strategic HL/current impulse origin, with current endpoint around 4629.13-4630.
+The expected values are AUDIT ONLY and are never passed into the detector.
+
+Run
+---
+Double-click: run_structure_v2_research.bat
+
+Outputs
+-------
+runtime\structure_v2_research.json
+runtime\xauusd_h4_teaching_window.csv
+
+The CSV is deliberately generated so the exact MT5 H4 candles around the teaching example can be audited if broker/TradingView timestamps or prices differ.
+
+This package remains READ ONLY. It does not place trades or modify the running shadow supervisor state.

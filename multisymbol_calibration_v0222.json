@@ -1,0 +1,466 @@
+{
+  "summary": {
+    "windows": 10,
+    "symbols": [
+      "EURUSD",
+      "GBPUSD"
+    ],
+    "total_eligible_bars": 1908,
+    "supervisor_ready_events": 30,
+    "resolved_events": 29,
+    "wins": 6,
+    "losses": 23,
+    "win_rate_pct": 20.689655172413794,
+    "gross_R_sum": -11.0,
+    "expectancy_R": -0.3793103448275862,
+    "unresolved": 1,
+    "stop_pips": {
+      "count": 30,
+      "min": 6.999999999999229,
+      "median": 20.207499999999044,
+      "mean": 53.72183333333254,
+      "p90": 58.75750000000179,
+      "max": 725.7700000000011
+    },
+    "by_symbol": {
+      "EURUSD": {
+        "events": 15,
+        "resolved": 15,
+        "wins": 2,
+        "losses": 13,
+        "win_rate_pct": 13.333333333333334,
+        "gross_R_sum": -9.0,
+        "expectancy_R": -0.6,
+        "median_stop_pips": 15.539999999998333
+      },
+      "GBPUSD": {
+        "events": 15,
+        "resolved": 14,
+        "wins": 4,
+        "losses": 10,
+        "win_rate_pct": 28.57142857142857,
+        "gross_R_sum": -2.0,
+        "expectancy_R": -0.14285714285714285,
+        "median_stop_pips": 30.970000000001274
+      }
+    },
+    "by_agent": {
+      "M15_HEAD_SHOULDERS": {
+        "events": 3,
+        "resolved": 3,
+        "wins": 0,
+        "losses": 3,
+        "win_rate_pct": 0.0,
+        "gross_R_sum": -3.0,
+        "expectancy_R": -1.0,
+        "median_stop_pips": 11.999999999998678
+      },
+      "M15_TRIANGLE_WEDGE": {
+        "events": 11,
+        "resolved": 11,
+        "wins": 3,
+        "losses": 8,
+        "win_rate_pct": 27.27272727272727,
+        "gross_R_sum": -2.0,
+        "expectancy_R": -0.18181818181818182,
+        "median_stop_pips": 21.74999999999816
+      },
+      "M15_CHANNEL": {
+        "events": 2,
+        "resolved": 2,
+        "wins": 1,
+        "losses": 1,
+        "win_rate_pct": 50.0,
+        "gross_R_sum": 1.0,
+        "expectancy_R": 0.5,
+        "median_stop_pips": 117.86749999999957
+      },
+      "M15_FLAG_PENNANT": {
+        "events": 12,
+        "resolved": 11,
+        "wins": 2,
+        "losses": 9,
+        "win_rate_pct": 18.181818181818183,
+        "gross_R_sum": -5.0,
+        "expectancy_R": -0.45454545454545453,
+        "median_stop_pips": 19.349999999999092
+      },
+      "M15_IMPULSE_CORRECTION": {
+        "events": 2,
+        "resolved": 2,
+        "wins": 0,
+        "losses": 2,
+        "win_rate_pct": 0.0,
+        "gross_R_sum": -2.0,
+        "expectancy_R": -1.0,
+        "median_stop_pips": 42.07875000000083
+      }
+    },
+    "by_pattern": {
+      "HEAD_SHOULDERS": {
+        "events": 3,
+        "resolved": 3,
+        "wins": 0,
+        "losses": 3,
+        "win_rate_pct": 0.0,
+        "gross_R_sum": -3.0,
+        "expectancy_R": -1.0,
+        "median_stop_pips": 11.999999999998678
+      },
+      "SYMMETRICAL_TRIANGLE": {
+        "events": 7,
+        "resolved": 7,
+        "wins": 2,
+        "losses": 5,
+        "win_rate_pct": 28.57142857142857,
+        "gross_R_sum": -1.0,
+        "expectancy_R": -0.14285714285714285,
+        "median_stop_pips": 31.512499999997168
+      },
+      "None": {
+        "events": 4,
+        "resolved": 4,
+        "wins": 1,
+        "losses": 3,
+        "win_rate_pct": 25.0,
+        "gross_R_sum": -1.0,
+        "expectancy_R": -0.25,
+        "median_stop_pips": 42.07875000000083
+      },
+      "BULL_FLAG": {
+        "events": 4,
+        "resolved": 4,
+        "wins": 0,
+        "losses": 4,
+        "win_rate_pct": 0.0,
+        "gross_R_sum": -4.0,
+        "expectancy_R": -1.0,
+        "median_stop_pips": 15.119999999998468
+      },
+      "BEAR_FLAG": {
+        "events": 7,
+        "resolved": 6,
+        "wins": 1,
+        "losses": 5,
+        "win_rate_pct": 16.666666666666664,
+        "gross_R_sum": -3.0,
+        "expectancy_R": -0.5,
+        "median_stop_pips": 19.899999999999363
+      },
+      "DESCENDING_TRIANGLE": {
+        "events": 3,
+        "resolved": 3,
+        "wins": 1,
+        "losses": 2,
+        "win_rate_pct": 33.33333333333333,
+        "gross_R_sum": 0.0,
+        "expectancy_R": 0.0,
+        "median_stop_pips": 15.599999999997838
+      },
+      "RISING_WEDGE": {
+        "events": 1,
+        "resolved": 1,
+        "wins": 0,
+        "losses": 1,
+        "win_rate_pct": 0.0,
+        "gross_R_sum": -1.0,
+        "expectancy_R": -1.0,
+        "median_stop_pips": 13.699999999996493
+      },
+      "BEAR_PENNANT": {
+        "events": 1,
+        "resolved": 1,
+        "wins": 1,
+        "losses": 0,
+        "win_rate_pct": 100.0,
+        "gross_R_sum": 2.0,
+        "expectancy_R": 2.0,
+        "median_stop_pips": 30.970000000001274
+      }
+    },
+    "rejection_reason_counts": {
+      "NO_ACTIONABLE_M15_TRIGGER": 1768,
+      "M15_PACKAGE_READY": 105,
+      "EARLY_PATTERN_SIGNAL_STRUCTURE_CONFIRMATION_PENDING": 35
+    }
+  },
+  "windows": [
+    {
+      "symbol": "EURUSD",
+      "window": "2014_A",
+      "start": "2014-02-03T00:00:00+00:00",
+      "end": "2014-02-14T23:59:00+00:00",
+      "bars": 952,
+      "eligible": 123,
+      "alignment": {
+        "ALIGNED_BEARISH": 343,
+        "WAIT": 601,
+        "NOT_ALIGNED": 8
+      },
+      "fib": {
+        "ACTIVE_SHALLOW": 35,
+        "ACTIVE_FLAG_ZONE": 4,
+        "ACTIVE_PRIMARY_CORRECTION": 51,
+        "ACTIVE_LATCHED_RECOVERY": 15,
+        "ACTIVE_DEEP_CORRECTION": 18,
+        "STRUCTURE_RISK": 220
+      },
+      "packages": {
+        "COLLECTING_REPORTS": 113,
+        "READY_FOR_SUPERVISOR_REVIEW": 10
+      },
+      "reasons": {
+        "NO_ACTIONABLE_M15_TRIGGER": 113,
+        "M15_PACKAGE_READY": 10
+      }
+    },
+    {
+      "symbol": "EURUSD",
+      "window": "2016_A",
+      "start": "2016-06-13T00:00:00+00:00",
+      "end": "2016-06-24T23:59:00+00:00",
+      "bars": 948,
+      "eligible": 77,
+      "alignment": {
+        "NOT_ALIGNED": 71,
+        "WAIT": 800,
+        "ALIGNED_BEARISH": 77
+      },
+      "fib": {
+        "ACTIVE_PRIMARY_CORRECTION": 41,
+        "ACTIVE_SHALLOW": 14,
+        "ACTIVE_FLAG_ZONE": 5,
+        "ACTIVE_LATCHED_RECOVERY": 16,
+        "ACTIVE_DEEP_CORRECTION": 1
+      },
+      "packages": {
+        "COLLECTING_REPORTS": 73,
+        "WAITING_FOR_CONFIRMATION": 4
+      },
+      "reasons": {
+        "NO_ACTIONABLE_M15_TRIGGER": 73,
+        "EARLY_PATTERN_SIGNAL_STRUCTURE_CONFIRMATION_PENDING": 4
+      }
+    },
+    {
+      "symbol": "EURUSD",
+      "window": "2018_A",
+      "start": "2018-10-15T00:00:00+00:00",
+      "end": "2018-10-26T23:59:00+00:00",
+      "bars": 948,
+      "eligible": 234,
+      "alignment": {
+        "NOT_ALIGNED": 55,
+        "WAIT": 580,
+        "ALIGNED_BULLISH": 84,
+        "ALIGNED_BEARISH": 229
+      },
+      "fib": {
+        "ACTIVE_SHALLOW": 179,
+        "ACTIVE_PRIMARY_CORRECTION": 13,
+        "ACTIVE_LATCHED_RECOVERY": 6,
+        "ACTIVE_DEEP_CORRECTION": 7,
+        "STRUCTURE_RISK": 79,
+        "ACTIVE_FLAG_ZONE": 29
+      },
+      "packages": {
+        "COLLECTING_REPORTS": 212,
+        "READY_FOR_SUPERVISOR_REVIEW": 14,
+        "WAITING_FOR_CONFIRMATION": 8
+      },
+      "reasons": {
+        "NO_ACTIONABLE_M15_TRIGGER": 212,
+        "M15_PACKAGE_READY": 14,
+        "EARLY_PATTERN_SIGNAL_STRUCTURE_CONFIRMATION_PENDING": 8
+      }
+    },
+    {
+      "symbol": "EURUSD",
+      "window": "2020_A",
+      "start": "2020-09-21T00:00:00+00:00",
+      "end": "2020-10-02T23:59:00+00:00",
+      "bars": 948,
+      "eligible": 0,
+      "alignment": {
+        "NOT_ALIGNED": 31,
+        "WAIT": 917
+      },
+      "fib": {},
+      "packages": {},
+      "reasons": {}
+    },
+    {
+      "symbol": "EURUSD",
+      "window": "2021_A",
+      "start": "2021-05-03T00:00:00+00:00",
+      "end": "2021-05-14T23:59:00+00:00",
+      "bars": 948,
+      "eligible": 318,
+      "alignment": {
+        "ALIGNED_BEARISH": 323,
+        "WAIT": 625
+      },
+      "fib": {
+        "ACTIVE_SHALLOW": 60,
+        "ACTIVE_FLAG_ZONE": 12,
+        "ACTIVE_LATCHED_RECOVERY": 162,
+        "ACTIVE_PRIMARY_CORRECTION": 81,
+        "ACTIVE_DEEP_CORRECTION": 3,
+        "STRUCTURE_RISK": 5
+      },
+      "packages": {
+        "COLLECTING_REPORTS": 285,
+        "READY_FOR_SUPERVISOR_REVIEW": 25,
+        "WAITING_FOR_CONFIRMATION": 8
+      },
+      "reasons": {
+        "NO_ACTIONABLE_M15_TRIGGER": 285,
+        "M15_PACKAGE_READY": 25,
+        "EARLY_PATTERN_SIGNAL_STRUCTURE_CONFIRMATION_PENDING": 8
+      }
+    },
+    {
+      "symbol": "GBPUSD",
+      "window": "2014_A",
+      "start": "2014-02-03T00:00:00+00:00",
+      "end": "2014-02-14T23:59:00+00:00",
+      "bars": 952,
+      "eligible": 443,
+      "alignment": {
+        "ALIGNED_BEARISH": 627,
+        "WAIT": 325
+      },
+      "fib": {
+        "ACTIVE_SHALLOW": 139,
+        "ACTIVE_FLAG_ZONE": 17,
+        "ACTIVE_LATCHED_RECOVERY": 211,
+        "ACTIVE_PRIMARY_CORRECTION": 73,
+        "ACTIVE_DEEP_CORRECTION": 3,
+        "STRUCTURE_RISK": 184
+      },
+      "packages": {
+        "COLLECTING_REPORTS": 422,
+        "READY_FOR_SUPERVISOR_REVIEW": 21
+      },
+      "reasons": {
+        "NO_ACTIONABLE_M15_TRIGGER": 422,
+        "M15_PACKAGE_READY": 21
+      }
+    },
+    {
+      "symbol": "GBPUSD",
+      "window": "2016_A",
+      "start": "2016-06-13T00:00:00+00:00",
+      "end": "2016-06-24T23:59:00+00:00",
+      "bars": 948,
+      "eligible": 423,
+      "alignment": {
+        "ALIGNED_BEARISH": 452,
+        "WAIT": 496
+      },
+      "fib": {
+        "ACTIVE_SHALLOW": 137,
+        "ACTIVE_FLAG_ZONE": 21,
+        "ACTIVE_PRIMARY_CORRECTION": 125,
+        "ACTIVE_LATCHED_RECOVERY": 134,
+        "ACTIVE_DEEP_CORRECTION": 6,
+        "STRUCTURE_RISK": 29
+      },
+      "packages": {
+        "COLLECTING_REPORTS": 393,
+        "READY_FOR_SUPERVISOR_REVIEW": 23,
+        "WAITING_FOR_CONFIRMATION": 7
+      },
+      "reasons": {
+        "NO_ACTIONABLE_M15_TRIGGER": 393,
+        "M15_PACKAGE_READY": 23,
+        "EARLY_PATTERN_SIGNAL_STRUCTURE_CONFIRMATION_PENDING": 7
+      }
+    },
+    {
+      "symbol": "GBPUSD",
+      "window": "2018_A",
+      "start": "2018-10-15T00:00:00+00:00",
+      "end": "2018-10-26T23:59:00+00:00",
+      "bars": 948,
+      "eligible": 98,
+      "alignment": {
+        "NOT_ALIGNED": 43,
+        "WAIT": 793,
+        "ALIGNED_BULLISH": 112
+      },
+      "fib": {
+        "ACTIVE_SHALLOW": 26,
+        "ACTIVE_FLAG_ZONE": 8,
+        "ACTIVE_PRIMARY_CORRECTION": 58,
+        "ACTIVE_DEEP_CORRECTION": 6,
+        "STRUCTURE_RISK": 14
+      },
+      "packages": {
+        "COLLECTING_REPORTS": 86,
+        "READY_FOR_SUPERVISOR_REVIEW": 8,
+        "WAITING_FOR_CONFIRMATION": 4
+      },
+      "reasons": {
+        "NO_ACTIONABLE_M15_TRIGGER": 86,
+        "M15_PACKAGE_READY": 8,
+        "EARLY_PATTERN_SIGNAL_STRUCTURE_CONFIRMATION_PENDING": 4
+      }
+    },
+    {
+      "symbol": "GBPUSD",
+      "window": "2020_A",
+      "start": "2020-09-21T00:00:00+00:00",
+      "end": "2020-10-02T23:59:00+00:00",
+      "bars": 948,
+      "eligible": 136,
+      "alignment": {
+        "ALIGNED_BULLISH": 244,
+        "WAIT": 704
+      },
+      "fib": {
+        "STRUCTURE_RISK": 108,
+        "ACTIVE_SHALLOW": 54,
+        "ACTIVE_FLAG_ZONE": 14,
+        "ACTIVE_PRIMARY_CORRECTION": 41,
+        "ACTIVE_DEEP_CORRECTION": 27
+      },
+      "packages": {
+        "COLLECTING_REPORTS": 128,
+        "READY_FOR_SUPERVISOR_REVIEW": 4,
+        "WAITING_FOR_CONFIRMATION": 4
+      },
+      "reasons": {
+        "NO_ACTIONABLE_M15_TRIGGER": 128,
+        "M15_PACKAGE_READY": 4,
+        "EARLY_PATTERN_SIGNAL_STRUCTURE_CONFIRMATION_PENDING": 4
+      }
+    },
+    {
+      "symbol": "GBPUSD",
+      "window": "2021_A",
+      "start": "2021-05-03T00:00:00+00:00",
+      "end": "2021-05-14T23:59:00+00:00",
+      "bars": 948,
+      "eligible": 56,
+      "alignment": {
+        "ALIGNED_BEARISH": 435,
+        "WAIT": 513
+      },
+      "fib": {
+        "ACTIVE_SHALLOW": 28,
+        "ACTIVE_FLAG_ZONE": 11,
+        "ACTIVE_LATCHED_RECOVERY": 3,
+        "ACTIVE_PRIMARY_CORRECTION": 11,
+        "ACTIVE_DEEP_CORRECTION": 3,
+        "STRUCTURE_RISK": 379
+      },
+      "packages": {
+        "COLLECTING_REPORTS": 56
+      },
+      "reasons": {
+        "NO_ACTIONABLE_M15_TRIGGER": 56
+      }
+    }
+  ]
+}

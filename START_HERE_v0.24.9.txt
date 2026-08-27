@@ -1,0 +1,27 @@
+ATLAS v0.24.9 - H4 STRATEGIC HIERARCHY TEACHING RESEARCH
+
+Purpose
+- Read-only H4 structure teaching experiment.
+- No orders. No shadow-state mutation. No production strategy changes.
+
+What changed from v0.24.8
+1. H4 uses a broader 420-bar strategic inspection horizon when enough data is available.
+2. H4 separates macro/timeframe-scale pivots from local/H1-sized swings.
+3. A >38.2% H4 correction is not allowed to reset the strategic origin merely because it qualifies locally.
+4. A candidate H4 HL/LH becomes strategic only after continuation creates a fresh HH/LL beyond the prior endpoint.
+5. If the correction is still developing and no fresh extreme exists, Atlas preserves the LAST COMPLETED H4 impulse and reports CORRECTION/RANGE.
+6. Repeated structural pivot zones and wick rejection remain active for the Gold teaching case.
+7. Four H4 teaching benchmarks are audit-only: XAUUSD, EURUSD, USDJPY, USDCAD. Prices are never fed into the detector.
+
+Run
+- Double-click: run_structure_v2_research.bat
+
+Expected output
+- runtime\structure_v2_research.json
+- runtime\xauusd_h4_teaching_window.csv
+- runtime\eurusd_h4_teaching_window.csv
+- runtime\usdjpy_h4_teaching_window.csv
+- runtime\usdcad_h4_teaching_window.csv
+
+Validation rule
+- Do not promote this research logic into production until the same generic algorithm passes all four H4 teaching cases and additional unseen historical cases.

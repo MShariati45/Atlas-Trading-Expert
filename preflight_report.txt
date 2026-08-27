@@ -1,0 +1,50 @@
+{
+  "atlas_version": "0.24.34",
+  "generated_at_utc": "2026-08-25T03:32:43.667823+00:00",
+  "mode": "SUPERVISED_DEMO_PREFLIGHT_READ_ONLY",
+  "checks": {
+    "mt5_connected": true,
+    "demo_identity_verified": true,
+    "demo_preflight_ready": false,
+    "broker_cost_policy_approved": true,
+    "execution_costs_validated": false,
+    "adaptive_spread_baseline_present": false,
+    "news_guard_fresh": true,
+    "h4_approval_store_available": true,
+    "explicit_execution_switches": false
+  },
+  "detail": {
+    "identity": {
+      "demo_verified": true,
+      "reasons": [],
+      "login": 111550311,
+      "server": "MetaQuotes-Demo",
+      "trade_mode": 0
+    },
+    "broker_cost_policy_mode": "PAPER_ONLY",
+    "broker_cost_policy_reasons": [
+      "BROKER_COST_POLICY_PAPER_APPROVED"
+    ],
+    "news": {
+      "available": true,
+      "event_count": 82,
+      "error": null
+    },
+    "h4_approved_symbols": [
+      "EURUSD"
+    ],
+    "execution_switches": {
+      "ATLAS_DEMO_EXECUTION": false,
+      "enable_file": false
+    }
+  },
+  "ready_for_observation": true,
+  "ready_for_execution_attempt": false,
+  "blocking_reasons": [
+    "DEMO_PREFLIGHT_NOT_READY",
+    "SLIPPAGE_EXECUTION_COSTS_NOT_VALIDATED",
+    "ADAPTIVE_SPREAD_BASELINE_MISSING",
+    "DEMO_EXECUTION_NOT_EXPLICITLY_ARMED"
+  ],
+  "note": "Even when ready_for_execution_attempt=true, every signal still must pass pattern policy, Supervisor, H4 approval, live news, adaptive spread, risk, idempotency, DEMO identity, broker order_check and post-fill verification."
+}

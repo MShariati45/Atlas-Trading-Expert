@@ -1,0 +1,174 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #020914;
+  color: #ffffff;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.thankyou-page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  background:
+    url('/assets/atlas_landing_master.png')
+    center top / cover no-repeat;
+}
+
+.content-mask {
+  position: absolute;
+  left: 50%;
+  top: 49%;
+  transform: translate(-50%, -50%);
+  width: min(780px, 88vw);
+  min-height: 430px;
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(2, 12, 24, 0.98) 0%,
+      rgba(2, 12, 24, 0.96) 52%,
+      rgba(2, 12, 24, 0.84) 76%,
+      rgba(2, 12, 24, 0) 100%
+    );
+  z-index: 1;
+  pointer-events: none;
+}
+
+.thankyou-content {
+  position: relative;
+  z-index: 2;
+  width: min(720px, 92vw);
+  margin-top: 135px;
+  text-align: center;
+  padding: 32px 28px 38px;
+}
+
+.thankyou-content h1 {
+  margin: 0 0 18px;
+  font-size: clamp(34px, 4.5vw, 58px);
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.78);
+}
+
+.message {
+  max-width: 680px;
+  margin: 0 auto;
+  font-size: clamp(17px, 1.7vw, 22px);
+  line-height: 1.55;
+  color: #edf5fc;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.75);
+}
+
+.reference {
+  display: none;
+  width: fit-content;
+  max-width: 100%;
+  margin: 30px auto 24px;
+  padding: 14px 24px;
+  border: 1px solid rgba(49, 215, 86, 0.8);
+  border-radius: 12px;
+  background: rgba(0, 22, 32, 0.9);
+  box-shadow:
+    0 0 18px rgba(49, 215, 86, 0.14),
+    inset 0 0 18px rgba(0, 128, 255, 0.06);
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.reference strong {
+  color: #71e85f;
+  font-weight: 800;
+}
+
+.home-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 250px;
+  margin-top: 8px;
+  padding: 15px 28px;
+  border: 1px solid #1597ff;
+  border-radius: 12px;
+  background: rgba(5, 45, 85, 0.72);
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  box-shadow:
+    0 0 18px rgba(0, 135, 255, 0.24),
+    inset 0 0 16px rgba(0, 135, 255, 0.08);
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.home-btn:hover {
+  transform: translateY(-2px);
+  border-color: #43b2ff;
+  box-shadow:
+    0 0 26px rgba(0, 145, 255, 0.36),
+    inset 0 0 18px rgba(0, 145, 255, 0.10);
+}
+
+.home-icon {
+  margin-right: 10px;
+  font-size: 18px;
+  line-height: 1;
+}
+
+@media (max-width: 900px) {
+  .thankyou-page {
+    background-position: center top;
+  }
+
+  .thankyou-content {
+    margin-top: 120px;
+  }
+
+  .content-mask {
+    width: 94vw;
+  }
+}
+
+@media (max-width: 600px) {
+  .thankyou-page {
+    padding: 16px;
+    background-position: center top;
+  }
+
+  .thankyou-content {
+    margin-top: 105px;
+    padding: 24px 14px 32px;
+  }
+
+  .content-mask {
+    top: 50%;
+    width: 100%;
+    min-height: 450px;
+  }
+
+  .home-btn {
+    width: min(300px, 90vw);
+  }
+}

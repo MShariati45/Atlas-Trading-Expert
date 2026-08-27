@@ -1,0 +1,15 @@
+{
+    email ops@example.com
+}
+
+atlastradingexpert.com, www.atlastradingexpert.com {
+    encode zstd gzip
+    @www host www.atlastradingexpert.com
+    redir @www https://atlastradingexpert.com{uri} permanent
+    reverse_proxy 127.0.0.1:8080
+}
+
+app.atlastradingexpert.com {
+    encode zstd gzip
+    reverse_proxy 127.0.0.1:8080
+}

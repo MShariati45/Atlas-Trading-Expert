@@ -1,0 +1,5 @@
+{
+  "mode": "DEMO_ONLY",
+  "enabled": false,
+  "note": "Example only. Do not rename/enable until supervised preflight is green and Owner explicitly authorizes DEMO execution."
+}

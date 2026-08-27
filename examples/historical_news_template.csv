@@ -1,0 +1,2 @@
+event_time_utc,currency,impact,title,event_id
+2026-01-01T13:30:00+00:00,USD,HIGH,Example high-impact event,EXAMPLE-001

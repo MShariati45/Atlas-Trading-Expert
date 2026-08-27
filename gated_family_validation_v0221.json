@@ -1,0 +1,48 @@
+{
+  "checkpoint": "v0.22.1",
+  "strategy_code_changed": false,
+  "regression_tests": "166/166",
+  "representative_gated_events": [
+    {
+      "pattern_type": "BEAR_PENNANT",
+      "trigger_time": "2021-06-02T09:30:00+00:00",
+      "direction": "SHORT",
+      "fib_state": "ACTIVE_SHALLOW",
+      "fib_pct": 0.0,
+      "entry_reference": 1.21758,
+      "raw_stop_anchor": 1.21915,
+      "final_stop": 1.219278,
+      "coordination_state": "READY_FOR_SUPERVISOR_REVIEW"
+    },
+    {
+      "pattern_type": "FALLING_WEDGE",
+      "trigger_time": "2021-05-19T04:00:00+00:00",
+      "direction": "LONG",
+      "fib_state": "ACTIVE_LATCHED_RECOVERY",
+      "fib_pct": 5.1095,
+      "entry_reference": 1.22325,
+      "raw_stop_anchor": 1.22191,
+      "final_stop": 1.22179,
+      "coordination_state": "READY_FOR_SUPERVISOR_REVIEW"
+    },
+    {
+      "pattern_type": "ASCENDING_TRIANGLE",
+      "trigger_time": "2019-12-31T02:15:00+00:00",
+      "direction": "LONG",
+      "fib_state": "ACTIVE_LATCHED_RECOVERY",
+      "fib_pct": 20.9184,
+      "entry_reference": 1.12125,
+      "raw_stop_anchor": 1.11992,
+      "final_stop": 1.11980,
+      "coordination_state": "READY_FOR_SUPERVISOR_REVIEW"
+    }
+  ],
+  "additional_ascending_triangle_evidence": [
+    "2019-08-12T05:45:00+00:00",
+    "2019-07-31T06:00:00+00:00",
+    "2019-01-06T23:00:00+00:00",
+    "2019-01-07T01:30:00+00:00"
+  ],
+  "freeze_status": "M15_FAMILY_DISCOVERY_FREEZE_CANDIDATE",
+  "next_step": "Broader multi-symbol performance/rejection calibration and demo observation; do not alter frozen discovery semantics without evidence and regression tests."
+}

@@ -1,0 +1,260 @@
+{
+  "schema_version": "2.1",
+  "profile": "ATLAS_M15_FIRST_DEMO_CANDIDATE_V0_24_16",
+  "watchlist": [
+    "EURUSD",
+    "USDJPY",
+    "USDCAD",
+    "XAUUSD"
+  ],
+  "risk": {
+    "max_daily_risk_pct": 1.0,
+    "risk_per_trade_pct": 0.5,
+    "max_trades_per_day": 2,
+    "max_trades_per_symbol_per_day": 1,
+    "default_target_r": 2.0
+  },
+  "trading_window": {
+    "timezone": "America/Vancouver",
+    "new_entries": "SUNDAY_MARKET_OPEN_THROUGH_THURSDAY",
+    "allow_friday_new_entries": false,
+    "force_flat_before_friday_close": true,
+    "sunday_open_hour_local": 14,
+    "friday_force_flat_hour_local": 13
+  },
+  "hierarchy": {
+    "mode": "M15_FIRST",
+    "universal_h1_alignment_required": false,
+    "fibonacci_permission_gate_enabled": false,
+    "fibonacci_visible": false,
+    "h4_h1_role": "PATTERN_SPECIFIC_CONTEXT_AFTER_M15_TRIGGER",
+    "candlestick_sr_specialist": "ENABLED_SELECTIVE_WHITELIST_INDEPENDENT_OF_H4",
+    "multi_agent_confluence": "CANDLESTICK_PLUS_OTHER_SPECIALIST_COUNTS_AS_INDEPENDENT_CONFIRMATION"
+  },
+  "symbols": {
+    "EURUSD": {
+      "CHANNEL_BOUNDARY_REJECTION": {
+        "enabled": false,
+        "target_r": 2.0,
+        "htf_mode": "H4_ALIGNED_H1_OPPOSED"
+      },
+      "HEAD_SHOULDERS": {
+        "enabled": false,
+        "target_r": 2.0,
+        "htf_mode": "H4_ALIGNED_H1_OPPOSED"
+      },
+      "IMPULSE_CORRECTION": {
+        "enabled": true,
+        "target_r": 2.0,
+        "htf_mode": "H4_ALIGNED_H1_OPPOSED"
+      },
+      "TRIANGLE_WEDGE": {
+        "enabled": true,
+        "target_r": 2.0,
+        "htf_mode": "H4_ALIGNED_H1_OPPOSED"
+      },
+      "FLAG_PENNANT": {
+        "enabled": false,
+        "target_r": 2.0,
+        "htf_mode": "H4_H1_ALIGNED"
+      },
+      "MULTIPLE_TOP_BOTTOM": {
+        "enabled": false,
+        "target_r": 2.0,
+        "htf_mode": "H4_ALIGNED_H1_OPPOSED"
+      },
+      "CANDLESTICK_SR_REVERSAL": {
+        "enabled": true,
+        "target_r": 2.0,
+        "htf_mode": "ANY"
+      }
+    },
+    "USDJPY": {
+      "CHANNEL_BOUNDARY_REJECTION": {
+        "enabled": true,
+        "target_r": 2.0,
+        "htf_mode": "ANY"
+      },
+      "FLAG_PENNANT": {
+        "enabled": true,
+        "target_r": 2.0,
+        "htf_mode": "H4_H1_ALIGNED"
+      },
+      "HEAD_SHOULDERS": {
+        "enabled": true,
+        "target_r": 2.0,
+        "htf_mode": "H4_H1_OPPOSED"
+      },
+      "TRIANGLE_WEDGE": {
+        "enabled": true,
+        "target_r": 2.0,
+        "htf_mode": "H4_H1_ALIGNED"
+      },
+      "IMPULSE_CORRECTION": {
+        "enabled": false,
+        "target_r": 2.0,
+        "htf_mode": "H4_ALIGNED_H1_OPPOSED"
+      },
+      "MULTIPLE_TOP_BOTTOM": {
+        "enabled": false,
+        "target_r": 2.0,
+        "htf_mode": "ANY"
+      },
+      "CANDLESTICK_SR_REVERSAL": {
+        "enabled": true,
+        "target_r": 2.0,
+        "htf_mode": "ANY"
+      }
+    },
+    "USDCAD": {
+      "CHANNEL_BOUNDARY_REJECTION": {
+        "enabled": true,
+        "target_r": 3.0,
+        "htf_mode": "H4_H1_OPPOSED"
+      },
+      "HEAD_SHOULDERS": {
+        "enabled": false,
+        "target_r": 2.0,
+        "htf_mode": "H4_ALIGNED_H1_OPPOSED"
+      },
+      "IMPULSE_CORRECTION": {
+        "enabled": false,
+        "target_r": 2.0,
+        "htf_mode": "H4_ALIGNED_H1_OPPOSED"
+      },
+      "MULTIPLE_TOP_BOTTOM": {
+        "enabled": true,
+        "target_r": 2.0,
+        "htf_mode": "H4_ALIGNED_H1_OPPOSED"
+      },
+      "TRIANGLE_WEDGE": {
+        "enabled": true,
+        "target_r": 2.0,
+        "htf_mode": "H4_ALIGNED_H1_OPPOSED"
+      },
+      "FLAG_PENNANT": {
+        "enabled": false,
+        "target_r": 2.0,
+        "htf_mode": "H4_H1_OPPOSED"
+      },
+      "CANDLESTICK_SR_REVERSAL": {
+        "enabled": true,
+        "target_r": 2.0,
+        "htf_mode": "ANY"
+      }
+    },
+    "XAUUSD": {
+      "CHANNEL_BOUNDARY_REJECTION": {
+        "enabled": true,
+        "target_r": 3.0,
+        "htf_mode": "H4_H1_OPPOSED"
+      },
+      "FLAG_PENNANT": {
+        "enabled": true,
+        "target_r": 2.0,
+        "htf_mode": "H4_ALIGNED_H1_ANY"
+      },
+      "HEAD_SHOULDERS": {
+        "enabled": true,
+        "target_r": 2.0,
+        "htf_mode": "H4_ALIGNED_H1_ANY"
+      },
+      "IMPULSE_CORRECTION": {
+        "enabled": true,
+        "target_r": 2.0,
+        "htf_mode": "H4_ALIGNED_H1_ANY"
+      },
+      "MULTIPLE_TOP_BOTTOM": {
+        "enabled": true,
+        "target_r": 2.0,
+        "htf_mode": "H4_ALIGNED_H1_ANY"
+      },
+      "TRIANGLE_WEDGE": {
+        "enabled": true,
+        "target_r": 2.0,
+        "htf_mode": "H4_ALIGNED_H1_ANY"
+      },
+      "CANDLESTICK_SR_REVERSAL": {
+        "enabled": true,
+        "target_r": 2.0,
+        "htf_mode": "ANY"
+      }
+    }
+  },
+  "multi_account": {
+    "enabled": true,
+    "shared_signal_separate_account_risk": true,
+    "execution_transport": "DEMO_ONLY_LOCKED_UNTIL_EXPLICIT_AUTHORIZATION",
+    "worker_isolation": "ONE_PROCESS_PER_TERMINAL_ACCOUNT",
+    "per_account_reporting": true,
+    "access_control_roles": [
+      "OWNER",
+      "ADMIN",
+      "TRADER"
+    ],
+    "training_view_anonymized": true,
+    "internet_login_server_enabled": false,
+    "trader_account_cardinality": "ONE_TRADER_TO_MANY_MT5_ACCOUNTS",
+    "owner_only_account_assignment": true,
+    "trader_read_only_account_switching": true,
+    "per_account_execution_state_isolated": true
+  },
+  "name": "ATLAS_M15_FIRST_DEMO_CANDIDATE_V0_24_16",
+  "ai_usage": {
+    "enabled": false,
+    "mode": "EVENT_DRIVEN_ONLY",
+    "max_calls_per_day": 8,
+    "max_calls_per_month": 120,
+    "cache_ttl_seconds": 86400,
+    "note": "Core trading logic is deterministic/local. Optional AI advisory remains disabled until explicitly configured."
+  },
+  "governance": {
+    "agent_role_contracts_enabled": true,
+    "h4_h1_independent": true,
+    "specialist_cross_imports_forbidden": true,
+    "research_education_supervisor_enabled": true,
+    "research_can_mutate_live_rules": false,
+    "correction_memory_persistent": true,
+    "trusted_source_monitor_mode": "OFF_HOURS_DIRECT_HTTPS_NO_AI",
+    "rule_promotion_requires_validation": true
+  },
+  "version": "0.24.16",
+  "demo_readiness": {
+    "mode": "READ_ONLY_FIRST",
+    "required_timeframes": {
+      "D1": 500,
+      "H4": 900,
+      "H1": 600,
+      "M15": 240
+    },
+    "max_tick_age_seconds": 600,
+    "max_closed_bar_age_seconds": {
+      "D1": 345600,
+      "H4": 43200,
+      "H1": 14400,
+      "M15": 5400
+    },
+    "broker_symbol_mapping_supported": true,
+    "live_news_required_for_paper_supervision": true,
+    "spread_slippage_calibration_required_before_execution": true,
+    "execution_remains_hard_locked": true,
+    "spread_observation_collector": "run_mt5_broker_calibration.py",
+    "slippage_status": "NOT_MEASURABLE_UNTIL_EXPLICIT_DEMO_EXECUTION",
+    "live_news_schedule_requires_source_freshness_metadata": true,
+    "shadow_paper_supervisor": "run_shadow_paper_supervisor.py",
+    "shadow_paper_execution_enabled": false,
+    "broker_cost_policy_requires_explicit_approval": true,
+    "paper_cost_policy_mode": "PAPER_ONLY",
+    "paper_cost_policy_approved": true,
+    "paper_cost_slippage_validated": false,
+    "nonpositive_spread_forces_wait": true,
+    "execution_state_lifecycle": [
+      "CONNECTED",
+      "OBSERVATION",
+      "DEMO_AUTHORIZED",
+      "EXECUTION_ENABLED"
+    ],
+    "connection_does_not_imply_authorization": true,
+    "demo_only_authorization_required": true
+  }
+}

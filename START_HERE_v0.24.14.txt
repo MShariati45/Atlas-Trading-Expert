@@ -1,0 +1,62 @@
+ATLAS v0.24.14 - M15 CANDLESTICK REVERSAL CHALLENGER
+=====================================================
+
+PURPOSE
+-------
+Read-only one-year research on four symbols:
+  EURUSD, USDJPY, USDCAD, XAUUSD
+
+The challenger tests a deliberately small set of M15 reversal candlestick patterns:
+  * Hammer / bullish pin bar
+  * Shooting star / bearish pin bar
+  * Bullish engulfing
+  * Bearish engulfing
+  * Morning star
+  * Evening star
+
+A signal is eligible only when:
+  1) simple recent-impulse H4 direction agrees with the trade direction, and
+  2) the pattern is near a broker-native D1/H4/H1 support/resistance reaction zone.
+
+H1 DIRECTION IS NOT A GATE.
+M15 TREND CLASSIFICATION IS NOT REQUIRED.
+
+The runner compares:
+  * EARLY entry at pattern close
+  * CHOCH-CONFIRMED entry within 4 M15 bars
+  * with and without an M15 counter-move filter
+  * fixed targets at 2R, 3R, and 4R
+
+It also reports an Atlas portfolio simulation with:
+  * maximum 2 trades per Vancouver day
+  * maximum 1 trade per symbol per day
+
+SAFETY
+------
+This package is research-only.
+It sends NO orders.
+It does NOT modify the Shadow Paper Supervisor state.
+It does NOT enable the candlestick agent for demo execution.
+
+HOW TO RUN
+----------
+1. Keep MetaTrader 5 open and logged in to the demo/broker account whose history you want to test.
+2. Extract this ZIP into a new folder.
+3. Double-click:
+       run_m15_candlestick_challenger.bat
+4. Wait for all four symbols and all four timeframes to finish collecting/analyzing.
+5. Upload the folder:
+       runtime\candlestick_challenger
+   or at minimum upload:
+       REPORT.md
+       candlestick_summary.csv
+       candlestick_trade_events.csv
+       candlestick_challenger_report.json
+
+IMPORTANT RESEARCH RULES
+------------------------
+* Same-bar SL/TP ambiguity is counted conservatively as a LOSS.
+* Stops use the entire candlestick pattern/recent M15 structural invalidation plus a buffer.
+* Support/resistance and H4 direction are calculated using bars available at the signal cutoff only.
+* Do not promote a pattern/configuration from a tiny sample just because its win rate looks high.
+* The goal is to discover whether this challenger adds measurable value before connecting it to demo execution.

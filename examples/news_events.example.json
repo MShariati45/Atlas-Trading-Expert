@@ -1,0 +1,11 @@
+{
+  "events": [
+    {
+      "event_id": "EXAMPLE_USD_HIGH_001",
+      "starts_at_utc": "2026-08-19T14:00:00Z",
+      "affected_symbols": ["EURUSD", "GBPUSD", "USDJPY", "XAUUSD"],
+      "impact": "HIGH",
+      "title": "Example high-impact USD event"
+    }
+  ]
+}

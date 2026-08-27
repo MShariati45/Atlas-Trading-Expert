@@ -1,0 +1,26 @@
+Atlas v0.24.27 handoff manifest
+Generated: 2026-08-23T03:34:07Z
+
+Key changed/added files:
+atlas/core/sqlite_state_store.py
+atlas/market_data/live_runtime.py
+atlas/execution/account_identity.py
+atlas/execution/sqlite_execution_ledger.py
+atlas/execution/mt5_bridge.py
+atlas/execution/demo_authorization.py
+atlas/execution/demo_transport.py
+tests/test_v02427_architecture_hardening.py
+README_v0.24.27.md
+TECHNICAL_HANDOFF_FOR_EXTERNAL_AI_v0.24.27.md
+
+SHA256:
+93652ee7293dcf12217008f563609def7ea257a9e56031bc0e6503c8f9f5b4ee  atlas/core/sqlite_state_store.py
+c4f04e9aa14186b8b7713d50abfe250319d09564e2df09f37c880bd02c3e5714  atlas/market_data/live_runtime.py
+e351956c0946e39d989dc9dc0e829bfb545809679861d941573160532e4fa41a  atlas/execution/account_identity.py
+dc802304c2da03cbdbd59b12a5498472d8113213cd7c2fe979b6371108774e7e  atlas/execution/sqlite_execution_ledger.py
+3f7847a424a258891454a4c020325a7c353280a4ec7e2d393691826ac9c88a90  atlas/execution/mt5_bridge.py
+14f3f3c36b5eb06d808775dd52fb8069290b756c519a9ab9e767ed46474fb0d9  atlas/execution/demo_authorization.py
+fcd229263e76e2f0456debc4144f856db441b21a85a2a826e65bd33716697395  atlas/execution/demo_transport.py
+3f4745726894a79e977ac1dc8a4c2dc9f05ac22b41559d1e489c4fc79fa6aa8c  tests/test_v02427_architecture_hardening.py
+bd3d944d6c15ee3df8f95965171b3c4ef0184c214c804143ae5604d89f3793bc  README_v0.24.27.md
+1363065cc5ecc56d122f6831a6e6d7eb1c79313e49a4dcfabac1b31401581deb  TECHNICAL_HANDOFF_FOR_EXTERNAL_AI_v0.24.27.md

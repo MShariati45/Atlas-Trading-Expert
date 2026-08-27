@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="index,follow" />
+  <title>Atlas Trading Expert</title>
+  <link rel="stylesheet" href="/landing.css">
+</head>
+<body>
+  <main class="landing-master" aria-label="Atlas Trading Expert private beta landing page">
+    <img class="landing-art" src="/assets/atlas_landing_master.png" alt="Atlas Trading Expert — intelligent market analysis, structured risk, automated execution" />
+
+    <button class="hotspot menu-hotspot" id="menuBtn" type="button" aria-label="Open menu"></button>
+    <button class="hotspot request-hotspot" id="requestBtn" type="button" aria-label="Request information"></button>
+    <a class="hotspot login-hotspot" href="https://app.atlastradingexpert.com/app/login" aria-label="Client login"></a>
+  </main>
+
+  <nav class="drawer" id="drawer" aria-label="Atlas site menu">
+    <a href="#" id="closeMenu">← Close</a>
+    <a href="/">Home</a>
+    <a href="#" id="drawerRequest">Request Information</a>
+    <a href="https://app.atlastradingexpert.com/app/login">Client Login</a>
+    <a href="#">Privacy</a>
+  </nav>
+
+  <dialog id="leadDialog">
+    <form class="modal" id="leadForm">
+      <h2>Request Information</h2>
+
+      <label>Name</label>
+      <input name="name" required maxlength="120">
+
+      <label>Email</label>
+      <input name="email" type="email" required maxlength="200">
+
+      <label>Phone</label>
+      <input name="phone" type="tel" required maxlength="80">
+
+      <label>Country</label>
+      <input name="country" maxlength="80">
+
+      <label>Inquiry</label>
+      <select name="inquiry_type">
+        <option>REQUEST_INFORMATION</option>
+        <option>PRIVATE_BETA</option>
+        <option>DEMO_INQUIRY</option>
+      </select>
+
+      <label>Message</label>
+      <textarea name="message" maxlength="4000"></textarea>
+
+      <div class="consent-box">
+        <label class="consent-item" style="display:flex; align-items:flex-start; gap:12px;">
+          <input
+            type="checkbox"
+            id="riskDisclosureAccepted"
+            required
+            style="margin-top:5px; flex:0 0 auto;"
+          >
+          <span>
+            I have read and accept the Risk Disclosure. I understand that trading and leveraged financial products involve substantial risk, including the possible loss of capital, and that no trading result, profit, performance level, or outcome is guaranteed. I understand that trading decisions remain my responsibility.
+          </span>
+        </label>
+
+        <label class="consent-item" style="display:flex; align-items:flex-start; gap:12px;">
+          <input
+            type="checkbox"
+            id="privacyConsentAccepted"
+            required
+            style="margin-top:5px; flex:0 0 auto;"
+          >
+          <span>
+            I acknowledge the Privacy Policy and consent to Atlas Trading Expert collecting, storing, and using the information I submit for the purpose of responding to my request and providing information about the service.
+          </span>
+        </label>
+
+        <div class="msg">
+          Both acknowledgements are required before this request can be submitted.
+        </div>
+      </div>
+
+      <div class="row">
+        <button class="btn" type="button" id="cancelLead">Cancel</button>
+        <button class="btn primary" type="submit">Submit</button>
+      </div>
+
+      <div class="msg" id="leadMsg">
+        Submitting this form does not create an Atlas account or grant access.
+      </div>
+    </form>
+  </dialog>
+
+  <script src="/landing.js"></script>
+</body>
+</html>

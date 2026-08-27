@@ -1,0 +1,66 @@
+{
+  "policy_version": "0.24.24",
+  "approved": true,
+  "mode": "PAPER_ONLY",
+  "execution_validated": false,
+  "derived_from": {
+    "collection_mode": "READ_ONLY_BROKER_CALIBRATION",
+    "window_utc": "2026-08-21T08:08:17Z/2026-08-21T09:08:20Z",
+    "samples_per_symbol": 720,
+    "interval_seconds": 5,
+    "threshold_method": "ADAPTIVE_SYMBOL_SESSION_BASELINE_WITH_OUTLIER_BLOCK",
+    "slippage_status": "UNMEASURED_READ_ONLY"
+  },
+  "notes": [
+    "Approved only for shadow/paper Supervisor decisions.",
+    "This policy does not validate live execution costs and cannot unlock MT5 order transmission.",
+    "Non-positive spread observations are treated as unverified and force WAIT rather than being interpreted as free execution.",
+    "Permanent execution thresholds require later multi-session spread evidence plus measured demo-fill slippage.",
+    "Adaptive spread guard compares current spread with symbol/session rolling normal spread.",
+    "Outlier/shock spreads do not teach Atlas a new normal baseline.",
+    "Approx. 2x+ normal spread or excessive spread relative to structural stop blocks new entries.",
+    "Adaptive baseline never rewrites production rules automatically; human approval remains required for policy changes."
+  ],
+  "symbols": {
+    "EURUSD": {
+      "max_spread_points": 1.0,
+      "reject_nonpositive_spread": true,
+      "evidence_percentile": 0.95,
+      "adaptive_spread_enabled": true,
+      "adaptive_elevated_multiple": 1.5,
+      "adaptive_block_multiple": 2.0,
+      "adaptive_p95_block_multiple": 1.5,
+      "max_spread_to_stop_ratio": 0.25
+    },
+    "USDJPY": {
+      "max_spread_points": 3.0,
+      "reject_nonpositive_spread": true,
+      "evidence_percentile": 0.95,
+      "adaptive_spread_enabled": true,
+      "adaptive_elevated_multiple": 1.5,
+      "adaptive_block_multiple": 2.0,
+      "adaptive_p95_block_multiple": 1.5,
+      "max_spread_to_stop_ratio": 0.25
+    },
+    "USDCAD": {
+      "max_spread_points": 1.0,
+      "reject_nonpositive_spread": true,
+      "evidence_percentile": 0.95,
+      "adaptive_spread_enabled": true,
+      "adaptive_elevated_multiple": 1.5,
+      "adaptive_block_multiple": 2.0,
+      "adaptive_p95_block_multiple": 1.5,
+      "max_spread_to_stop_ratio": 0.25
+    },
+    "XAUUSD": {
+      "max_spread_points": 44.0,
+      "reject_nonpositive_spread": true,
+      "evidence_percentile": 0.95,
+      "adaptive_spread_enabled": true,
+      "adaptive_elevated_multiple": 1.5,
+      "adaptive_block_multiple": 2.0,
+      "adaptive_p95_block_multiple": 1.5,
+      "max_spread_to_stop_ratio": 0.25
+    }
+  }
+}

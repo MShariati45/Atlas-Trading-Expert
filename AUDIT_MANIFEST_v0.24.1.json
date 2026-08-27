@@ -1,0 +1,14 @@
+{
+  "version": "0.24.1",
+  "checkpoint": "OFFICIAL_FOUR_CURRENCY_NEWS_BACKBONE",
+  "watchlist": ["EURUSD", "USDJPY", "USDCAD", "XAUUSD"],
+  "news_required_currencies": ["USD", "EUR", "CAD", "JPY"],
+  "primary_scheduled_sources": ["BLS", "Federal Reserve", "ECB", "Bank of Canada", "Statistics Canada", "Bank of Japan", "Statistics Bureau of Japan"],
+  "news_strict_freshness": true,
+  "news_strict_provenance": true,
+  "partial_news_fails_closed": true,
+  "official_four_currency_ingestion": true,
+  "boj_variable_time_wide_blackout": true,
+  "ai_required_for_news": false,
+  "execution_locked": true
+}

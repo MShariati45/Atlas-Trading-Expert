@@ -1,0 +1,27 @@
+ATLAS v0.19.2 H4 VALIDATION
+
+Purpose
+-------
+This build repairs the historical H4 strategic validator's transition/reversal state machine.
+A CONTROL_PIVOT_BROKEN_CHOCH event is no longer terminal.
+
+Run
+---
+1. Keep historical data at:
+   historical_data\one_year\bars\EURUSD_H4.csv
+2. Double-click:
+   validate_h4_eurusd_windows.bat
+3. Review:
+   h4_validation_output\EURUSD_H4_validation.json
+
+v0.19.2 transition behavior
+---------------------------
+- A validated control-pivot break enters TRANSITION / REVERSAL_CANDIDATE.
+- Atlas continues consuming subsequent H4 swings.
+- If the old trend makes a new strategic extreme first, the reversal candidate fails and the old trend resumes.
+- If opposite structure forms a corrective pivot and then continuation breaks the reversal extreme, NEW_TREND_CONFIRMED is emitted and strategic origin/control/endpoint roll to the new trend.
+- No immediate trend flip occurs merely because the old control pivot was broken.
+
+Regression status
+-----------------
+106 automated tests pass in this package, including new bearish-to-bullish transition confirmation and failed-reversal/old-trend-resumption cases.

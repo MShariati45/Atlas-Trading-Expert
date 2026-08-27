@@ -1,0 +1,148 @@
+{
+  "schema_version": "1.0",
+  "atlas_version": "0.24.16",
+  "enabled": true,
+  "target_r": 2.0,
+  "source": "v0.24.15 one-year broker-native M15 candlestick S/R-independent research",
+  "policy": "Only listed symbol/pattern/SR combinations may emit live candlestick specialist triggers.",
+  "symbols": {
+    "EURUSD": [
+      {
+        "pattern": "SHOOTING_STAR_PIN",
+        "zone_timeframe": "H4",
+        "require_counter_move": true,
+        "resolved": 160,
+        "wins": 64,
+        "losses": 96,
+        "win_rate_pct": 40.0,
+        "expectancy_r": 0.2
+      },
+      {
+        "pattern": "EVENING_STAR",
+        "zone_timeframe": "H4",
+        "require_counter_move": true,
+        "resolved": 144,
+        "wins": 55,
+        "losses": 89,
+        "win_rate_pct": 38.19,
+        "expectancy_r": 0.1458
+      },
+      {
+        "pattern": "BEARISH_ENGULFING",
+        "zone_timeframe": "H4",
+        "require_counter_move": false,
+        "resolved": 466,
+        "wins": 175,
+        "losses": 291,
+        "win_rate_pct": 37.55,
+        "expectancy_r": 0.1266
+      }
+    ],
+    "USDJPY": [
+      {
+        "pattern": "MORNING_STAR",
+        "zone_timeframe": "H1",
+        "require_counter_move": true,
+        "resolved": 83,
+        "wins": 39,
+        "losses": 44,
+        "win_rate_pct": 46.99,
+        "expectancy_r": 0.4096
+      },
+      {
+        "pattern": "HAMMER_PIN",
+        "zone_timeframe": "H1",
+        "require_counter_move": false,
+        "resolved": 165,
+        "wins": 76,
+        "losses": 89,
+        "win_rate_pct": 46.06,
+        "expectancy_r": 0.3818
+      },
+      {
+        "pattern": "BULLISH_ENGULFING",
+        "zone_timeframe": "H1",
+        "require_counter_move": true,
+        "resolved": 130,
+        "wins": 57,
+        "losses": 73,
+        "win_rate_pct": 43.85,
+        "expectancy_r": 0.3154
+      },
+      {
+        "pattern": "MORNING_STAR",
+        "zone_timeframe": "H4",
+        "require_counter_move": true,
+        "resolved": 149,
+        "wins": 64,
+        "losses": 85,
+        "win_rate_pct": 42.95,
+        "expectancy_r": 0.2886
+      }
+    ],
+    "USDCAD": [
+      {
+        "pattern": "SHOOTING_STAR_PIN",
+        "zone_timeframe": "D1",
+        "require_counter_move": true,
+        "resolved": 132,
+        "wins": 54,
+        "losses": 78,
+        "win_rate_pct": 40.91,
+        "expectancy_r": 0.2273
+      },
+      {
+        "pattern": "MORNING_STAR",
+        "zone_timeframe": "H4",
+        "require_counter_move": true,
+        "resolved": 104,
+        "wins": 41,
+        "losses": 63,
+        "win_rate_pct": 39.42,
+        "expectancy_r": 0.1827
+      },
+      {
+        "pattern": "EVENING_STAR",
+        "zone_timeframe": "D1",
+        "require_counter_move": true,
+        "resolved": 146,
+        "wins": 57,
+        "losses": 89,
+        "win_rate_pct": 39.04,
+        "expectancy_r": 0.1712
+      }
+    ],
+    "XAUUSD": [
+      {
+        "pattern": "SHOOTING_STAR_PIN",
+        "zone_timeframe": "H4",
+        "require_counter_move": false,
+        "resolved": 195,
+        "wins": 84,
+        "losses": 111,
+        "win_rate_pct": 43.08,
+        "expectancy_r": 0.2923
+      },
+      {
+        "pattern": "MORNING_STAR",
+        "zone_timeframe": "H1",
+        "require_counter_move": true,
+        "resolved": 82,
+        "wins": 33,
+        "losses": 49,
+        "win_rate_pct": 40.24,
+        "expectancy_r": 0.2073
+      },
+      {
+        "pattern": "SHOOTING_STAR_PIN",
+        "zone_timeframe": "H1",
+        "require_counter_move": true,
+        "resolved": 117,
+        "wins": 47,
+        "losses": 70,
+        "win_rate_pct": 40.17,
+        "expectancy_r": 0.2051
+      }
+    ]
+  }
+}

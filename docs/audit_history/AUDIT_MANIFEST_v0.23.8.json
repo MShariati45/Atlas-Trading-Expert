@@ -1,0 +1,19 @@
+{
+  "version": "0.23.8",
+  "purpose": "MT5 demo preflight base",
+  "strategy_changed": false,
+  "execution_enabled": false,
+  "tests_passed": 193,
+  "files": {
+    "pyproject.toml": "b63ce8d211612b7b060ae2d1e527b624ef12216e4d1d630dc6e1140020eec01e",
+    "config/atlas_m15_first_v0.23.8.json": "e4e25ba6c96b4b7bde09a407dbe2c9a2bf52e72473c247cc4f47cbed120328d2",
+    "run_mt5_demo_probe.py": "4f17da835607da1c5319f0c43d0a6744eca06fb89f5a6b22115602c2886b25d3",
+    "run_mt5_demo_preflight.bat": "3e9eb68589d616d4cdb722e6a126e21f2f1c67927d286818acd5b3f3b6562e5c",
+    "run_m15_first_observer.py": "f80858ce9c83d208688d5841a319108bb65bf78b0a04c1175713c733fb083316",
+    "run_pre_demo_selfcheck.py": "049118d23db3e49b1cba2352f05039a12cde9775e5f4473a8d5708f56754c3fd",
+    "atlas/execution/demo_validator.py": "3c6d79072428692642b2b7ad9477371b69b7f540fd8dc25f1f87c9877f6f1401",
+    "atlas/market_data/mt5_feed.py": "e4d83c7687c5e5bf077d949b3c76361f82f243fd554e72e2923fec2095187843",
+    "atlas/execution/mt5_bridge.py": "5ea6ace4803feef32eecce84b4dc6275ffefe887a537f6b865eef68aef39ddb7",
+    "atlas/services/paper_pipeline.py": "9d6bba7a3f25c7f50b4b22e177426c9324d485c8926bc0decb74c186825701a5"
+  }
+}

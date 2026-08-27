@@ -1,0 +1,12 @@
+{
+  "status": "DRAFT",
+  "approved_by": null,
+  "approved_at_utc": null,
+  "evidence": "Populate only after reviewing multi-session spread samples. Slippage must be a separately approved conservative assumption until real demo fills exist.",
+  "symbols": {
+    "EURUSD": {"max_spread_points": 0, "max_slippage_points": 0, "min_net_rr": 2.0},
+    "USDJPY": {"max_spread_points": 0, "max_slippage_points": 0, "min_net_rr": 2.0},
+    "USDCAD": {"max_spread_points": 0, "max_slippage_points": 0, "min_net_rr": 2.0},
+    "XAUUSD": {"max_spread_points": 0, "max_slippage_points": 0, "min_net_rr": 2.0}
+  }
+}

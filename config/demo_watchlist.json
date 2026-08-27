@@ -1,0 +1,40 @@
+{
+  "timezone": "America/Vancouver",
+  "symbols": [
+    "EURUSD",
+    "USDJPY",
+    "USDCAD",
+    "XAUUSD"
+  ],
+  "entries": {
+    "allowed_days": [
+      "SUNDAY",
+      "MONDAY",
+      "TUESDAY",
+      "WEDNESDAY",
+      "THURSDAY"
+    ],
+    "friday_new_entries": false
+  },
+  "risk": {
+    "risk_per_trade_pct": 0.5,
+    "max_daily_risk_pct": 1.0,
+    "max_trades_per_day": 2,
+    "max_trades_per_symbol_per_day": 1
+  },
+  "management": {
+    "target_r": 2.0,
+    "breakeven_trigger_r": 1.4,
+    "trail_after_be": false
+  },
+  "fibonacci": {
+    "activation_min_pct": 38.2,
+    "primary_max_pct": 61.8,
+    "deep_max_pct": 78.6,
+    "enabled": false
+  },
+  "quality": {
+    "minimum_grade": "A+",
+    "minimum_score": 95
+  }
+}

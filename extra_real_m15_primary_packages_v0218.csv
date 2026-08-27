@@ -1,0 +1,1 @@
+time,agent,status,pattern_type,direction,entry_reference,raw_stop_anchor,applied_buffer,final_stop,trigger_time,event_id,freshness,reason_code,coordination_state,confirmations,duplicates,conflicts

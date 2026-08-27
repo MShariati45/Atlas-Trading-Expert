@@ -1,0 +1,9 @@
+ATLAS H4 VISUAL VALIDATION CHECK
+
+1. Copy your existing historical_data folder into this Atlas folder.
+2. Run validate_h4_eurusd_windows.bat first.
+3. Then double-click generate_h4_validation_chart_windows.bat.
+4. Your browser will open the EURUSD H4 validation chart.
+5. Send a screenshot of that chart to ChatGPT.
+
+This tool is read-only and cannot place trades.

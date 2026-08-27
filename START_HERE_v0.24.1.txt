@@ -1,0 +1,8 @@
+ATLAS v0.24.1 - OFFICIAL FOUR-CURRENCY NEWS BACKBONE
+
+1) Keep MT5 execution locked.
+2) Run: run_official_four_currency_news_refresh.bat
+3) Expected success file: runtime\news_events.json
+4) The refresh uses official primary sources and makes NO AI calls.
+5) If any source fails validation, Atlas stays WAIT / not paper-ready.
+6) BoJ uses a deliberately wide decision window because its exact decision release time is not fixed.

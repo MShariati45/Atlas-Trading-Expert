@@ -1,0 +1,17 @@
+ATLAS v0.24.3 — READ-ONLY SHADOW PAPER SUPERVISOR
+
+1. Keep MT5 open and logged into the intended demo account.
+2. Refresh official news first:
+   run_official_four_currency_news_refresh.bat
+3. Start the shadow Supervisor:
+   run_shadow_paper_supervisor.bat
+4. Leave MT5 order execution locked.
+
+Outputs:
+  runtime\atlas_shadow_supervisor_state.json
+  runtime\atlas_shadow_supervisor_journal.jsonl
+
+IMPORTANT:
+- The shadow Supervisor sends NO orders.
+- Until config\broker_cost_policy.json is explicitly reviewed/approved, otherwise-valid candidates remain WAIT at the market-cost gates.
+- Do not rename broker_spread_samples.csv into a cost policy. Spread observation is not slippage calibration.

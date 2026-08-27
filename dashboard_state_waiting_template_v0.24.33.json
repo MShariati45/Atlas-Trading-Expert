@@ -1,0 +1,112 @@
+{
+  "schema_version": "3.0",
+  "generated_at_utc": "2026-08-23T21:25:01.506673+00:00",
+  "mode": "DASHBOARD_ACTIVATION_WAITING_FOR_MT5",
+  "execution_enabled": false,
+  "terminal": {
+    "terminal_connected": false,
+    "connected_account_id": "ATLAS-DEMO",
+    "error": "MetaTrader5 Python package/terminal is not available"
+  },
+  "account": {
+    "account_id": "ATLAS-DEMO",
+    "status": "UNAVAILABLE",
+    "demo_verified": false,
+    "error": "MetaTrader5 Python package/terminal is not available"
+  },
+  "open_positions": [],
+  "watchlist": [
+    {
+      "symbol": "EURUSD",
+      "bid": null,
+      "ask": null,
+      "spread_points": null,
+      "h4_trend": "WAITING_FOR_MT5",
+      "h4_effective_direction": "WAITING_FOR_MT5",
+      "h4_phase": "UNAVAILABLE",
+      "h1_trend": "WAITING_FOR_MT5",
+      "h1_phase": "UNAVAILABLE",
+      "alignment": "UNAVAILABLE",
+      "coordinator": "IDLE",
+      "supervisor": "WAIT",
+      "supervisor_reason": "MetaTrader5 Python package/terminal is not available",
+      "error": "MetaTrader5 Python package/terminal is not available",
+      "h4_human_approval": {
+        "status": "REVIEW_REQUIRED"
+      }
+    },
+    {
+      "symbol": "USDJPY",
+      "bid": null,
+      "ask": null,
+      "spread_points": null,
+      "h4_trend": "WAITING_FOR_MT5",
+      "h4_effective_direction": "WAITING_FOR_MT5",
+      "h4_phase": "UNAVAILABLE",
+      "h1_trend": "WAITING_FOR_MT5",
+      "h1_phase": "UNAVAILABLE",
+      "alignment": "UNAVAILABLE",
+      "coordinator": "IDLE",
+      "supervisor": "WAIT",
+      "supervisor_reason": "MetaTrader5 Python package/terminal is not available",
+      "error": "MetaTrader5 Python package/terminal is not available",
+      "h4_human_approval": {
+        "status": "REVIEW_REQUIRED"
+      }
+    },
+    {
+      "symbol": "USDCAD",
+      "bid": null,
+      "ask": null,
+      "spread_points": null,
+      "h4_trend": "WAITING_FOR_MT5",
+      "h4_effective_direction": "WAITING_FOR_MT5",
+      "h4_phase": "UNAVAILABLE",
+      "h1_trend": "WAITING_FOR_MT5",
+      "h1_phase": "UNAVAILABLE",
+      "alignment": "UNAVAILABLE",
+      "coordinator": "IDLE",
+      "supervisor": "WAIT",
+      "supervisor_reason": "MetaTrader5 Python package/terminal is not available",
+      "error": "MetaTrader5 Python package/terminal is not available",
+      "h4_human_approval": {
+        "status": "REVIEW_REQUIRED"
+      }
+    },
+    {
+      "symbol": "XAUUSD",
+      "bid": null,
+      "ask": null,
+      "spread_points": null,
+      "h4_trend": "WAITING_FOR_MT5",
+      "h4_effective_direction": "WAITING_FOR_MT5",
+      "h4_phase": "UNAVAILABLE",
+      "h1_trend": "WAITING_FOR_MT5",
+      "h1_phase": "UNAVAILABLE",
+      "alignment": "UNAVAILABLE",
+      "coordinator": "IDLE",
+      "supervisor": "WAIT",
+      "supervisor_reason": "MetaTrader5 Python package/terminal is not available",
+      "error": "MetaTrader5 Python package/terminal is not available",
+      "h4_human_approval": {
+        "status": "REVIEW_REQUIRED"
+      }
+    }
+  ],
+  "summary": {
+    "symbols": 4,
+    "errors": [
+      "EURUSD",
+      "USDJPY",
+      "USDCAD",
+      "XAUUSD"
+    ],
+    "open_positions": 0,
+    "news_guard": "PENDING_RUNTIME",
+    "static_zones": "PENDING_RUNTIME",
+    "api_mode": "PERSISTED_READ_MODEL",
+    "risk_per_trade_pct": 0.5,
+    "max_daily_risk_pct": 1.0,
+    "max_trades_per_day": 2
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "atlas_version": "0.24.4",
+  "checkpoint": "PAPER_COST_GATE_SHADOW_SUPERVISION",
+  "critical_sha256": {
+    "pyproject.toml": "9614c94f872a5dcdca11761fe8b54e7e2b351dc7d4f7805be01b22805cd4e015",
+    "atlas/strategy/profile.py": "19f430a0656addc505c9972d24adbdca74155ab7d21fbc2525ed7db1f2556da3",
+    "atlas/services/broker_cost_policy.py": "fca7743bec6ee8a42deda5786d23fd904e3b88895d2ffb62f66fe3710b3b69e5",
+    "atlas/services/paper_pipeline.py": "c43b8dfb5df782d5f9251842468bf3750fde9bd500cd4df53ada598e2f0682ae",
+    "config/atlas_m15_first_v0.24.4.json": "9004fd0f4198a26abe73e1b93f4f8b5e68ac2616fb3ff89247596c963802a93c",
+    "config/broker_cost_policy.json": "e8dc85dbd784b857d61fa2f1dc9d7280d667b3421a5c3717caa983832fd1af5f",
+    "run_shadow_paper_supervisor.py": "d8a4e79ad491b12f1e1f846d7cc78594eb4e3d2383a82fc82fcbe82969c255d8",
+    "run_shadow_paper_supervisor.bat": "c3c1a2b073eb8ec8772687d8a952a1a82f6e4ec71205093d3ffd61eed15b135c",
+    "run_pre_demo_selfcheck.py": "fc05b1836c79ec1d25790175dbde6ef9935e8d89cf4bcf22d9618e79a1c9a1f1",
+    "docs/PAPER_BROKER_COST_POLICY_v0.24.4.md": "60eeb750127d90a2cb0240c203ad10531a1b8c45943d5ed3aca4e2f0048f75dd",
+    "START_HERE_v0.24.4.txt": "934d4f7d3f010bc16121c60a69653c14b15f70c175c67738d1ae6dd5043359cc"
+  },
+  "execution_enabled": false,
+  "broker_cost_mode": "PAPER_ONLY",
+  "execution_cost_validated": false,
+  "tests_passed": 219
+}

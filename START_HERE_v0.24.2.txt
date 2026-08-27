@@ -1,0 +1,19 @@
+ATLAS v0.24.2 - NEWS FAMILY COVERAGE HARDENING
+
+Purpose
+- Correct the v0.24.1 false-green condition where source reachability could be FULL while a required high-impact event family was absent from the merged calendar.
+- Keep MT5 execution hard-locked.
+- Keep AI disabled for scheduled-news ingestion.
+
+Required active event families
+USD: FOMC + Employment Situation + CPI
+EUR: ECB monetary-policy decisions
+CAD: Bank of Canada + Canada CPI + Canada Labour Force Survey
+JPY: Bank of Japan + Japan CPI + Japan Labour Force Survey
+
+Windows verification
+1. Run run_official_four_currency_news_refresh.bat
+2. Confirm status FULL_OK and every required_event_families value is true.
+3. Upload runtime\news_events.json for audit.
+
+Do not enable MT5 order execution.

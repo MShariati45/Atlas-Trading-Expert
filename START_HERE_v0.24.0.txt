@@ -1,0 +1,38 @@
+ATLAS v0.24.0 - READ-ONLY OBSERVATION CALIBRATION BASE
+
+1) PREFLIGHT
+   run_mt5_demo_preflight.bat
+   The BAT window now pauses when launched by double-click.
+
+2) BROKER SPREAD OBSERVATION (NO ORDERS)
+   run_mt5_broker_calibration.bat
+   Default: 60 minutes, every 5 seconds.
+   Example: run_mt5_broker_calibration.bat --duration-minutes 120 --interval-seconds 5
+   Output:
+     runtime\broker_spread_samples.csv
+     runtime\broker_calibration_summary.json
+
+3) LIVE NEWS
+   Optional official-source ingestion check (USD only, NOT paper-ready by itself):
+   run_official_us_news_refresh.bat
+   Output: runtime\news_bls_usd.json
+
+   For paper readiness, configure a trusted/licensed multi-currency structured economic-calendar JSON endpoint covering USD/EUR/CAD/JPY.
+   set ATLAS_NEWS_URL=https://...
+   set ATLAS_NEWS_BEARER_TOKEN=...   (only if provider needs it)
+   run_live_news_refresh.bat
+   Output:
+     runtime\news_events.json
+
+4) RE-RUN PREFLIGHT WITH NEWS
+   run_mt5_demo_preflight.bat --news-json runtime\news_events.json --cost-policy runtime\broker_cost_policy.json --require-paper-ready
+
+IMPORTANT
+- No MT5 orders are enabled in this checkpoint.
+- Read-only spread observations cannot measure real slippage.
+- Atlas never activates cost limits automatically from one calibration run.
+- Stale/unverified/partial-currency news data forces WAIT.
+
+5) PAPER SUPERVISION PROMOTION
+   Requires BOTH fresh live news and an explicitly APPROVED broker cost policy.
+   Start from examples\broker_cost_policy.template.json only after reviewing calibration evidence.

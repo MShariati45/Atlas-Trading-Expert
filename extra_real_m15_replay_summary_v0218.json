@@ -1,0 +1,37 @@
+{
+  "dataset": {
+    "source": "GitHub jaxontn/historical-Data EURUSD_M15.csv",
+    "start": "2020-10-01T00:00:00+00:00",
+    "end": "2020-10-12T00:00:00+00:00",
+    "m15_rows_total": 200000,
+    "replay_rows": 672
+  },
+  "eligible_m15_bars": 6,
+  "alignment_states": {
+    "ALIGNED_BEARISH": 15,
+    "WAIT": 657
+  },
+  "fibonacci_states": {
+    "ACTIVE_DEEP_CORRECTION": 5,
+    "ACTIVE_PRIMARY_CORRECTION": 1,
+    "STRUCTURE_RISK": 9
+  },
+  "coordinator_states": {
+    "COLLECTING_REPORTS": 6
+  },
+  "reason_codes": {
+    "NO_ACTIONABLE_M15_TRIGGER": 6
+  },
+  "unique_actionable_events": {},
+  "duplicates_observed": 0,
+  "conflicts_observed": 0,
+  "independent_confirmations_observed": 0,
+  "stop_pips": {
+    "count": 0,
+    "min": null,
+    "median": null,
+    "mean": null,
+    "max": null
+  },
+  "primary_packages": 0
+}

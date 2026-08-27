@@ -1,0 +1,50 @@
+{
+  "dataset": {
+    "source": "GitHub jaxontn/historical-Data EURUSD_M15.csv",
+    "start": "2021-05-01T00:00:00+00:00",
+    "end": "2021-05-12T00:00:00+00:00",
+    "m15_rows_total": 200000,
+    "replay_rows": 684
+  },
+  "eligible_m15_bars": 330,
+  "alignment_states": {
+    "ALIGNED_BEARISH": 335,
+    "WAIT": 349
+  },
+  "fibonacci_states": {
+    "ACTIVE_SHALLOW": 74,
+    "ACTIVE_FLAG_ZONE": 14,
+    "ACTIVE_PRIMARY_CORRECTION": 74,
+    "ACTIVE_LATCHED_RECOVERY": 165,
+    "ACTIVE_DEEP_CORRECTION": 3,
+    "STRUCTURE_RISK": 5
+  },
+  "coordinator_states": {
+    "COLLECTING_REPORTS": 297,
+    "READY_FOR_SUPERVISOR_REVIEW": 25,
+    "WAITING_FOR_CONFIRMATION": 8
+  },
+  "reason_codes": {
+    "NO_ACTIONABLE_M15_TRIGGER": 297,
+    "M15_PACKAGE_READY": 25,
+    "EARLY_PATTERN_SIGNAL_STRUCTURE_CONFIRMATION_PENDING": 8
+  },
+  "unique_actionable_events": {
+    "M15_FLAG_PENNANT|VALID_TRIGGER": 3,
+    "M15_HEAD_SHOULDERS|VALID_TRIGGER": 1,
+    "M15_TRIANGLE_WEDGE|VALID_TRIGGER": 2,
+    "M15_MULTIPLE_TOP_BOTTOM|EARLY_REVERSAL_CANDIDATE": 2,
+    "M15_IMPULSE_CORRECTION|VALID_TRIGGER": 1
+  },
+  "duplicates_observed": 0,
+  "conflicts_observed": 0,
+  "independent_confirmations_observed": 0,
+  "stop_pips": {
+    "count": 9,
+    "min": 6.999999999999229,
+    "median": 13.699999999996493,
+    "mean": 16.97138888888795,
+    "max": 40.87500000000021
+  },
+  "primary_packages": 9
+}

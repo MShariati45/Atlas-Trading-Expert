@@ -1,0 +1,15 @@
+{
+  "version": "0.23.6",
+  "audit_status": "GREEN_FOR_DEMO_READINESS_NOT_LIVE_EXECUTION",
+  "pytest": "185 passed",
+  "compileall": "passed",
+  "pre_demo_selfcheck": "passed",
+  "active_launcher": "run_m15_first_observer.py",
+  "legacy_dashboard_launcher": "hard_disabled",
+  "active_watchlist": ["EURUSD", "USDJPY", "USDCAD", "XAUUSD"],
+  "channel_strategy": "CHANNEL_BOUNDARY_REJECTION_ONLY",
+  "fibonacci_entry_gate": false,
+  "ai_enabled": false,
+  "execution_enabled": false,
+  "research_learning": "persistent lessons/corrections; no autonomous live-rule mutation"
+}

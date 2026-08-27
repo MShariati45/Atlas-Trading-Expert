@@ -1,0 +1,29 @@
+ATLAS v0.24.10 - H4 Active Impulse Lifecycle Research
+
+READ ONLY. No trade execution logic is enabled or changed.
+
+Purpose
+- Keep broad H4 dominant trend/history separate from the current strategic impulse.
+- Treat an active impulse-origin breach as the end of the stale cycle and re-bootstrap current structure.
+- Admit fast but meaningful H4 countertrend corrections that a wide macro pivot wing can miss.
+- Re-evaluate promoted corrections after the impulse extends; if the correction becomes <38.2% of the eventual H4 leg, demote it back to internal structure.
+- Prevent a pivot zone formed after the last strategic extreme from becoming a new impulse origin until a fresh HH/LL is made.
+- Split distant same-price pivot zones into separate structural episodes so old zones cannot hijack the current cycle.
+
+Teaching benchmarks (audit only; never fed into detector)
+XAUUSD H4: approx 4310.66 -> 4630, BULLISH IMPULSE
+EURUSD H4: approx 1.15124 -> 1.17108, BULLISH
+USDJPY H4: approx 160.388 -> 155.235, BEARISH, current CORRECTION/RANGE
+USDCAD H4: approx 1.41273 -> 1.37312, BEARISH IMPULSE
+
+Run
+Double-click run_structure_v2_research.bat with MT5 open and connected.
+
+Outputs
+runtime\structure_v2_research.json
+runtime\<symbol>_h4_teaching_window.csv
+
+Validation status before live MT5 rerun
+- Existing full regression suite: 229/229 passed.
+- Uploaded H4 diagnostic windows available locally reproduced: XAUUSD PASS, USDJPY PASS-band, USDCAD PASS-band under v0.24.10 logic.
+- EURUSD requires the fresh MT5 rerun because the uploaded diagnostics set contained a duplicate USDJPY CSV rather than a distinct EURUSD teaching-window CSV.

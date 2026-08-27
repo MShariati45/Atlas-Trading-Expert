@@ -1,0 +1,186 @@
+{
+  "schema_version": "2.1",
+  "profile": "ATLAS_M15_FIRST_2025_2026_DEMO_CANDIDATE_V0_23_6",
+  "watchlist": [
+    "EURUSD",
+    "USDJPY",
+    "USDCAD",
+    "XAUUSD"
+  ],
+  "risk": {
+    "max_daily_risk_pct": 1.0,
+    "risk_per_trade_pct": 0.5,
+    "max_trades_per_day": 2,
+    "max_trades_per_symbol_per_day": 1,
+    "default_target_r": 2.0
+  },
+  "trading_window": {
+    "timezone": "America/Vancouver",
+    "new_entries": "SUNDAY_MARKET_OPEN_THROUGH_THURSDAY",
+    "allow_friday_new_entries": false,
+    "force_flat_before_friday_close": true,
+    "sunday_open_hour_local": 14,
+    "friday_force_flat_hour_local": 13
+  },
+  "hierarchy": {
+    "mode": "M15_FIRST",
+    "universal_h1_alignment_required": false,
+    "fibonacci_permission_gate_enabled": false,
+    "fibonacci_visible": false,
+    "h4_h1_role": "PATTERN_SPECIFIC_CONTEXT_AFTER_M15_TRIGGER"
+  },
+  "symbols": {
+    "EURUSD": {
+      "CHANNEL_BOUNDARY_REJECTION": {
+        "enabled": false,
+        "target_r": 2.0,
+        "htf_mode": "H4_ALIGNED_H1_OPPOSED"
+      },
+      "HEAD_SHOULDERS": {
+        "enabled": false,
+        "target_r": 2.0,
+        "htf_mode": "H4_ALIGNED_H1_OPPOSED"
+      },
+      "IMPULSE_CORRECTION": {
+        "enabled": true,
+        "target_r": 2.0,
+        "htf_mode": "H4_ALIGNED_H1_OPPOSED"
+      },
+      "TRIANGLE_WEDGE": {
+        "enabled": true,
+        "target_r": 2.0,
+        "htf_mode": "H4_ALIGNED_H1_OPPOSED"
+      },
+      "FLAG_PENNANT": {
+        "enabled": false,
+        "target_r": 2.0,
+        "htf_mode": "H4_H1_ALIGNED"
+      },
+      "MULTIPLE_TOP_BOTTOM": {
+        "enabled": false,
+        "target_r": 2.0,
+        "htf_mode": "H4_ALIGNED_H1_OPPOSED"
+      }
+    },
+    "USDJPY": {
+      "CHANNEL_BOUNDARY_REJECTION": {
+        "enabled": true,
+        "target_r": 2.0,
+        "htf_mode": "ANY"
+      },
+      "FLAG_PENNANT": {
+        "enabled": true,
+        "target_r": 2.0,
+        "htf_mode": "H4_H1_ALIGNED"
+      },
+      "HEAD_SHOULDERS": {
+        "enabled": true,
+        "target_r": 2.0,
+        "htf_mode": "H4_H1_OPPOSED"
+      },
+      "TRIANGLE_WEDGE": {
+        "enabled": true,
+        "target_r": 2.0,
+        "htf_mode": "H4_H1_ALIGNED"
+      },
+      "IMPULSE_CORRECTION": {
+        "enabled": false,
+        "target_r": 2.0,
+        "htf_mode": "H4_ALIGNED_H1_OPPOSED"
+      },
+      "MULTIPLE_TOP_BOTTOM": {
+        "enabled": false,
+        "target_r": 2.0,
+        "htf_mode": "ANY"
+      }
+    },
+    "USDCAD": {
+      "CHANNEL_BOUNDARY_REJECTION": {
+        "enabled": true,
+        "target_r": 3.0,
+        "htf_mode": "H4_H1_OPPOSED"
+      },
+      "HEAD_SHOULDERS": {
+        "enabled": false,
+        "target_r": 2.0,
+        "htf_mode": "H4_ALIGNED_H1_OPPOSED"
+      },
+      "IMPULSE_CORRECTION": {
+        "enabled": false,
+        "target_r": 2.0,
+        "htf_mode": "H4_ALIGNED_H1_OPPOSED"
+      },
+      "MULTIPLE_TOP_BOTTOM": {
+        "enabled": true,
+        "target_r": 2.0,
+        "htf_mode": "H4_ALIGNED_H1_OPPOSED"
+      },
+      "TRIANGLE_WEDGE": {
+        "enabled": true,
+        "target_r": 2.0,
+        "htf_mode": "H4_ALIGNED_H1_OPPOSED"
+      },
+      "FLAG_PENNANT": {
+        "enabled": false,
+        "target_r": 2.0,
+        "htf_mode": "H4_H1_OPPOSED"
+      }
+    },
+    "XAUUSD": {
+      "CHANNEL_BOUNDARY_REJECTION": {
+        "enabled": true,
+        "target_r": 3.0,
+        "htf_mode": "H4_H1_OPPOSED"
+      },
+      "FLAG_PENNANT": {
+        "enabled": true,
+        "target_r": 2.0,
+        "htf_mode": "H4_ALIGNED_H1_ANY"
+      },
+      "HEAD_SHOULDERS": {
+        "enabled": true,
+        "target_r": 2.0,
+        "htf_mode": "H4_ALIGNED_H1_ANY"
+      },
+      "IMPULSE_CORRECTION": {
+        "enabled": true,
+        "target_r": 2.0,
+        "htf_mode": "H4_ALIGNED_H1_ANY"
+      },
+      "MULTIPLE_TOP_BOTTOM": {
+        "enabled": true,
+        "target_r": 2.0,
+        "htf_mode": "H4_ALIGNED_H1_ANY"
+      },
+      "TRIANGLE_WEDGE": {
+        "enabled": true,
+        "target_r": 2.0,
+        "htf_mode": "H4_ALIGNED_H1_ANY"
+      }
+    }
+  },
+  "multi_account": {
+    "enabled": true,
+    "shared_signal_separate_account_risk": true,
+    "execution_transport": "DISABLED_UNTIL_EXPLICIT_LIVE_APPROVAL"
+  },
+  "name": "ATLAS_M15_FIRST_2025_2026_DEMO_CANDIDATE_V0_23_6",
+  "ai_usage": {
+    "enabled": false,
+    "mode": "EVENT_DRIVEN_ONLY",
+    "max_calls_per_day": 8,
+    "max_calls_per_month": 120,
+    "cache_ttl_seconds": 86400,
+    "note": "Core trading logic is deterministic/local. Optional AI advisory remains disabled until explicitly configured."
+  },
+  "governance": {
+    "agent_role_contracts_enabled": true,
+    "h4_h1_independent": true,
+    "specialist_cross_imports_forbidden": true,
+    "research_education_supervisor_enabled": true,
+    "research_can_mutate_live_rules": false,
+    "correction_memory_persistent": true,
+    "trusted_source_monitor_mode": "OFF_HOURS_DIRECT_HTTPS_NO_AI",
+    "rule_promotion_requires_validation": true
+  }
+}

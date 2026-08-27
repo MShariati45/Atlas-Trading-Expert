@@ -1,0 +1,33 @@
+ATLAS v0.24.4 — PAPER COST GATE ENABLED (SHADOW ONLY)
+
+Purpose
+-------
+Enable continuous shadow/paper Supervisor decisions using the validated official
+news backbone plus a conservative paper-only spread policy derived from the
+2026-08-21 read-only broker calibration. MT5 order transmission remains hard locked.
+
+Windows sequence
+----------------
+1. Open MT5 demo and keep it connected.
+2. Run: run_official_four_currency_news_refresh.bat
+3. Run: run_shadow_paper_supervisor.bat
+
+Expected
+--------
+- broker_cost_policy_approved: true
+- broker_cost_policy_mode: PAPER_ONLY
+- execution_cost_validated: false
+- execution_enabled: false
+- A mature otherwise-valid candidate may receive an APPROVE paper decision only
+  when the observed spread is positive and within the approved paper threshold.
+- A zero/non-positive spread forces WAIT (NONPOSITIVE_SPREAD_UNVERIFIED).
+- Slippage remains unmeasured and no paper approval can unlock MT5 execution.
+
+Paper spread thresholds (P95 of the one-hour read-only calibration)
+-------------------------------------------------------------------
+EURUSD: 1 point
+USDJPY: 3 points
+USDCAD: 1 point
+XAUUSD: 44 points
+
+These are temporary paper thresholds, not permanent live-execution limits.

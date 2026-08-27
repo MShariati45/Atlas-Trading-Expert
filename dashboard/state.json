@@ -1,0 +1,37 @@
+{
+  "symbol": "EURUSD",
+  "h4": {
+    "trend": "BULLISH",
+    "phase": "BULLISH_IMPULSE",
+    "state_version": 2
+  },
+  "h1": {
+    "trend": "BULLISH",
+    "phase": "BULLISH_CORRECTION",
+    "relationship": "ALIGNED",
+    "state_version": 2
+  },
+  "fib": {
+    "retracement_pct": 43.3333,
+    "zone": "FIB_38_2_TO_61_8",
+    "broad_m15_activation": true,
+    "flag_early_access": false
+  },
+  "m15": {
+    "phase": "BULLISH_REVERSAL_CANDIDATE",
+    "reason": "BULLISH_CHOCH_CONFIRMED",
+    "entry": null,
+    "stop": null,
+    "state_version": 2
+  },
+  "supervisor": {
+    "decision": "WAIT",
+    "reason": "M15 bullish CHoCH is detected, but Atlas correctly waits for a new higher high, meaningful higher low, and BOS before an entry candidate can reach the Supervisor."
+  },
+  "runtime": {
+    "risk_available_pct": 1.0,
+    "trades_today": 0,
+    "max_trades": 2,
+    "symbol_lock": "AVAILABLE"
+  }
+}

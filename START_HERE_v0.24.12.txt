@@ -1,0 +1,34 @@
+ATLAS v0.24.12 - H4 BLIND HISTORICAL VALIDATION
+
+Purpose
+-------
+Validate whether the v0.24.11 H4 backward strategic reconstruction generalizes to
+historical periods that were NOT part of the four current teaching cases.
+
+Safety
+------
+READ ONLY. No orders are sent. Shadow runtime state is not modified.
+
+Run
+---
+1. Keep MT5 open and connected to the demo account.
+2. Double-click: run_h4_blind_historical_validation.bat
+3. The runner collects H4 history for EURUSD, USDJPY, USDCAD and XAUUSD.
+4. It excludes the newest 180 H4 bars used for current teaching.
+5. It creates five deterministic historical cutoffs per symbol (20 blind cases total).
+6. Each historical case is analyzed using ONLY bars that existed at that cutoff.
+
+Outputs
+-------
+runtime\h4_blind_historical_validation.json
+runtime\h4_blind_historical_summary.csv
+runtime\h4_blind_cases\<case_id>.csv
+
+Important
+---------
+There are NO hidden expected prices or trend labels in the blind runner.
+The result must be reviewed manually against the historical H4 chart. This avoids
+pretending that an unlabeled historical case has passed merely because the code
+produced an answer.
+
+The production/shadow H4/H1/M15 agents are unchanged in this research build.

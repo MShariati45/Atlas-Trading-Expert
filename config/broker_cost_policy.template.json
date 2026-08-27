@@ -1,0 +1,16 @@
+{
+  "approved": false,
+  "mode": "PAPER_ONLY",
+  "execution_validated": false,
+  "notes": [
+    "Template only. PAPER_ONLY may be approved from read-only spread evidence.",
+    "EXECUTION_VALIDATED requires measured demo-fill slippage and separate approval.",
+    "Neither policy mode unlocks MT5 order transmission."
+  ],
+  "symbols": {
+    "EURUSD": {"max_spread_points": null, "reject_nonpositive_spread": true, "evidence_percentile": 0.95},
+    "USDJPY": {"max_spread_points": null, "reject_nonpositive_spread": true, "evidence_percentile": 0.95},
+    "USDCAD": {"max_spread_points": null, "reject_nonpositive_spread": true, "evidence_percentile": 0.95},
+    "XAUUSD": {"max_spread_points": null, "reject_nonpositive_spread": true, "evidence_percentile": 0.95}
+  }
+}

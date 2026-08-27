@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "risk": {
+    "max_daily_risk_pct": 1.0,
+    "default_risk_per_trade_pct": 0.5,
+    "max_trades_per_day": 2,
+    "max_trades_per_symbol_per_day": 1,
+    "default_target_r": 2.0,
+    "breakeven_trigger_r": 1.4
+  },
+  "trading_window": {
+    "allow_sunday_market_open": true,
+    "allow_monday_through_thursday": true,
+    "allow_friday_new_entries": false,
+    "force_flat_before_friday_close": true,
+    "timezone": "America/Vancouver",
+    "sunday_open_hour_local": 14,
+    "friday_force_flat_hour_local": 13
+  },
+  "accounts": [],
+  "market_costs": {
+    "default_max_spread_points": 3.0,
+    "default_max_slippage_points": 2.0,
+    "minimum_net_rr": 2.0
+  },
+  "news_guard": {
+    "pre_entry_blackout_minutes": 30,
+    "open_trade_review_minutes": 60
+  }
+}

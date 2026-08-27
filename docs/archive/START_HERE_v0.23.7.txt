@@ -1,0 +1,10 @@
+ATLAS v0.23.7 - MULTI-ACCOUNT / ACCESS / REPORTING BASE
+
+1. Active strategy remains the audited v0.23.6 strategy logic.
+2. MT5 execution remains HARD LOCKED.
+3. Future multi-account control uses one isolated process per MT5 terminal/account.
+4. Each account has independent risk planning and account-tagged reporting.
+5. Roles: ADMIN, ACCOUNT_OWNER (own accounts only), TRAINING_VIEWER (anonymized training only).
+6. No internet-facing login server is enabled yet. Deploy authentication only in the later private-dashboard stage with HTTPS/session hardening.
+7. Run: python run_pre_demo_selfcheck.py
+8. Run: pytest -q
