@@ -1,0 +1,697 @@
+ATLAS TRADING EXPERT
+GITHUB HANDOFF — RC15 FRONTEND ARCHITECTURE FREEZE
+Date: 2026-09-02
+
+============================================================
+CURRENT AUTHORITATIVE BASELINE
+============================================================
+
+Release:
+Atlas Trading Expert 0.25.0-rc15
+
+RC15 remains the current certified trading/runtime baseline.
+
+IMPORTANT:
+This checkpoint does NOT create RC16 or another release candidate.
+
+No RC15 trading logic, strategy behavior, risk rules, Supervisor behavior,
+execution controls, Demo controls, Live prohibition, news fallback logic,
+or packaged release artifacts have been changed as part of the frontend
+planning/audit work.
+
+RC15 must remain preserved and recoverable as the known-good baseline.
+
+============================================================
+RC15 CURRENT RUNTIME STATUS
+============================================================
+
+RC15 has been deployed to the Windows VPS at:
+
+C:\Atlas2\Atlas-0.25.0-rc15
+
+Runtime environment previously verified with:
+
+Python 3.12.10
+
+Key runtime dependencies include:
+- MetaTrader5 5.0.6147
+- numpy 2.5.2
+- truststore 0.10.4
+- tzdata 2026.3
+
+pip check:
+No broken requirements.
+
+RC15 official-news refresh previously verified:
+
+status: FULL_OK
+events: 74
+
+Currency distribution:
+USD: 50
+EUR: 3
+CAD: 10
+JPY: 11
+
+All 10 required event families present:
+
+USD_FOMC
+USD_EMPLOYMENT
+USD_CPI
+EUR_ECB
+CAD_BOC
+CAD_CPI
+CAD_LFS
+JPY_BOJ
+JPY_CPI
+JPY_LFS
+
+Statistics Canada calendar shell was correctly rejected when required event
+families were absent, and the structured official schedule fallback succeeded.
+
+News refresh required zero AI calls.
+
+Adaptive spread baseline was successfully built with thousands of samples
+per configured symbol.
+
+============================================================
+RC15 DEMO EXECUTION STATE
+============================================================
+
+Verified RC15 launch state:
+
+atlas_version:
+0.25.0-rc15
+
+Execution control:
+DEMO_ENABLED
+
+demo_allowed:
+true
+
+live_allowed:
+false
+
+Registered account worker:
+ATLAS-DEMO
+
+Supervisor:
+Running and waiting for qualified candidates.
+
+WEB_API:
+Heartbeat active on 127.0.0.1:8080.
+
+Live-money execution remains prohibited.
+
+============================================================
+AUTHORITATIVE STRATEGY BOUNDARIES
+============================================================
+
+Frontend development MUST NOT change or reinterpret the RC15 trading engine.
+
+Current authoritative boundaries include:
+
+- M15 trigger/setup architecture.
+- H4 direction/structure authority.
+- Owner-governed H4 validation.
+- 33% H4 major-pivot correction threshold.
+- H1 is context-only and is not an active strategy direction gate.
+- Fibonacci is not an entry gate.
+- Static support/resistance logic remains authoritative.
+- News Agent hard gates remain authoritative.
+- Official economic-news source/fallback architecture remains authoritative.
+- Adaptive spread controls remain authoritative.
+- Risk Engine remains authoritative.
+- Supervisor remains the execution-authorization boundary.
+- Demo and Live execution remain separate and fail-closed.
+- Live execution remains prohibited.
+- Runtime trading calendar remains Sunday market-open through Friday
+  market-close; there is no Friday-wide trading block.
+
+The frontend must display backend truth and must never independently recreate
+or authorize trading decisions.
+
+============================================================
+FRONTEND PRODUCT ARCHITECTURE FREEZE
+============================================================
+
+The following document is now the authoritative frontend product specification:
+
+Atlas Trading Expert — Frontend Product Specification v1
+Owner Architecture Freeze
+
+This specification defines:
+
+- Global Atlas visual identity.
+- Consistent site-wide dark Atlas background.
+- Consistent authenticated application header.
+- Matching active-tab and page-header accent/glow system.
+- Atlas proprietary icon language.
+- Public Homepage.
+- Request a Demo.
+- Owner-only Lead Center.
+- Authentication and mandatory 2FA architecture.
+- RBAC architecture.
+- Owner Dashboard.
+- Watchlist.
+- Watchlist Symbol Detail.
+- Laboratory.
+- Research Symbol Detail.
+- Pattern Research Detail.
+- Accounts.
+- Trader Profile.
+- Multiple MT5 accounts per Trader.
+- News Intelligence Center.
+- Messages.
+- Reports.
+- Owner Settings.
+- Notification Center.
+- Owner Profile/Security.
+- Admin/Co-Admin architecture.
+- Trader Portal architecture.
+- Frontend/backend authority separation.
+- Security and accessibility requirements.
+- Testing and implementation requirements.
+
+============================================================
+ROLE MODEL FREEZE
+============================================================
+
+Primary roles:
+
+OWNER
+ADMIN
+CO_ADMIN
+TRADER
+
+Future roles must be implementable through granular RBAC capabilities.
+
+OWNER:
+Full authorized platform control.
+
+ADMIN / CO_ADMIN:
+Operational and analytical access only.
+
+Admin/Co-Admin must NOT have access to:
+
+- Lead Center.
+- Trader credentials.
+- Account financial/control administration.
+- Strategy modification.
+- Risk modification.
+- Execution enable/disable.
+- Demo/Live authorization.
+- Owner Settings.
+- Critical system controls.
+
+TRADER:
+Access only to the Trader's own authorized data and assigned trading accounts.
+
+Trader must NOT have access to:
+
+- Other traders.
+- Lead Center.
+- Laboratory/internal research.
+- Owner Settings.
+- Internal strategy controls.
+- Owner H4 confirmation.
+- System-wide API usage.
+- Internal Supervisor authority.
+- Critical system controls.
+
+Backend authorization is authoritative.
+
+Hiding frontend controls is NOT sufficient authorization.
+
+============================================================
+TRADER / ACCOUNT DATA MODEL
+============================================================
+
+Frozen architecture:
+
+1 Trader Profile
+    |
+    +-- Trading Account 1
+    +-- Trading Account 2
+    +-- Trading Account 3
+    +-- Future Accounts
+
+Trader-level data includes:
+
+- Identity.
+- Authentication.
+- Contact profile.
+- Messaging.
+- User permissions.
+
+Trading-account-level data includes:
+
+- MT5 connection.
+- Broker/server.
+- Demo/Live mode.
+- Execution state.
+- Risk profile.
+- Balance/equity.
+- Financial ledger.
+- Trading history.
+- Performance.
+- Audit history.
+
+Each trading account must remain independently controllable within global
+Owner/system limits.
+
+============================================================
+LEAD CENTER RULE
+============================================================
+
+Lead Center is strictly OWNER ONLY.
+
+Admin, Co-Admin, Trader, and future restricted roles must not:
+
+- Receive leads.
+- Browse leads.
+- Search leads.
+- Retrieve lead details.
+- Access lead APIs.
+
+This restriction must be enforced server-side.
+
+============================================================
+MESSAGING RULE
+============================================================
+
+Atlas uses a centralized internal messaging system.
+
+Allowed communication:
+
+OWNER <-> TRADER
+OWNER <-> ADMIN
+OWNER <-> CO_ADMIN
+OWNER <-> future permitted user
+
+Non-owner users may communicate ONLY with the Owner.
+
+Forbidden unless explicitly changed later:
+
+TRADER <-> TRADER
+ADMIN <-> TRADER
+CO_ADMIN <-> TRADER
+ADMIN <-> ADMIN
+ADMIN <-> CO_ADMIN
+other non-owner lateral messaging
+
+Messages are permanent communication records.
+
+Users cannot delete message history.
+
+Archive is allowed but must not delete canonical messages.
+
+Messaging belongs primarily to the user/trader identity rather than an
+individual MT5 account.
+
+============================================================
+OWNER PORTAL PRIMARY NAVIGATION
+============================================================
+
+Dashboard
+Watchlist
+Laboratory
+Accounts
+News
+Messages
+Reports
+Settings
+
+Lead Center remains an additional Owner-only business function.
+
+Global Owner shell includes:
+
+- Atlas Logo.
+- Persistent operational header.
+- Left navigation.
+- Notification Center.
+- Owner Profile/Security.
+
+============================================================
+FRONTEND DESIGN FREEZE
+============================================================
+
+The entire application must use one consistent Atlas design system.
+
+Required visual principles:
+
+- Deep navy / near-black background.
+- Electric-blue accents.
+- Atlas green.
+- Metallic silver.
+- Controlled bearish/danger red.
+- Professional restrained illumination.
+- No gaming/casino appearance.
+- No generic admin-template appearance.
+- No TradingView/MetaTrader imitation.
+
+Headings:
+
+Title Case
+White
+Consistent font
+Consistent size hierarchy
+Consistent spacing
+
+Active navigation behavior:
+
+Active tab receives a subtle accent glow.
+
+The glow/accent beneath the corresponding page header must match the active
+tab's accent color.
+
+Page titles themselves remain white.
+
+Custom Atlas icons should be used for major concepts.
+
+Market structure:
+
+Green geometric Atlas Bull = Bullish
+Red geometric Atlas Bear = Bearish
+
+Bull and Bear face opposite directions.
+
+============================================================
+PRODUCTION VS RESEARCH
+============================================================
+
+Production Watchlist and Laboratory/Challenger information must remain
+conceptually and visually distinct.
+
+Watchlist answers:
+
+"What is Atlas monitoring/trading now?"
+
+Laboratory answers:
+
+"What is Atlas learning?"
+
+Research findings must never visually appear to be production trading
+authorization.
+
+============================================================
+REPORTS PURPOSE
+============================================================
+
+Reports remain a dedicated section.
+
+Reports answer:
+
+"What happened over a selected historical period and what can be exported?"
+
+Reports may include:
+
+- Trading Performance.
+- Account Performance.
+- Strategy/Pattern Performance.
+- Risk.
+- News Impact.
+- System & Operations.
+- CSV exports.
+- Future PDF reports.
+
+Reports must not become a duplicate Dashboard.
+
+============================================================
+CODEX PHASE A AUDIT
+============================================================
+
+Codex independently audited RC15 before implementation.
+
+Phase A status:
+
+ARCHITECTURE AND GAP ANALYSIS COMPLETE.
+IMPLEMENTATION INTENTIONALLY NOT STARTED.
+
+Major findings:
+
+1. Existing Admin permissions are too broad.
+
+Admin currently has several Owner-level backend capabilities including:
+
+- Lead access.
+- Strategy/research mutation.
+- Account/execution controls.
+- Other Owner-equivalent capabilities.
+
+2. Lead Center is currently not sufficiently Owner-only at the backend.
+
+3. Existing messaging allows Admin <-> Trader communication and therefore
+does not satisfy the frozen Owner-centered messaging model.
+
+4. Trader MFA is not currently mandatory.
+
+5. Research evaluation endpoint contains a defective request-body path and
+inconsistent CSRF handling.
+
+6. Current browser UI contains optimistic/invented operational states.
+
+Examples identified:
+
+- News can default to CLEAR.
+- API status is hardcoded ONLINE.
+- Mode is hardcoded DEMO / STAGING.
+- Market-open state is calculated by browser JavaScript.
+- Some missing calendar/news conditions may appear CLEAR without proving
+  authoritative freshness.
+
+This behavior must be removed.
+
+Unknown or missing backend truth must appear as:
+
+UNKNOWN
+STALE
+UNAVAILABLE
+BLOCKED
+
+as appropriate.
+
+Never default missing operational truth to a positive/healthy state.
+
+============================================================
+REUSABLE RC15 COMPONENTS
+============================================================
+
+Codex confirmed that significant existing RC15 infrastructure can be reused,
+including:
+
+- Existing dark application shell foundations.
+- Watchlist.
+- Symbol Detail.
+- M15 chart.
+- Laboratory/research structures.
+- Runtime read models.
+- Dashboard backend plumbing.
+- Security foundations.
+- Atlas visual assets.
+- Demo safety architecture.
+- Account-to-user access foundations.
+- One-trader-to-many-accounts foundation.
+- Decision journal.
+- Operational events.
+- Heartbeats.
+- Worker/lifecycle state.
+- Launch readiness.
+- Recovery state.
+- Execution control.
+- Official news persistence/source health.
+- Research services.
+- Lead persistence.
+- Append-only messaging store.
+
+============================================================
+API DIRECTION
+============================================================
+
+Frontend development should introduce a versioned API contract:
+
+/api/v1
+
+This should initially be ADDITIVE.
+
+Do not prematurely remove or break existing RC15 endpoints.
+
+The new frontend should migrate toward stable versioned contracts while
+existing interfaces remain available until replacement is fully certified.
+
+Operational API responses should include where appropriate:
+
+- authoritative state
+- timestamp
+- freshness
+- provenance/source
+- reason/status codes
+- standardized safe errors
+
+Frontend must not invent missing values.
+
+============================================================
+CODEX IMPLEMENTATION AUTHORIZATION
+============================================================
+
+Codex is approved to proceed ONLY with:
+
+PHASE 0
+Safety baseline and contract freeze.
+
+PHASE 1
+Authorization and request-path remediation.
+
+Broad visual frontend implementation is NOT yet authorized.
+
+============================================================
+PHASE 0 REQUIREMENTS
+============================================================
+
+Create a new development/candidate working line from RC15.
+
+DO NOT overwrite or modify the certified RC15 baseline.
+
+Establish:
+
+- RC15 deterministic regression baseline.
+- Characterization tests.
+- Strategy-boundary tests.
+- Runtime read-model tests.
+- Authoritative status/reason/error contracts.
+- Data classification/redaction rules.
+
+Acceptance gate:
+
+- Zero trading-strategy diffs.
+- Live remains prohibited.
+- RC15 baseline tests remain green.
+
+============================================================
+PHASE 1 REQUIREMENTS
+============================================================
+
+Correct backend authorization before broad UI construction.
+
+Required changes:
+
+1. Implement deny-by-default capability/resource authorization.
+
+2. Make Lead Center strictly Owner-only.
+
+3. Remove Admin/Co-Admin authority over:
+   - strategy mutation
+   - risk changes
+   - account execution controls
+   - Demo/Live controls
+   - Lead Center
+   - Owner Settings
+   - critical system controls
+
+4. Enforce Owner-centered messaging:
+   - Owner <-> user permitted
+   - non-owner -> Owner only
+   - no lateral non-owner communication
+
+5. Repair the research evaluation request-body defect.
+
+6. Standardize CSRF/request-body handling.
+
+7. Add role-specific response serializers/redaction.
+
+8. Add exhaustive positive and negative RBAC tests.
+
+9. Add IDOR/resource-isolation tests.
+
+10. Preserve all RC15 strategy/runtime safety boundaries.
+
+============================================================
+PHASE 1 STOP GATE
+============================================================
+
+Codex must STOP after Phase 1 and provide a report before proceeding to
+Phase 2.
+
+Required Phase 1 report:
+
+- Exact files changed.
+- Exact database/schema changes.
+- Authorization matrix before/after.
+- API changes.
+- Tests added.
+- Complete test results.
+- Security findings.
+- Remaining limitations.
+- Any backend behavior changes.
+- Confirmation of Live prohibition.
+- Confirmation that RC15 trading strategy/execution behavior remains unchanged.
+
+Broad frontend implementation requires Owner approval after review of the
+Phase 1 report.
+
+============================================================
+RELEASE / VERSION POLICY
+============================================================
+
+Do not call the current architecture work RC16.
+
+RC15 remains the certified baseline.
+
+Development after RC15 must occur on a separate candidate/development line.
+
+A new numbered release candidate should only be created after the relevant
+implementation and certification gates pass.
+
+Do not overwrite the known-good RC15 package.
+
+============================================================
+GITHUB RECORDS TO PRESERVE
+============================================================
+
+The repository/project history should retain:
+
+1. RC15 certified baseline.
+2. RC15 release manifest and hashes.
+3. Frontend Product Specification v1 — Owner Architecture Freeze.
+4. Master Codex Frontend Implementation Prompt.
+5. Codex RC15 Phase A Audit and Implementation Plan.
+6. This GitHub Handoff / Architecture Freeze record.
+7. Future Phase 0/1 implementation report and test evidence.
+8. Future candidate manifests/hashes.
+
+============================================================
+CURRENT CHECKPOINT
+============================================================
+
+STATUS:
+
+RC15:
+DEPLOYED / RUNNING / AUTHORITATIVE BASELINE
+
+LIVE EXECUTION:
+FORBIDDEN
+
+DEMO:
+AUTHORIZED SUBJECT TO RC15 RUNTIME GATES
+
+FRONTEND PRODUCT ARCHITECTURE:
+FROZEN V1
+
+ROLE MODEL:
+FROZEN V1
+
+CODEX PHASE A:
+COMPLETE
+
+CODEX IMPLEMENTATION:
+PHASE 0/1 AUTHORIZED
+
+BROAD FRONTEND BUILD:
+NOT YET AUTHORIZED
+
+NEW RELEASE CANDIDATE:
+NOT YET CREATED
+
+============================================================
+END OF HANDOFF
+============================================================
