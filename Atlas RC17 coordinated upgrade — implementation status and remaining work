@@ -1,0 +1,298 @@
+# Atlas RC17 coordinated upgrade — implementation status and remaining work
+
+Snapshot date: 2026-09-10. Overall status: **IN PROGRESS / NOT READY**.
+
+This is a development progress record, not a release certificate, deployment
+approval, or assertion that Atlas has traded successfully on the VPS.
+
+## 1. Scope and baseline
+
+This record covers the Owner's September 8 **Prompt 1 + Prompt 2 coordinated
+upgrade**, including the subsequently supplied landing-background and icon
+references. It does not present the earlier RC17 Phase 1–6 implementation as new
+work performed for this request.
+
+- Implementation tree: `rc17-development/source` in the current workspace.
+- Preserved RC16 baseline: `source` in the workspace root.
+- Earlier RC17 release artifact: `rc17-development/final-release/Atlas-0.25.0-rc17.zip`.
+- Earlier ZIP SHA-256, rechecked for this record:
+  `1638f3f17ce44193d7befe2e268af80e2a55f4cd5ae3dd117acf600eefc01c2e`.
+- The earlier ZIP does **not** contain this coordinated upgrade. Its earlier
+  acceptance/certification does not certify the modified development tree.
+- Work log: `UPGRADE_PLAN_2026-09-08.md` alongside this document. Older checkpoint
+  limitations are superseded only where a later checkpoint explicitly resolves them.
+
+Status meanings: **Implemented** = code exists and local tests cover it;
+**Partial** = some implementation exists but the full requested experience or
+operational acceptance is missing; **Pending** = the requested upgrade is not yet
+implemented/accepted. None of these labels implies VPS or broker certification.
+
+## 2. What has actually been implemented
+
+| Workstream | Completed development work | Important remaining limit |
+|---|---|---|
+| Coordinated planning | Mapped both prompts to existing modules, prioritized runtime reliability before visuals, recorded boundaries and backups | Plan is not completed acceptance |
+| Diagnostic web checks | Configured application Host and validated port; malformed health JSON fails; launcher checks release identity | Actual proxy/TLS/VPS startup still unverified |
+| Service-manager port consistency | CLI/environment precedence and effective port propagation to children | Full deployment/process-ownership workflow still pending |
+| Owner diagnostic summary | Additive PASS/WARNING/FAIL-style Owner projection, malformed evidence fails visibly; technical evidence retained | Not the complete requested startup check catalog or redesigned System Status page |
+| Market freshness | Persisted M15 freshness validation rejects future/stale/unclosed/malformed evidence; broker doctor covers M5/M15/H1/H4/D1 for allowed symbols | Broker offset remains NOT_DETERMINED; no speculative timestamp shift; no actual feed certification |
+| Feed characterization | Stub-broker tests for symbol mapping, closed-bar reads and timestamp/range behavior | Existing feed conversion was not repaired for an unverified VPS offset |
+| Decision history | Append-only evaluation/Supervisor transition history alongside existing latest-state records; transactional writes and bounded reading | No reconstruction of pre-upgrade history; not every requested execution/exit stage is recorded in one complete trace |
+| Exact execution evidence | Candidate-to-dispatch-to-account/signal ledger linkage; no symbol/time guessing; allowlisted read-only output | Ledger status is not a completed-trade result |
+| Authorized APIs | Owner-capability-gated decision-history and execution-evidence GET routes with bounded queries and session/deployment checks | No authorization-model broadening; no completed-performance endpoint added in this upgrade |
+| Owner Recent Decisions UI | Account-specific execution evidence and paged decision history, malformed/stale-response guards | Node/minimal-DOM tests, not browser visual acceptance; broad cockpit redesign remains pending |
+| Reconciliation safety | Unknown/malformed/contradictory statuses no longer pass the worker's reconciliation check | All other existing execution gates still apply |
+| Trade-management lookup safety | Failed/ambiguous position reads are distinct from successful empty reads; uncertainty remains unresolved and is not resent automatically | Management VERIFIED is not a financial closure certificate |
+| Broker position attribution | Correct order-history lookup; removed guessed magic/comment/recency attribution; persisted stable position identifier separately from current ticket | Missing/legacy evidence remains unresolved |
+| Broker account attribution | Stores observed login/server/Demo mode before send; restart reconciliation requires matching historical identity | Reconfigured or legacy account records need evidence-backed recovery; no automatic rebind |
+| Deal-history validation/collection | Strict bounded broker records, exact position/symbol linkage, finite decimal fields, duplicate/conflict checks, Demo identity before/after collection | No complete-history guarantee or financial-outcome claim |
+| Immutable evidence storage | Account-bound broker deal records; atomic/idempotent insertion; conflict rollback and no history overwrite | Broker correction/conflict workflow still pending |
+| Trusted ingestion | Exact ledger reference loading, account binding, acknowledged order/deal membership, read-only account-scoped paging and bounded ingestion passes | Not a complete financial ledger |
+| Idle worker integration | At most one eligible reference per idle pass, interval after completion, explicit evidence heartbeat; existing pause/profile/reconciliation gates preserved | Not exercised on a real terminal; synchronous broker calls can block; busy/paused/unresolved workers do not collect |
+| Lifecycle assessment | Exact decimal open/partial-exit/balanced-volume assessment; reversals and ambiguous history stay unresolved | Not wired into worker/reporting; balance does not establish closure |
+| Current-position observation | Symbol-scoped lookup using stable identifier, exact Demo identity checks, malformed response rejection | Absence is point-in-time evidence only; not wired into ingestion/reporting |
+| Combined reconciliation | History → current position → history; changed history, volume/direction mismatch and unavailable reads stay unresolved | Separate tested helper only; always `closure_confirmed=false` and `history_complete=false` |
+
+### New HTTP contracts in this upgrade
+
+- `GET /api/decisions/execution-evidence?correlation_id=...&account_id=...`
+- `GET /api/decisions/history?correlation_id=...&after_event_id=...&limit=...`
+
+Both require the existing `VIEW_DECISIONS` and `VIEW_EXECUTION_CONTROL`
+capabilities, whose current role intersection is enabled Owner. Session and
+deployment checks remain in force. These read-only GET routes do not bypass the
+existing CSRF requirements on mutations. Prior phase reporting, messaging and
+research-archive endpoints predate this coordinated upgrade.
+
+## 3. Exact integration boundary
+
+**Connected to existing application paths:** diagnostic projections/checks,
+service-manager port propagation, transition recording, the two Owner APIs and
+Recent Decisions UI, transport safety/attribution changes, and idle deal ingestion.
+
+**Implemented but not connected to worker/storage/reporting:** lifecycle
+assessment, current-position observation and combined position/history
+reconciliation. These are supporting modules, not delivered closed-trade analytics.
+
+**Not established:** a genuinely qualified candidate completing the actual VPS
+Demo entry → fill → monitoring → exit → outcome → cockpit analytics path.
+
+## 4. Requirement-by-requirement remaining scope
+
+| Request | Current status | What remains |
+|---|---|---|
+| P1.1 Landing page and approved hero | Pending | Use the supplied Earth/map/horizon/candlestick image unchanged; new slogans, centered logo, Request Information/Client Login actions and smaller secondary content. Current page still uses the earlier layout/copy |
+| P1.2 Universal cockpit header | Pending | Centered raised 3D status surfaces, stronger controlled glow, improved scale, remove redundant headings, desktop fit |
+| P1.3 Human-readable language | Partial | Diagnostic Owner summary exists; frontend-wide state/reason formatting, local times and rounded values remain |
+| P1.4 Owner cockpit | Pending | Compact instruments/alerts/news, real outcome charts, symbol/pattern/strategy performance, matrix, health/discoveries/activity redesign |
+| P1.5 Watchlist | Pending | Larger approved icons, single direction treatment, rounded spread, useful stages/reasons, clickable news restrictions, no primary desktop horizontal scroll |
+| P1.6 Symbol Detail | Pending | M5/M15/H1/H4 controls and real data, overlays/legend, circular beacon, manual-confirmation data, six-step progress, zone map and concise agent conclusions |
+| P1.7 System Status | Partial | Backend diagnostic improvements and Recent Decisions evidence exist; grouped human-readable recent status view and deeper technical view remain |
+| P1.8 Laboratory | Pending | Activate symbol/pattern views with real research evidence; separate Strategy #1 and SuperTrend A/B workspace |
+| P1.9 Accounts/users | Pending | Complete new user/account lifecycle, requested identity fields, safe account archive and connection testing; preserve secrets and account isolation |
+| P1.10 News | Pending | New calendar/detail presentation, authoritative forecast/previous/actual where available, useful protection windows and approved educational explanation |
+| P1.11 Messages/Reports/Settings | Pending | Apply new shared visual/language cleanup after priority operational work |
+| P1.12 Responsive acceptance | Pending | Browser testing on normal Windows desktop/laptop, large displays, tablet/mobile; new primary layouts must avoid horizontal scroll |
+| P2.1–3 Operating pipeline, trace, Demo | Partial | Complete all-stage attribution/human explanations and actual qualified Demo operational acceptance; do not force trades |
+| P2.4 Completed outcome storage | Partial prerequisite work only | Prove completeness/initial-entry linkage, verify closure, handle partial closes/reversals/corrections, store full attributable outcome and costs; integrate helpers |
+| P2.5 Performance analytics | Pending | Authorized completed-outcome APIs; P/L, R, profit factor, expectancy, drawdowns, win/loss statistics, streaks, holding time and supported breakdowns |
+| P2.6 Strategy #1 preservation | Locally checked; operational acceptance pending | Preserve fundamental rules and demonstrate intended runtime behavior with real feed/qualified conditions |
+| P2.7–14 SuperTrend Expert | Pending | Separate research-only ATR10/RMA/HL2/3.0 closed-bar engine; H4 direction/M15 entry; stop buffer; H4 reversal exit; EMA20 variant; independent signals/outcomes/A-B statistics; promotion disabled |
+| P2.15 Missing-data contracts | Partial | Decision reasons/evidence improved; finish field-by-field classification and contracts for impulses, zones, patterns, risk/news, overlays/progress and outcomes |
+| P2.16 Broker time | Partial | Diagnostics/tests improved; reproduce actual offset, establish deterministic centralized normalization and validate all symbols/timeframes at startup |
+| P2.17 News backend | Pending | Authoritative economic values and per-symbol protection reason/start/end/state, approved educational text |
+| P2.18 Self-diagnostics | Partial | Complete full startup catalog, causes/actions/references and real local/public endpoint, secrets, migration, worker and broker validation |
+| P2.19–25 Deployment/services/logs/recovery | Partial foundations only | Supported deploy script, validated backups/migrations/rollback, precise process ownership, duplicate handling, startup self-test/report, logging retention; no new deployment-command acceptance |
+| P2.26–29 Testing/acceptance/handoff | Partial | Feature tests for remaining work, skipped checks, browser/Windows/MT5/VPS acceptance, final artifact certification and operator runbook |
+
+Existing earlier-phase Accounts/News/Laboratory/Reports screens are not absent;
+the **new requested upgrades** to those screens have not been completed.
+
+## 5. Prioritized GitHub backlog / acceptance checklists
+
+These are proposed issue records, not created GitHub issues. IDs are local tracking
+IDs and do not imply existing GitHub issue numbers.
+
+### RC17-U01 — Complete reliable Demo outcome accounting (priority 1)
+
+- [ ] Establish authoritative complete-history and initial-entry linkage rules.
+- [ ] Integrate lifecycle/current-position reconciliation with trusted ingestion.
+- [ ] Handle partial closes, reversals, broker corrections, duplicates and costs.
+- [ ] Define legacy missing-binding and conflict recovery without guessing/rebinding.
+- [ ] Preserve strategy/pattern/signal/initial risk/SL/news/decision attribution.
+- [ ] Persist actual closure and explain unavailable fields; never use request price as verified fill.
+- [ ] Test recovery/restarts and slow broker reads; no duplicate sends.
+- [ ] Validate real isolated Demo flow only under genuine qualified conditions.
+
+### RC17-U02 — Finish runtime/time diagnostics and complete trace (priority 1)
+
+- [ ] Reproduce broker offset using actual timestamp evidence, not stale-bar guesses.
+- [ ] Centralize verified normalization and startup checks for every required feed.
+- [ ] Complete missing stage/value inventory and human-readable blocking reasons.
+- [ ] Finish diagnostic catalog with automatic causes/actions and precise readiness.
+- [ ] Validate actual authentication/MFA, account isolation, TLS/Caddy and process tree.
+
+### RC17-U03 — Authoritative analytics and Owner cockpit (priority 2)
+
+- [ ] Build completed-outcome metrics and role-scoped APIs after U01.
+- [ ] Implement symbol/pattern/strategy/session breakdowns and cockpit charts.
+- [ ] Complete approved hero, shared header/icon system and frontend language cleanup.
+- [ ] Complete Watchlist, Symbol Detail, overlays, zones and qualification progress.
+- [ ] Perform desktop/tablet/mobile browser and Owner visual acceptance.
+
+### RC17-U04 — Independent SuperTrend A/B Laboratory (priority 3)
+
+- [ ] Implement exact indicator/closed-candle rules without extra indicators.
+- [ ] Define warm-up, signal deduplication, fills, stop buffers, intrabar ambiguity,
+  costs, sizing inputs, missing-data and session methodology before simulation.
+- [ ] Persist Variant A and EMA20 Variant B independently; record filtered candidates.
+- [ ] Calculate avoided losers/missed winners and comparative metrics from evidence.
+- [ ] Activate Laboratory displays and retain strict research/production separation.
+- [ ] Keep all order paths and automatic promotion disabled.
+
+### RC17-U05 — Accounts and News completion (priority 4)
+
+- [ ] Finish requested user → multiple-account workflows and secure lifecycle contracts.
+- [ ] Complete News values/protection fields and approved simple-English explanations.
+- [ ] Add authorization, IDOR, secret-redaction and malformed-data coverage.
+
+### RC17-U06 — Secondary UX (priority 5)
+
+- [ ] Clean Messages, Reports and Settings using the shared cockpit presentation.
+- [ ] Preserve existing role restrictions and truthful unsupported/unavailable states.
+
+### RC17-U07 — Deployment, recovery and release acceptance (release gate)
+
+- [ ] Finish/test one supported Windows deployment/start/restart workflow.
+- [ ] Verify backups, database migration integrity and rollback/recovery procedures.
+- [ ] Validate exact process ownership, duplicate prevention and log retention.
+- [ ] Execute skipped opt-in and external security/runtime certifications.
+- [ ] Run full regression and browser/real Demo/Windows acceptance on final code.
+- [ ] Rebuild/certify the actual final artifact when authorized; earlier ZIP is not this upgrade.
+- [ ] Deliver exact deploy/restart/rollback instructions and an evidence-backed readiness report.
+
+## 6. Validation evidence and what it does NOT prove
+
+- Latest full suite: **950 passed, 2 skipped**, zero failures/errors.
+- JUnit: `rc17-development/evidence/upgrade-full-regression-21.xml`.
+  Re-read for this record: 952 total cases, 0 failures, 0 errors, 2 skipped.
+- Pytest terminal duration: 245.75 seconds; JUnit suite duration: 245.691 seconds.
+- 950 is the **whole suite**, including prior release tests; it is not 950 new tests.
+- 32 upgrade-specific Python test files exist under `source/tests/test_rc17_upgrade*.py`
+  relative to the development folder. Earlier existing fixtures were also adjusted
+  where they had stale or incorrect broker evidence; see the chronological work log.
+- Latest combined reconciliation/current-position/lifecycle targeted suite: 60 passed.
+- Latest changed-module Ruff and Bandit: passed. Earlier modified runtime files retain
+  documented baseline lint/low-severity findings; this is not a claim of repository-wide zero lint.
+- Static-security, strategy-purity and dependency closure: PASS. Latest closure
+  inventory: 19 entrypoints, 206 Python files; not a dependency vulnerability scan.
+- Earlier upgrade checkpoint: all 17 app JS files passed syntax checks. UI behavior
+  was tested using Node/minimal DOM; new browser visual acceptance is still pending.
+- HTTP tests use disposable local stores and real password/TOTP/session processing.
+  Test-only secret protection was used where host DPAPI was unavailable; this does
+  not establish VPS DPAPI, real browser origin/Caddy/TLS, or actual Owner login success.
+
+The two skipped tests are:
+
+1. `tests.test_v025_rc14_runtime_dependency_closure::test_packaged_lock_installs_in_clean_venv_and_imports_every_entrypoint`
+2. `tests.test_v025_rc15_statcan_redundancy::test_live_official_statcan_chain_yields_both_required_families`
+
+External checks still include Windows ACL, DPAPI runtime, TLS/firewall, authorization
+penetration testing, dependency vulnerability checks and actual MT5/feed/recovery
+acceptance. No actual trading orders or VPS deployment were performed in this upgrade work.
+
+## 7. Database and safety record
+
+Additive schema code introduced:
+
+| Store | Addition | Preservation behavior |
+|---|---|---|
+| Decision journal | `candidate_decision_history` and index | Appends evaluation/Supervisor events atomically with latest state; no historical backfill |
+| Position evidence | `position_deal_evidence` and index | Immutable account/deal-keyed records; idempotence and conflict rollback |
+| Position evidence | `position_deal_account_binding` | Exact historical Demo login/server/mode binding; rejects legacy adoption or identity change |
+
+The worker lazily initializes `runtime/position_deal_evidence.sqlite3` on an eligible
+idle collection pass. Schema behavior has been tested on disposable databases;
+no deployed runtime database was migrated here. Verified backups and recovery
+procedures are required before running the upgraded code on existing runtime data.
+
+Rechecked scoped preservation: **47 of 50 existing Python files** across agents,
+coordination, risk, strategy, Supervisor, execution and security match the RC16
+baseline. The three intentional differences are `demo_transport.py`,
+`reconciliation.py`, and `trade_management.py` under `atlas/execution`.
+
+The account-worker entrypoint and diagnostic/manager/server files are also changed
+outside that 50-file comparison. Therefore **do not claim all runtime files are
+unchanged**. Fundamental Strategy #1, Supervisor/risk authority, MFA/RBAC and Live
+prohibition were not redesigned. Baseline RC16 was not edited; no credentials,
+Owner account or actual Demo permission were reset to make tests pass.
+
+## 8. Verified implementation-file inventory
+
+Compared current development files against the preserved earlier RC17 ZIP by
+SHA-256 on 2026-09-10. Paths below are relative to the development source root.
+This is a packaged-code comparison, **not a Git commit diff**.
+
+### Modified packaged files — 11
+
+| File | Change |
+|---|---|
+| `atlas/analytics/decision_journal.py` | Append-only transition history |
+| `atlas/diagnostics/broker_doctor.py` | Per-symbol/timeframe freshness evidence |
+| `atlas/diagnostics/runtime_doctor.py` | Configured health probe, summary and freshness integration |
+| `atlas/execution/demo_transport.py` | Exact broker correlation, stable identifier, account binding |
+| `atlas/execution/reconciliation.py` | Fail-closed reconciliation result validation |
+| `atlas/execution/trade_management.py` | Failed-vs-empty position lookup distinction |
+| `atlas/operations/demo_launcher.py` | Configured Host/port and release health identity |
+| `run_atlas_service_manager.py` | Effective web-port propagation |
+| `run_mt5_account_worker.py` | Safety-gated idle evidence ingestion |
+| `run_secure_staging_web.py` | Two additive authorized decision evidence routes |
+| `web/public/app/modules/system_status.js` | Owner Recent Decisions evidence/history UI |
+
+### New runtime modules absent from the earlier ZIP — 14
+
+- `atlas/diagnostics/owner_report.py`
+- `atlas/diagnostics/market_freshness.py`
+- `atlas/analytics/execution_evidence.py`
+- `atlas/analytics/decision_trace.py`
+- `atlas/analytics/position_deal_evidence.py`
+- `atlas/analytics/position_deal_collector.py`
+- `atlas/analytics/position_deal_store.py`
+- `atlas/analytics/position_deal_ingestion.py`
+- `atlas/analytics/position_deal_selection.py`
+- `atlas/analytics/position_deal_batch.py`
+- `atlas/analytics/position_deal_idle.py`
+- `atlas/analytics/position_deal_lifecycle.py`
+- `atlas/analytics/current_position_evidence.py`
+- `atlas/analytics/position_evidence_reconciliation.py`
+
+The ZIP's generated `RELEASE_MANIFEST.json` is absent from the development source;
+that is not an application-code deletion. Tests are intentionally absent from this
+release ZIP, so ZIP comparison cannot determine which older test files changed.
+All compared packaged frontend files except `system_status.js` match the earlier
+ZIP: the requested new hero/icon/cockpit redesign is not implemented in them.
+
+## 9. GitHub preparation and upload boundary
+
+At inspection, the local workspace Git repository had **no commits** and the source,
+development, evidence and other top-level trees were untracked. There is no commit
+SHA to cite for this work yet. Nothing was committed, pushed or posted for this record.
+
+Suggested first documentation record:
+
+- Title: `RC17 coordinated upgrade: progress, evidence and remaining acceptance gates`
+- Use this document as a tracking issue body or `docs/rc17-upgrade-status.md`.
+- Create separate issues from RC17-U01 through RC17-U07 when GitHub publication is approved.
+- Preserve a reviewed source baseline and link subsequent focused commits/issues
+  to those IDs. Do not label this checkpoint as a release-ready tag.
+
+**Do not run a blanket `git add .` in the current workspace.** Existing temporary
+test trees, caches and evidence material were observed. Before a code upload,
+prepare an explicit source/test/document allowlist and review ignore rules; exclude
+runtime/auth/QA databases, secrets/credentials, local environment files, virtual
+environments, disposable users/fixtures, caches, logs, temporary screenshots and
+unreviewed support/evidence bundles. Review any test fixtures deliberately selected
+for source control. Do not upload the whole workspace or old/new ZIPs by default.
+
+Only this documentation was created for the status request. No product code,
+Git history, deployment, release package or execution permission was changed.
