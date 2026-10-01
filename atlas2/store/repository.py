@@ -55,15 +55,46 @@ CHILDREN = {
         'dataset_id',
         'fact_kind,fact_id,obs_id,locator',
     ),
+    'label_groups': (
+        'group_id',
+        'label_interpretations',
+        'group_id',
+        'rank,interpretation_id',
+    ),
 }
 
 
 def child_digest(conn: sqlite3.Connection, kind: str, aggregate_id: str) -> str:
     _, child, fk, order = CHILDREN[kind]
-    rows = [dict(r) for r in conn.execute(f'SELECT * FROM {child} WHERE {fk}=? ORDER BY {order}', (aggregate_id,))]
-    # Hash each bounded record so aggregate size is not limited by ACE-1.
     import hashlib
     h = hashlib.sha256(b'ATLAS2\x00child-set-v1\x00')
+    if kind == 'label_groups':
+        rows = conn.execute(
+            'SELECT * FROM label_interpretations WHERE group_id=? '
+            'ORDER BY rank,interpretation_id',
+            (aggregate_id,),
+        ).fetchall()
+        for row in rows:
+            anchors = [
+                dict(anchor)
+                for anchor in conn.execute(
+                    'SELECT * FROM label_anchors WHERE interpretation_id=? '
+                    'ORDER BY role,anchor_id',
+                    (row['interpretation_id'],),
+                )
+            ]
+            h.update(bytes.fromhex(domain_digest(
+                'child-row-v1',
+                {'interpretation': dict(row), 'anchors': anchors},
+            )))
+        return h.hexdigest()
+    rows = [
+        dict(r)
+        for r in conn.execute(
+            f'SELECT * FROM {child} WHERE {fk}=? ORDER BY {order}',
+            (aggregate_id,),
+        )
+    ]
     for row in rows:
         h.update(bytes.fromhex(domain_digest('child-row-v1', row)))
     return h.hexdigest()
@@ -148,30 +179,10 @@ class Store:
             if type(model) not in TABLES:
                 raise TypeError('unsupported Store.put model')
             model.validate()
-        parent_key, _, _, _ = CHILDREN[kind]
         with self.transaction():
             for model in models:
                 self._insert(model)
-            if not self.conn.execute(
-                f'SELECT 1 FROM {kind} WHERE {parent_key}=?',
-                (aggregate_id,),
-            ).fetchone():
-                raise ValueError('unknown seal parent')
-            digest = child_digest(self.conn, kind, aggregate_id)
-            row = self.conn.execute(
-                'SELECT child_set_digest FROM sys_seals '
-                'WHERE aggregate_kind=? AND aggregate_id=?',
-                (kind, aggregate_id),
-            ).fetchone()
-            if row:
-                if row[0] != digest:
-                    raise StoreConflict(ConflictKind.IDENTITY_CONFLICT)
-                return digest
-            self.conn.execute(
-                'INSERT INTO sys_seals VALUES (?,?,?)',
-                (kind, aggregate_id, digest),
-            )
-            return digest
+            return self.seal_current_transaction(kind, aggregate_id)
 
     def request(self, actor: str, action: str, key: str, payload: object, result_ref: str) -> RequestResult:
         return self.request_write(actor, action, key, payload, lambda _: result_ref)
@@ -210,18 +221,34 @@ class Store:
     def child_digest(self, kind: str, aggregate_id: str) -> str:
         return child_digest(self.conn, kind, aggregate_id)
 
-    def seal(self, kind: str, aggregate_id: str) -> str:
+    def seal_current_transaction(self, kind: str, aggregate_id: str) -> str:
+        """Seal an aggregate inside an already-open Store transaction."""
+        if not self.conn.in_transaction:
+            raise RuntimeError('seal_current_transaction requires an active transaction')
         if kind not in CHILDREN:
             raise ValueError('unknown seal kind')
         parent_key, _, _, _ = CHILDREN[kind]
-        with self.transaction():
-            if not self.conn.execute(f'SELECT 1 FROM {kind} WHERE {parent_key}=?', (aggregate_id,)).fetchone():
-                raise ValueError('unknown seal parent')
-            digest = self.child_digest(kind, aggregate_id)
-            row = self.conn.execute('SELECT child_set_digest FROM sys_seals WHERE aggregate_kind=? AND aggregate_id=?', (kind, aggregate_id)).fetchone()
-            if row:
-                if row[0] != digest:
-                    raise StoreConflict(ConflictKind.IDENTITY_CONFLICT)
-                return digest
-            self.conn.execute('INSERT INTO sys_seals VALUES (?,?,?)', (kind, aggregate_id, digest))
+        if not self.conn.execute(
+            f'SELECT 1 FROM {kind} WHERE {parent_key}=?',
+            (aggregate_id,),
+        ).fetchone():
+            raise ValueError('unknown seal parent')
+        digest = self.child_digest(kind, aggregate_id)
+        row = self.conn.execute(
+            'SELECT child_set_digest FROM sys_seals '
+            'WHERE aggregate_kind=? AND aggregate_id=?',
+            (kind, aggregate_id),
+        ).fetchone()
+        if row:
+            if row[0] != digest:
+                raise StoreConflict(ConflictKind.IDENTITY_CONFLICT)
             return digest
+        self.conn.execute(
+            'INSERT INTO sys_seals VALUES (?,?,?)',
+            (kind, aggregate_id, digest),
+        )
+        return digest
+
+    def seal(self, kind: str, aggregate_id: str) -> str:
+        with self.transaction():
+            return self.seal_current_transaction(kind, aggregate_id)

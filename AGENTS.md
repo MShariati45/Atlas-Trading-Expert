@@ -25,3 +25,6 @@ Do not claim PASS without running the named test.
 Do not silently fill missing trading semantics; mark the gap and keep it non-blocking where the design says so.
 Do not commit, push, merge, open PRs, modify remotes, or change GitHub unless explicitly instructed by the owner/integration room.
 Leave a concise summary of files changed, tests run, failures, and unresolved questions.
+
+## Evolution rule
+Follow ADR-007. New capability must enter through versioned contracts, additive migration, or a narrow adapter. Do not solve a stage by creating a rewrite requirement for the next stage. Preserve historical readability and one explicit source of truth during transitions.

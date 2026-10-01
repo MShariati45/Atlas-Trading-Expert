@@ -23,3 +23,7 @@ Atlas Codex runs must use `--ignore-user-config` so global MCP/plugin configurat
 Atlas Claude reviews must use `--safe-mode --restricted --strict-mcp-config` and a read-only tool list unless a bounded implementation task explicitly requires edits.
 
 Before and after each agent run, verify the Sigma automation PIDs remain untouched and no Atlas child process points at a Sigma path. Any accidental cross-project helper is terminated and its local tool artifacts are removed before work continues.
+
+## Upgradeability gate
+
+Before closing each stage, verify that the next stage can be added without rewriting the closed stage. Any semantic change must have a versioned contract or forward migration path. Compatibility bridges must be explicit, tested, and temporary.
