@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import unicodedata
 from typing import Any
 
@@ -77,3 +78,31 @@ def domain_digest(domain_tag: str, value: Any) -> str:
     _norm_text(domain_tag)
     payload = b"ATLAS2\x00" + domain_tag.encode("ascii") + b"\x00" + ace1_encode(value)
     return hashlib.sha256(payload).hexdigest()
+
+
+def canonical_json_text(value: Any) -> str:
+    """Return ACE-1 bytes as UTF-8 JSON text for supported canonical values."""
+    return ace1_encode(value).decode("utf-8")
+
+
+def validate_canonical_json_text(text: str) -> str:
+    """Validate that text is exactly the ACE-1 JSON representation of its value."""
+    if type(text) is not str or not text:
+        raise ValueError("canonical JSON text required")
+
+    def unique_object(pairs):
+        result = {}
+        for key, value in pairs:
+            if key in result:
+                raise ValueError("duplicate JSON key")
+            result[key] = value
+        return result
+
+    try:
+        parsed = json.loads(text, object_pairs_hook=unique_object)
+        encoded = canonical_json_text(parsed)
+    except (json.JSONDecodeError, CanonicalEncodingError) as exc:
+        raise ValueError("canonical ACE-1 JSON required") from exc
+    if encoded != text:
+        raise ValueError("canonical ACE-1 JSON required")
+    return text

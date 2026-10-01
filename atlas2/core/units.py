@@ -44,3 +44,28 @@ def ratio_to_ppm(value: str | Decimal) -> int:
 
 def r_to_micro(value: str | Decimal) -> int:
     return ratio_to_ppm(value)
+
+
+def canonical_decimal_text(value: str | Decimal) -> str:
+    """Return an exact, non-exponent, no-trailing-fraction-zero decimal string."""
+    if type(value) is str:
+        if not value.isascii():
+            raise ValueError("decimal text must be ASCII")
+        try:
+            dec = Decimal(value)
+        except InvalidOperation as exc:
+            raise ValueError("invalid decimal value") from exc
+    elif isinstance(value, Decimal):
+        dec = value
+    else:
+        raise TypeError("decimal value must be text or Decimal")
+    if not dec.is_finite():
+        raise ValueError("decimal value must be finite")
+    text = format(dec, "f")
+    if "." in text:
+        text = text.rstrip("0").rstrip(".")
+    if text in {"-0", ""}:
+        text = "0"
+    if text.startswith("+"):
+        text = text[1:]
+    return text

@@ -21,8 +21,18 @@ def _id(prefix: str, char: str) -> str:
 
 OBS_ID = _id('obs', 'a')
 COMP_ID = _id('comp', 'b')
-FBAR_ID = _id('fbar', 'c')
-FQT_ID = _id('fqt', 'd')
+FBAR_ID = make_id('fbar', 'bar-fact-v1', {
+    'instrument_id': 'EURUSD', 'timeframe': 'M1', 'price_side': 'BID',
+    'open_time_us': -1, 'close_time_us': 1,
+    'open': 10, 'high': 12, 'low': 9, 'close': 11,
+    'tick_volume': 0, 'real_volume': None, 'spread_points': None,
+    'spread_semantics': None, 'instrument_spec_id': COMP_ID,
+})
+FQT_ID = make_id('fqt', 'quote-fact-v1', {
+    'instrument_id': 'EURUSD', 'time_us': -1, 'source_seq': None,
+    'bid': 10, 'ask': 11, 'bid_volume': None, 'ask_volume': None,
+    'instrument_spec_id': COMP_ID,
+})
 DS_ID = _id('ds', 'e')
 DIGEST = 'f' * 64
 
@@ -158,7 +168,16 @@ class ModelEdges(unittest.TestCase):
             model.validate()
         for basis in AvailabilityBasis:
             replace(self.link, availability_basis=basis, available_at_us=None if basis is AvailabilityBasis.UNKNOWN else -1).validate()
-        replace(self.quote, bid=INT64_MIN, ask=INT64_MAX, bid_volume=0, ask_volume=0, source_seq=0).validate()
+        extreme = {
+            'instrument_id': 'EURUSD', 'time_us': -1, 'source_seq': 0,
+            'bid': INT64_MIN, 'ask': INT64_MAX, 'bid_volume': 0, 'ask_volume': 0,
+            'instrument_spec_id': COMP_ID,
+        }
+        replace(
+            self.quote,
+            fact_id=make_id('fqt', 'quote-fact-v1', extreme),
+            bid=INT64_MIN, ask=INT64_MAX, bid_volume=0, ask_volume=0, source_seq=0,
+        ).validate()
 
     def test_integer_fields_reject_non_int64(self):
         for model, fields in ((self.blob, ('byte_size',)), (self.obs, ('acquired_at_us',)), (self.bar, ('open_time_us', 'close_time_us', 'open', 'high', 'low', 'close', 'tick_volume', 'real_volume', 'spread_points')), (self.quote, ('time_us', 'source_seq', 'bid', 'ask', 'bid_volume', 'ask_volume')), (self.link, ('available_at_us', 'quality_flags'))):

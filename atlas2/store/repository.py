@@ -8,7 +8,10 @@ import time
 from typing import Callable
 
 from atlas2.core.canonical import domain_digest
-from atlas2.model.data import RawBlob, SourceObservation
+from atlas2.model.data import (
+    RawBlob, SourceObservation, BarFact, QuoteFact, CalendarScheduleFact,
+    CalendarValueFact, FactLink, DatasetVersion, DatasetMembership,
+)
 from .blobs import BlobStore
 from .db import connect
 from .migrate import apply_migrations
@@ -31,6 +34,13 @@ class StoreConflict(ValueError):
 TABLES = {
     RawBlob: ('raw_blobs', ('blob_sha256',)),
     SourceObservation: ('source_observations', ('obs_id',)),
+    BarFact: ('data_bar_facts', ('fact_id',)),
+    QuoteFact: ('data_quote_facts', ('fact_id',)),
+    CalendarScheduleFact: ('data_calendar_schedule_facts', ('fact_id',)),
+    CalendarValueFact: ('data_calendar_value_facts', ('fact_id',)),
+    FactLink: ('data_fact_links', ('fact_id', 'obs_id', 'locator')),
+    DatasetVersion: ('data_datasets', ('dataset_id',)),
+    DatasetMembership: ('data_dataset_membership', ('dataset_id', 'fact_kind', 'fact_id', 'obs_id', 'locator')),
     RunManifest: ('run_manifests', ('manifest_id',)),
     RunAttemptStart: ('run_attempt_starts', ('attempt_id',)),
     RunAttemptEnd: ('run_attempt_ends', ('attempt_id',)),
@@ -39,6 +49,12 @@ TABLES = {
 CHILDREN = {
     'run_manifests': ('manifest_id', 'run_attempt_starts', 'manifest_id', 'attempt_id'),
     'run_attempt_starts': ('attempt_id', 'run_attempt_ends', 'attempt_id', 'attempt_id'),
+    'data_datasets': (
+        'dataset_id',
+        'data_dataset_membership',
+        'dataset_id',
+        'fact_kind,fact_id,obs_id,locator',
+    ),
 }
 
 
@@ -81,7 +97,7 @@ class Store:
             self.conn.rollback()
             raise
 
-    def put(self, model: RawBlob | SourceObservation | RunManifest | RunAttemptStart | RunAttemptEnd) -> ConflictKind | None:
+    def put(self, model) -> ConflictKind | None:
         if type(model) not in TABLES:
             raise TypeError('unsupported Store.put model')
         model.validate()
@@ -114,6 +130,48 @@ class Store:
         model = self.blobs.put(data)
         self.put(model)
         return model
+
+    def put_many(self, models) -> list[ConflictKind | None]:
+        models = list(models)
+        for model in models:
+            if type(model) not in TABLES:
+                raise TypeError('unsupported Store.put model')
+            model.validate()
+        with self.transaction():
+            return [self._insert(model) for model in models]
+
+    def put_many_and_seal(self, models, kind: str, aggregate_id: str) -> str:
+        if kind not in CHILDREN:
+            raise ValueError('unknown seal kind')
+        models = list(models)
+        for model in models:
+            if type(model) not in TABLES:
+                raise TypeError('unsupported Store.put model')
+            model.validate()
+        parent_key, _, _, _ = CHILDREN[kind]
+        with self.transaction():
+            for model in models:
+                self._insert(model)
+            if not self.conn.execute(
+                f'SELECT 1 FROM {kind} WHERE {parent_key}=?',
+                (aggregate_id,),
+            ).fetchone():
+                raise ValueError('unknown seal parent')
+            digest = child_digest(self.conn, kind, aggregate_id)
+            row = self.conn.execute(
+                'SELECT child_set_digest FROM sys_seals '
+                'WHERE aggregate_kind=? AND aggregate_id=?',
+                (kind, aggregate_id),
+            ).fetchone()
+            if row:
+                if row[0] != digest:
+                    raise StoreConflict(ConflictKind.IDENTITY_CONFLICT)
+                return digest
+            self.conn.execute(
+                'INSERT INTO sys_seals VALUES (?,?,?)',
+                (kind, aggregate_id, digest),
+            )
+            return digest
 
     def request(self, actor: str, action: str, key: str, payload: object, result_ref: str) -> RequestResult:
         return self.request_write(actor, action, key, payload, lambda _: result_ref)

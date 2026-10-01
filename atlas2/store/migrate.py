@@ -10,7 +10,7 @@ from .db import connect
 
 SCHEMA_DIR = Path(__file__).with_name('schema')
 # Updated only when adding a reviewed migration, never from runtime file contents.
-PINNED_HASHES: dict[str, str] = {'0001_core.sql': '4b8d67b71c181cf5b24ea9f7fdd2b4c9c46bc40a1ecdf1c213e096f1dfef5817', '0002_store.sql': '9f12c0ab09097253c1243af064e3beca401ad5695f40ede0b75dc72213221870', '0003_immutability.sql': 'ede4d88444243b43e67792407405514a7f71e87ced3e086f79ff44e7c618d23a', '0004_research.sql': '6d5124be6b6b977b764635c95df867f28a631e1461eaf1b15ce814475d53e563'}
+PINNED_HASHES: dict[str, str] = {'0001_core.sql': '4b8d67b71c181cf5b24ea9f7fdd2b4c9c46bc40a1ecdf1c213e096f1dfef5817', '0002_store.sql': '9f12c0ab09097253c1243af064e3beca401ad5695f40ede0b75dc72213221870', '0003_immutability.sql': 'ede4d88444243b43e67792407405514a7f71e87ced3e086f79ff44e7c618d23a', '0004_research.sql': '6d5124be6b6b977b764635c95df867f28a631e1461eaf1b15ce814475d53e563', '0005_data.sql': 'dec4ca3558171c12a41ef11a2d20287e922dbc0f70f54135674c3e2d42f4efd3'}
 
 
 def migration_files() -> list[tuple[Path, bytes]]:
@@ -52,7 +52,7 @@ def execute_migration(conn: sqlite3.Connection, script: str) -> None:
     """Execute complete pinned statements without implicit commits."""
     for statement in migration_statements(script):
         keyword = statement.lstrip().split(None, 1)[0].upper()
-        if keyword not in {'CREATE', 'INSERT', 'PRAGMA'}:
+        if keyword not in {'CREATE', 'INSERT', 'PRAGMA', 'DROP'}:
             raise RuntimeError('unsupported migration statement')
         conn.execute(statement)
 

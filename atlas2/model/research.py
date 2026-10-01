@@ -4,8 +4,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 import json
 
-from atlas2.core.canonical import ace1_encode, domain_digest
-from atlas2.core.errors import CanonicalEncodingError
+from atlas2.core.canonical import canonical_json_text, domain_digest, validate_canonical_json_text
 from atlas2.core.ids import make_id
 from atlas2.core.time import validate_utc_micros
 from atlas2.core.units import validate_int64
@@ -22,29 +21,11 @@ RESULT_KINDS = frozenset({'PRIMARY', 'REPLICATION'})
 
 
 def canonical_payload(payload: object) -> str:
-    return ace1_encode(payload).decode('utf-8')
+    return canonical_json_text(payload)
 
 
 def validate_canonical_payload(text: str) -> str:
-    if type(text) is not str or not text:
-        raise ValueError('canonical payload text required')
-
-    def unique_object(pairs):
-        result = {}
-        for key, value in pairs:
-            if key in result:
-                raise ValueError('duplicate JSON key')
-            result[key] = value
-        return result
-
-    try:
-        parsed = json.loads(text, object_pairs_hook=unique_object)
-        encoded = canonical_payload(parsed)
-    except (json.JSONDecodeError, CanonicalEncodingError) as exc:
-        raise ValueError('canonical ACE-1 JSON required') from exc
-    if encoded != text:
-        raise ValueError('canonical ACE-1 JSON required')
-    return text
+    return validate_canonical_json_text(text)
 
 
 @dataclass(frozen=True, slots=True)
