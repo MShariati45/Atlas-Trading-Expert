@@ -5,6 +5,7 @@ from enum import Enum
 from pathlib import Path
 import sqlite3
 import time
+from typing import Callable
 
 from atlas2.core.canonical import domain_digest
 from atlas2.model.data import RawBlob, SourceObservation
@@ -115,15 +116,37 @@ class Store:
         return model
 
     def request(self, actor: str, action: str, key: str, payload: object, result_ref: str) -> RequestResult:
-        model = RequestResult(actor, action, key, domain_digest('request-payload-v1', payload), result_ref, time.time_ns() // 1000)
-        model.validate()
+        return self.request_write(actor, action, key, payload, lambda _: result_ref)
+
+    def request_write(self, actor: str, action: str, key: str, payload: object,
+                      write: Callable[[int], str]) -> RequestResult:
+        """Atomically persist a fresh request's evidence and idempotency receipt.
+
+        A retry with the same actor/action/key and payload never invokes ``write``.
+        The callback uses this Store connection inside the current transaction and
+        returns the durable result reference recorded in ``sys_request_keys``.
+        """
+        digest = domain_digest('request-payload-v1', payload)
+        # Validate human/client identity fields before starting a write transaction.
+        RequestResult(actor, action, key, digest, 'pending', 0).validate()
         with self.transaction():
-            row = self.conn.execute('SELECT * FROM sys_request_keys WHERE actor_id=? AND action_kind=? AND client_key=?', (actor, action, key)).fetchone()
+            row = self.conn.execute(
+                'SELECT * FROM sys_request_keys WHERE actor_id=? AND action_kind=? AND client_key=?',
+                (actor, action, key),
+            ).fetchone()
             if row:
-                if row['payload_digest'] != model.payload_digest:
+                if row['payload_digest'] != digest:
                     raise StoreConflict(ConflictKind.LOGICAL_KEY_CONFLICT)
                 return RequestResult(**dict(row))
-            self.conn.execute('INSERT INTO sys_request_keys VALUES (?,?,?,?,?,?)', tuple(asdict(model).values()))
+            previous = self.conn.execute('SELECT max(server_time_us) FROM sys_request_keys').fetchone()[0]
+            now = max(time.time_ns() // 1000, (previous + 1) if previous is not None else 0)
+            result_ref = write(now)
+            model = RequestResult(actor, action, key, digest, result_ref, now)
+            model.validate()
+            self.conn.execute(
+                'INSERT INTO sys_request_keys VALUES (?,?,?,?,?,?)',
+                tuple(asdict(model).values()),
+            )
             return model
 
     def child_digest(self, kind: str, aggregate_id: str) -> str:

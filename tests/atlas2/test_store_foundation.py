@@ -119,7 +119,7 @@ class StoreFoundationTests(unittest.TestCase):
     def test_failed_migration_rolls_back_ddl_and_rows(self):
         schema = self.root / 'schema'
         shutil.copytree(migrate.SCHEMA_DIR, schema)
-        bad = schema / '0004_failed.sql'
+        bad = schema / f'{len(migrate.PINNED_HASHES)+1:04d}_failed.sql'
         bad.write_text('CREATE TABLE should_rollback(x INTEGER) STRICT; INSERT INTO should_rollback VALUES (1); INSERT INTO missing VALUES (1);')
         pins = dict(migrate.PINNED_HASHES)
         pins[bad.name] = hashlib.sha256(bad.read_bytes()).hexdigest()
@@ -196,7 +196,11 @@ class StoreFoundationTests(unittest.TestCase):
         self.addCleanup(conn.close)
         conn.execute('PRAGMA recursive_triggers=OFF')
         self.assertEqual(conn.execute('PRAGMA recursive_triggers').fetchone()[0], 0)
-        tables = [r[0] for r in conn.execute("SELECT name FROM sqlite_schema WHERE type='table'")]
+        # P0-2 invariants apply to the original core evidence tables. Later-stage
+        # migrations may add legitimately empty immutable tables.
+        tables = ['raw_blobs', 'source_observations', 'run_manifests', 'run_attempt_starts',
+                  'run_attempt_ends', 'sys_request_keys', 'sys_seals', 'sys_recovery_epochs',
+                  'sys_audit', 'sys_schema_migrations']
         for table in tables:
             before = list(conn.execute(f'SELECT * FROM {table}'))
             self.assertTrue(before)
