@@ -33,6 +33,14 @@ def evaluate_correction_location(
         return CorrectionLocationEvaluation(
             "NO_ELIGIBLE_H4_LABEL_GROUP", (), refs, semantic
         )
+    if any(not source["is_sealed"] for source in sources):
+        return CorrectionLocationEvaluation(
+            "H4_LABEL_GROUP_UNSEALED", (), refs, semantic
+        )
+    if any(not source["is_causal"] for source in sources):
+        return CorrectionLocationEvaluation(
+            "PINNED_H4_GROUP_NOT_CAUSAL", (), refs, semantic
+        )
     if len(sources) != 1:
         return CorrectionLocationEvaluation(
             "AMBIGUOUS_H4_LABEL_GROUPS", (), refs, semantic

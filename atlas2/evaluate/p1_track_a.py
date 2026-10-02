@@ -188,40 +188,35 @@ def _load_h4_correction_sources(
               AND s.timeframe='H4'
               AND s.instrument_id=?
               AND s.dataset_id=?
-              AND s.visible_data_cutoff_us<=?
-              AND g.visible_data_cutoff_us<=?
-              AND (
-                ?<>'OPERATIONAL'
-                OR (
-                  g.label_mode='OPERATIONAL'
-                  AND g.operational_available_at_us<=?
-                )
-              )
             ORDER BY g.group_id""",
-        (
-            *group_ids,
-            capture["instrument_id"],
-            capture["dataset_id"],
-            capture["decision_time_us"],
-            capture["decision_time_us"],
-            pin["view_kind"],
-            capture["decision_time_us"],
-        ),
+        (*group_ids, capture["instrument_id"], capture["dataset_id"]),
     ).fetchall()
-
-    if any(not row["is_sealed"] for row in rows):
-        raise ValueError("pinned H4 label group must be sealed")
 
     sources = []
     for row in rows:
-        primary_row = store.conn.execute(
-            """SELECT rank,probability_ppm,trend,confidence,
-                      correction_depth_ppm,correction_class,reason
-               FROM label_interpretations
-               WHERE group_id=? AND rank=1""",
-            (row["group_id"],),
-        ).fetchone()
-        primary = dict(primary_row) if primary_row is not None else None
+        causal = (
+            row["task_cutoff_us"] <= capture["decision_time_us"]
+            and row["visible_data_cutoff_us"] <= capture["decision_time_us"]
+            and row["submitted_at_us"] <= capture["decision_time_us"]
+        )
+        if pin["view_kind"] == "OPERATIONAL":
+            causal = causal and (
+                row["label_mode"] == "OPERATIONAL"
+                and row["operational_available_at_us"] is not None
+                and row["operational_available_at_us"] <= capture["decision_time_us"]
+            )
+
+        primary = None
+        if row["is_sealed"]:
+            primary_row = store.conn.execute(
+                """SELECT rank,probability_ppm,trend,confidence,
+                          correction_depth_ppm,correction_class,reason
+                   FROM label_interpretations
+                   WHERE group_id=? AND rank=1""",
+                (row["group_id"],),
+            ).fetchone()
+            primary = dict(primary_row) if primary_row is not None else None
+
         semantic = {
             "group_id": row["group_id"],
             "kind": row["kind"],
@@ -230,7 +225,13 @@ def _load_h4_correction_sources(
             "selector_policy_version": pin["selector_policy_version"],
             "timeframe": row["timeframe"],
             "instrument_id": row["instrument_id"],
+            "dataset_id": row["dataset_id"],
             "task_cutoff_us": row["task_cutoff_us"],
+            "group_cutoff_us": row["visible_data_cutoff_us"],
+            "submitted_at_us": row["submitted_at_us"],
+            "operational_available_at_us": row["operational_available_at_us"],
+            "is_sealed": bool(row["is_sealed"]),
+            "is_causal": bool(causal),
             "group_taint": row["taint"],
             "primary": primary,
         }
@@ -240,6 +241,8 @@ def _load_h4_correction_sources(
                 "kind": row["kind"],
                 "taint": row["taint"],
                 "primary": primary,
+                "is_sealed": bool(row["is_sealed"]),
+                "is_causal": bool(causal),
                 "semantic": semantic,
             }
         )
@@ -288,6 +291,8 @@ def _insert_correction_location_gate(
             gate,
             extra_semantic={
                 "label_pin_present": pin_present,
+                "label_pin_id": context["label_pin_id"],
+                "decision_time_us": capture["decision_time_us"],
                 "h4_sources": list(measured.source_semantic),
             },
         ),

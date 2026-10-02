@@ -3,7 +3,14 @@ import unittest
 from atlas2.evaluate.gates.correction_location import evaluate_correction_location
 
 
-def source(group_id="lgrp_" + "a" * 64, *, kind="INTERPRETATIONS", depth=382_000):
+def source(
+    group_id="lgrp_" + "a" * 64,
+    *,
+    kind="INTERPRETATIONS",
+    depth=382_000,
+    is_sealed=True,
+    is_causal=True,
+):
     primary = None if kind == "ABSTENTION" else {
         "rank": 1,
         "probability_ppm": 1_000_000,
@@ -18,6 +25,8 @@ def source(group_id="lgrp_" + "a" * 64, *, kind="INTERPRETATIONS", depth=382_000
         "kind": kind,
         "taint": 0,
         "primary": primary,
+        "is_sealed": is_sealed,
+        "is_causal": is_causal,
         "semantic": {
             "group_id": group_id,
             "kind": kind,
@@ -41,6 +50,18 @@ class CorrectionLocationPolicyTests(unittest.TestCase):
             result.measurements,
             ({"name": "correction_depth_ppm", "value": 382_000, "unit": "ppm"},),
         )
+
+    def test_unsealed_and_noncausal_sources_stay_unmeasured(self):
+        unsealed = evaluate_correction_location(
+            (source(is_sealed=False),), label_pin_present=True
+        )
+        noncausal = evaluate_correction_location(
+            (source(is_causal=False),), label_pin_present=True
+        )
+        self.assertEqual(unsealed.reason_code, "H4_LABEL_GROUP_UNSEALED")
+        self.assertEqual(noncausal.reason_code, "PINNED_H4_GROUP_NOT_CAUSAL")
+        self.assertEqual(unsealed.measurements, ())
+        self.assertEqual(noncausal.measurements, ())
 
     def test_multiple_sources_fail_closed_without_aggregation_rule(self):
         result = evaluate_correction_location(

@@ -185,11 +185,19 @@ class EvaluationReplayTests(unittest.TestCase):
         self.addCleanup(self.fx.store.close)
 
     def _seed_h4_correction_pin(
-        self, *, depth_ppm=382_000, submitted_offset_us=0, seal_group=True
+        self,
+        *,
+        depth_ppm=382_000,
+        submitted_offset_us=0,
+        seal_group=True,
+        pin_view_kind="OPERATIONAL",
+        study_id="p1-correction-location",
+        labeler_id="ali",
+        request_key="p1-correction-location-v1",
     ):
         cutoff = self.fx.capture_unit.decision_time_us
         seed = LabelTaskSeed.create(
-            "p1-correction-location",
+            study_id,
             "EURUSD",
             "H4",
             self.fx.dataset.dataset_id,
@@ -201,8 +209,8 @@ class EvaluationReplayTests(unittest.TestCase):
         task = LabelTask.create(seed.seed_id, {})
         group = LabelSubmissionGroup.create(
             task_id=task.task_id,
-            labeler_id="ali",
-            request_key="p1-correction-location-v1",
+            labeler_id=labeler_id,
+            request_key=request_key,
             kind="INTERPRETATIONS",
             label_mode="OPERATIONAL",
             submitted_at_us=cutoff + submitted_offset_us,
@@ -224,7 +232,7 @@ class EvaluationReplayTests(unittest.TestCase):
             reason="p1 correction measurement fixture",
         )
         pin = LabelSetPin.create(
-            view_kind="OPERATIONAL",
+            view_kind=pin_view_kind,
             group_ids=(group.group_id,),
             selector_policy_version="latest-authorized-owner-v1",
             taint=group.taint,
@@ -1148,10 +1156,86 @@ class EvaluationReplayTests(unittest.TestCase):
                  AND gate_kind='CORRECTION_LOCATION'""",
             (ctx.ctx_id, self.fx.candidate.candidate_id),
         ).fetchone()
-        self.assertEqual(gate["reason_code"], "NO_ELIGIBLE_H4_LABEL_GROUP")
+        self.assertEqual(gate["reason_code"], "PINNED_H4_GROUP_NOT_CAUSAL")
         self.assertEqual(json.loads(gate["measurements_json"]), [])
 
-    def test_p1_correction_location_rejects_unsealed_pinned_h4_group(self):
+    def test_p1_correction_location_research_pin_rejects_late_label(self):
+        pin, _ = self._seed_h4_correction_pin(
+            submitted_offset_us=1,
+            pin_view_kind="RESEARCH",
+        )
+        ctx = create_context(
+            self.fx.store,
+            capture_unit_id=self.fx.capture_unit.capture_unit_id,
+            label_pin_id=pin.pin_id,
+            macro_view_class="PIT",
+            mode="REPLAY",
+        )
+        evaluate_p1_track_a(self.fx.store, ctx_id=ctx.ctx_id)
+        gate = self.fx.store.conn.execute(
+            """SELECT * FROM gate_results
+               WHERE ctx_id=? AND candidate_id=?
+                 AND gate_kind='CORRECTION_LOCATION'""",
+            (ctx.ctx_id, self.fx.candidate.candidate_id),
+        ).fetchone()
+        self.assertEqual(gate["reason_code"], "PINNED_H4_GROUP_NOT_CAUSAL")
+        self.assertEqual(json.loads(gate["measurements_json"]), [])
+
+    def test_p1_correction_location_does_not_filter_pin_into_false_singleton(self):
+        _, causal_group = self._seed_h4_correction_pin(
+            study_id="p1-correction-causal",
+            labeler_id="ali-a",
+            request_key="p1-correction-causal-v1",
+            pin_view_kind="RESEARCH",
+        )
+        _, late_group = self._seed_h4_correction_pin(
+            study_id="p1-correction-late",
+            labeler_id="ali-b",
+            request_key="p1-correction-late-v1",
+            submitted_offset_us=1,
+            pin_view_kind="RESEARCH",
+        )
+        pin = LabelSetPin.create(
+            view_kind="RESEARCH",
+            group_ids=(causal_group.group_id, late_group.group_id),
+            selector_policy_version="per-labeler-latest-v1",
+            taint=0,
+        )
+        with self.fx.store.transaction():
+            self.fx.store.conn.execute(
+                "INSERT INTO label_set_pins VALUES (?,?,?,?,?)",
+                (
+                    pin.pin_id,
+                    pin.view_kind,
+                    canonical_json_text(list(pin.group_ids)),
+                    pin.selector_policy_version,
+                    pin.taint,
+                ),
+            )
+        ctx = create_context(
+            self.fx.store,
+            capture_unit_id=self.fx.capture_unit.capture_unit_id,
+            label_pin_id=pin.pin_id,
+            macro_view_class="PIT",
+            mode="REPLAY",
+        )
+        evaluate_p1_track_a(self.fx.store, ctx_id=ctx.ctx_id)
+        gate = self.fx.store.conn.execute(
+            """SELECT * FROM gate_results
+               WHERE ctx_id=? AND candidate_id=?
+                 AND gate_kind='CORRECTION_LOCATION'""",
+            (ctx.ctx_id, self.fx.candidate.candidate_id),
+        ).fetchone()
+        self.assertEqual(gate["reason_code"], "PINNED_H4_GROUP_NOT_CAUSAL")
+        refs = json.loads(gate["input_refs_json"])
+        label_refs = {item["ref"] for item in refs if item["kind"] == "LABEL_GROUP"}
+        self.assertEqual(
+            label_refs,
+            {causal_group.group_id, late_group.group_id},
+        )
+        self.assertEqual(json.loads(gate["measurements_json"]), [])
+
+    def test_p1_correction_location_marks_unsealed_pinned_h4_group_unmeasured(self):
         pin, _ = self._seed_h4_correction_pin(seal_group=False)
         ctx = create_context(
             self.fx.store,
@@ -1160,11 +1244,16 @@ class EvaluationReplayTests(unittest.TestCase):
             macro_view_class="PIT",
             mode="REPLAY",
         )
-        with self.assertRaisesRegex(
-            ValueError, "pinned H4 label group must be sealed"
-        ):
-            evaluate_p1_track_a(self.fx.store, ctx_id=ctx.ctx_id)
-        self.assertFalse(
+        result = evaluate_p1_track_a(self.fx.store, ctx_id=ctx.ctx_id)
+        gate = self.fx.store.conn.execute(
+            """SELECT * FROM gate_results
+               WHERE ctx_id=? AND candidate_id=?
+                 AND gate_kind='CORRECTION_LOCATION'""",
+            (ctx.ctx_id, self.fx.candidate.candidate_id),
+        ).fetchone()
+        self.assertEqual(gate["reason_code"], "H4_LABEL_GROUP_UNSEALED")
+        self.assertEqual(json.loads(gate["measurements_json"]), [])
+        self.assertTrue(
             self.fx.store.conn.execute(
                 """SELECT 1 FROM sys_seals
                    WHERE aggregate_kind='evaluation_contexts'
@@ -1172,13 +1261,7 @@ class EvaluationReplayTests(unittest.TestCase):
                 (ctx.ctx_id,),
             ).fetchone()
         )
-        self.assertEqual(
-            self.fx.store.conn.execute(
-                "SELECT count(*) FROM gate_results WHERE ctx_id=?",
-                (ctx.ctx_id,),
-            ).fetchone()[0],
-            0,
-        )
+        self.assertTrue(all(arm.decision == "ABSTAIN" for arm in result.owner_arms))
 
     def test_p1_track_a_replay_is_deterministic_across_fresh_attempts(self):
         ctx = create_context(
