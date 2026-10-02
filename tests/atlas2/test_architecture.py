@@ -50,6 +50,37 @@ class ArchitectureBoundaryTests(unittest.TestCase):
         self.assertEqual(violations, [])
         self.assertEqual(dynamic, [])
 
+    def test_evaluate_store_dependency_is_ledger_only(self):
+        violations = []
+        evaluate_root = ROOT / "evaluate"
+        for path in evaluate_root.rglob("*.py"):
+            if path.name == "ledger.py":
+                continue
+            tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+            for node in ast.walk(tree):
+                names = []
+                if isinstance(node, ast.Import):
+                    names = [alias.name for alias in node.names]
+                elif isinstance(node, ast.ImportFrom):
+                    module = node.module or ""
+                    if node.level:
+                        if module == "store" or module.startswith("store."):
+                            names.append("atlas2." + module)
+                        elif module in {"", "atlas2"}:
+                            names.extend(
+                                "atlas2." + alias.name
+                                for alias in node.names
+                            )
+                    else:
+                        if module:
+                            names.append(module)
+                        if module == "atlas2":
+                            names.extend("atlas2." + alias.name for alias in node.names)
+                for name in names:
+                    if name == "atlas2.store" or name.startswith("atlas2.store."):
+                        violations.append((path, name))
+        self.assertEqual(violations, [])
+
     def test_p0_source_contains_no_order_api_calls(self):
         hits = []
         for path in ROOT.rglob("*.py"):

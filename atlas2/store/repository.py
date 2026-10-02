@@ -61,6 +61,24 @@ CHILDREN = {
         'group_id',
         'rank,interpretation_id',
     ),
+    'capture_units': (
+        'capture_unit_id',
+        'capture_unit_members',
+        'capture_unit_id',
+        'member_kind,content_digest',
+    ),
+    'evaluation_contexts': (
+        'ctx_id',
+        'evaluation_unit_members',
+        'ctx_id',
+        'member_kind,content_digest',
+    ),
+    'outcome_batches': (
+        'batch_id',
+        'outcome_batch_members',
+        'batch_id',
+        'content_digest',
+    ),
 }
 
 
@@ -68,6 +86,17 @@ def child_digest(conn: sqlite3.Connection, kind: str, aggregate_id: str) -> str:
     _, child, fk, order = CHILDREN[kind]
     import hashlib
     h = hashlib.sha256(b'ATLAS2\x00child-set-v1\x00')
+    if kind in {'capture_units', 'evaluation_contexts', 'outcome_batches'}:
+        rows = conn.execute(
+            f'SELECT * FROM {child} WHERE {fk}=? ORDER BY {order}',
+            (aggregate_id,),
+        ).fetchall()
+        for row in rows:
+            semantic = {k: row[k] for k in row.keys() if k in {'member_kind', 'content_digest', 'outcome_id'}}
+            if kind == 'outcome_batches':
+                semantic = {'content_digest': row['content_digest']}
+            h.update(bytes.fromhex(domain_digest('child-row-v1', semantic)))
+        return h.hexdigest()
     if kind == 'label_groups':
         rows = conn.execute(
             'SELECT * FROM label_interpretations WHERE group_id=? '
