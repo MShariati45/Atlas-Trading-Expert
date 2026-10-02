@@ -1,4 +1,4 @@
-# Atlas v2 P0 Implementation Source of Truth
+# Atlas v2 Implementation Source of Truth
 
 Owner: Ali Shariati
 
@@ -11,8 +11,11 @@ SHA-256:
 Binding refinement:
 `P0_ARCHITECTURE_FREEZE_ADDENDUM_2026-10-01.md`
 
-Implementation branch:
-`atlas2-p0`
+Frozen P0 branch:
+`atlas2-p0` at `1867202`
 
-Legacy `atlas/` is preserved and must not be modified during P0.
-No broker connection, order execution, paid service, or GitHub write is part of P0 Step 0-1.
+Current P1 implementation branch:
+`atlas2-p1`
+
+Legacy `atlas/` remains preserved and must not be modified by P1 Shadow work.
+P1 Shadow remains no-order: no broker connection, order execution, Demo/Live authority, or paid service unless a later owner-approved stage explicitly adds it.

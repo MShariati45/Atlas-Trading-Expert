@@ -18,6 +18,7 @@ from atlas2.model.evaluation import GateResult, OutcomeBatch
 from atlas2.model.labels import LabelSetPin
 from atlas2.replay.digest import confirm_aggregate, replay_digest_for_store
 from atlas2.replay.projection import project_context
+from atlas2.shadow.report import build_shadow_report, render_shadow_report_json
 from atlas2.store.records import RunManifest, RunAttemptStart
 from atlas2.store.repository import ConflictKind, Store, StoreConflict
 
@@ -824,6 +825,89 @@ class EvaluationReplayTests(unittest.TestCase):
                     "taint": 0,
                 }],
             )
+
+    def test_shadow_report_is_deterministic_read_only_and_no_order(self):
+        ctx, _ = self.fx.evaluate()
+        tables = (
+            "evaluation_contexts", "gate_results", "arm_results",
+            "evaluation_unit_members", "sys_seals", "run_aggregate_refs",
+        )
+        before = {
+            table: self.fx.store.conn.execute(
+                f"SELECT count(*) FROM {table}"
+            ).fetchone()[0]
+            for table in tables
+        }
+
+        report = build_shadow_report(
+            self.fx.store.path, self.fx.manifest.manifest_id
+        )
+        rendered = render_shadow_report_json(
+            self.fx.store.path, self.fx.manifest.manifest_id
+        )
+        after = {
+            table: self.fx.store.conn.execute(
+                f"SELECT count(*) FROM {table}"
+            ).fetchone()[0]
+            for table in tables
+        }
+
+        self.assertEqual(before, after)
+        self.assertEqual(
+            rendered,
+            render_shadow_report_json(
+                self.fx.store.path, self.fx.manifest.manifest_id
+            ),
+        )
+        other = Fixture(
+            Path(self.tmp.name) / "shadow-second",
+            attempt_id="shadow-second-attempt",
+        )
+        self.addCleanup(other.store.close)
+        other.evaluate()
+        self.assertEqual(
+            rendered,
+            render_shadow_report_json(
+                other.store.path, other.manifest.manifest_id
+            ),
+        )
+        self.assertEqual(report["authority"], "NO_ORDER")
+        self.assertEqual(report["owner_strategy_status"], "NOT_IMPLEMENTED")
+        self.assertEqual(report["entry_semantics_status"], "OWNER_DECISION_PENDING")
+        self.assertEqual(
+            report["replay_digest"],
+            replay_digest_for_store(self.fx.store, self.fx.manifest.manifest_id),
+        )
+        self.assertEqual(report["context_count"], 1)
+        summary = report["contexts"][0]
+        self.assertEqual(summary["ctx_id"], ctx.ctx_id)
+        self.assertEqual((summary["candidate_count"], summary["arm_count"]), (1, 1))
+        strategy = summary["strategies"][0]
+        self.assertEqual(
+            (strategy["strategy_key"], strategy["strategy_version"]),
+            ("C0_MINIMAL_CONTROL", "v1"),
+        )
+        self.assertEqual(strategy["decisions"]["ACCEPT"], 1)
+
+    def test_shadow_report_rejects_unknown_manifest(self):
+        with self.assertRaisesRegex(ValueError, "unknown run manifest"):
+            build_shadow_report(self.fx.store.path, "manifest-missing")
+
+    def test_shadow_report_fails_on_unconfirmed_capture_dependency(self):
+        ctx, _ = self.fx.evaluate()
+        partial = RunManifest(
+            "manifest-shadow-partial", "2" * 64, None, "REPLAY", "{}"
+        )
+        self.fx.store.put(partial)
+        with self.fx.store.transaction():
+            self.fx.store.conn.execute(
+                "INSERT INTO run_aggregate_refs VALUES (?,?,?)",
+                (partial.manifest_id, "evaluation_contexts", ctx.ctx_id),
+            )
+        with self.assertRaisesRegex(
+            ValueError, "lacks confirmed capture unit"
+        ):
+            build_shadow_report(self.fx.store.path, partial.manifest_id)
 
     def test_cross_dataset_semantic_prefix_and_control(self):
         # T is the decision time. A revision available only after T must not alter the projection.
