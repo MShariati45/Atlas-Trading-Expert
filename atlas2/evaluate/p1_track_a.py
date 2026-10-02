@@ -6,6 +6,7 @@ import json
 
 from atlas2.core.taint import combine_taint
 from atlas2.evaluate.gates.correction_location import evaluate_correction_location
+from atlas2.evaluate.gates.h4_context import evaluate_h4_context
 from atlas2.evaluate.ledger import (
     _evaluate_c0_unsealed,
     _existing_strategy_arms,
@@ -24,16 +25,13 @@ class P1EvaluationResult:
     owner_arms: tuple[ArmResult, ...]
 
 
+_OWNER_H4_LABELERS = ("ali",)
+
 _PENDING_GATES = {
     "M15_COORDINATION": (
         "p1-m15-owner-policy-v1",
         "NOT_EVALUABLE",
         "OWNER_M15_OPERATIONAL_SEMANTICS_PENDING",
-    ),
-    "H4_CONTEXT": (
-        "p1-h4-context-v1",
-        "NOT_EVALUABLE",
-        "H4_CONTEXT_EVALUATOR_PENDING",
     ),
     "H1_CONTEXT": (
         "p1-h1-context-v1",
@@ -220,6 +218,7 @@ def _load_h4_correction_sources(
         semantic = {
             "group_id": row["group_id"],
             "kind": row["kind"],
+            "labeler_id": row["labeler_id"],
             "label_mode": row["label_mode"],
             "view_kind": pin["view_kind"],
             "selector_policy_version": pin["selector_policy_version"],
@@ -239,6 +238,7 @@ def _load_h4_correction_sources(
             {
                 "group_id": row["group_id"],
                 "kind": row["kind"],
+                "labeler_id": row["labeler_id"],
                 "taint": row["taint"],
                 "primary": primary,
                 "is_sealed": bool(row["is_sealed"]),
@@ -247,6 +247,77 @@ def _load_h4_correction_sources(
             }
         )
     return True, tuple(sources)
+
+
+def _insert_h4_context_gate(
+    store,
+    *,
+    context,
+    capture,
+    candidate,
+) -> tuple[GateResult, str]:
+    pin_present, sources = _load_h4_correction_sources(
+        store, context=context, capture=capture
+    )
+    pin_view_kind = None
+    selector_policy_version = None
+    if context["label_pin_id"] is not None:
+        pin = store.conn.execute(
+            "SELECT view_kind,selector_policy_version FROM label_set_pins WHERE pin_id=?",
+            (context["label_pin_id"],),
+        ).fetchone()
+        if pin is None:
+            raise ValueError("evaluation context label pin is missing")
+        pin_view_kind = pin["view_kind"]
+        selector_policy_version = pin["selector_policy_version"]
+
+    evaluated = evaluate_h4_context(
+        sources,
+        label_pin_present=pin_present,
+        pin_view_kind=pin_view_kind,
+        selector_policy_version=selector_policy_version,
+        authorized_owner_labelers=_OWNER_H4_LABELERS,
+        candidate_direction=candidate["direction"],
+    )
+    taints = [context["taint"], candidate["taint"]]
+    taints.extend(source["taint"] for source in sources)
+    gate = GateResult.create(
+        ctx_id=context["ctx_id"],
+        candidate_id=candidate["candidate_id"],
+        gate_kind="H4_CONTEXT",
+        evaluator_version_id="p1-h4-owner-direction-v1",
+        input_refs=_candidate_refs(
+            capture, candidate, evaluated.label_group_refs
+        ),
+        outcome=evaluated.outcome,
+        reason_code=evaluated.reason_code,
+        error_code=None,
+        measurements=list(evaluated.measurements),
+        taint=int(combine_taint(*taints)),
+    )
+    insert_exact(store.conn, "gate_results", "gate_id", gate)
+    digest = _insert_evaluation_member(
+        store,
+        context["ctx_id"],
+        "GATE",
+        gate.gate_id,
+        _gate_semantic(
+            store,
+            capture,
+            candidate,
+            gate,
+            extra_semantic={
+                "label_pin_present": pin_present,
+                "label_pin_id": context["label_pin_id"],
+                "pin_view_kind": pin_view_kind,
+                "selector_policy_version": selector_policy_version,
+                "authorized_owner_labelers": list(_OWNER_H4_LABELERS),
+                "decision_time_us": capture["decision_time_us"],
+                "h4_sources": list(evaluated.source_semantic),
+            },
+        ),
+    )
+    return gate, digest
 
 
 def _insert_correction_location_gate(
@@ -466,6 +537,15 @@ def evaluate_p1_track_a(store, *, ctx_id: str) -> P1EvaluationResult:
                 )
                 gates[gate_kind] = gate
                 gate_digests[gate_kind] = digest
+
+            h4_gate, h4_digest = _insert_h4_context_gate(
+                store,
+                context=context,
+                capture=capture,
+                candidate=candidate,
+            )
+            gates["H4_CONTEXT"] = h4_gate
+            gate_digests["H4_CONTEXT"] = h4_digest
 
             correction_gate, correction_digest = _insert_correction_location_gate(
                 store,

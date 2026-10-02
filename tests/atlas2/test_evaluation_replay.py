@@ -188,9 +188,11 @@ class EvaluationReplayTests(unittest.TestCase):
         self,
         *,
         depth_ppm=382_000,
+        trend="BULLISH",
         submitted_offset_us=0,
         seal_group=True,
         pin_view_kind="OPERATIONAL",
+        label_mode="OPERATIONAL",
         study_id="p1-correction-location",
         labeler_id="ali",
         request_key="p1-correction-location-v1",
@@ -212,7 +214,7 @@ class EvaluationReplayTests(unittest.TestCase):
             labeler_id=labeler_id,
             request_key=request_key,
             kind="INTERPRETATIONS",
-            label_mode="OPERATIONAL",
+            label_mode=label_mode,
             submitted_at_us=cutoff + submitted_offset_us,
             visible_data_cutoff_us=cutoff,
             supersedes_group_id=None,
@@ -225,7 +227,7 @@ class EvaluationReplayTests(unittest.TestCase):
             group_id=group.group_id,
             rank=1,
             probability_ppm=1_000_000,
-            trend="BULLISH",
+            trend=trend,
             confidence=4,
             correction_depth_ppm=depth_ppm,
             correction_class="MINOR",
@@ -1115,6 +1117,15 @@ class EvaluationReplayTests(unittest.TestCase):
         )
         result = evaluate_p1_track_a(self.fx.store, ctx_id=ctx.ctx_id)
 
+        h4_gate = self.fx.store.conn.execute(
+            """SELECT * FROM gate_results
+               WHERE ctx_id=? AND candidate_id=?
+                 AND gate_kind='H4_CONTEXT'""",
+            (ctx.ctx_id, self.fx.candidate.candidate_id),
+        ).fetchone()
+        self.assertEqual(h4_gate["outcome"], "PASS")
+        self.assertEqual(h4_gate["reason_code"], "H4_OWNER_DIRECTION_ALIGNED")
+
         gate = self.fx.store.conn.execute(
             """SELECT * FROM gate_results
                WHERE ctx_id=? AND candidate_id=?
@@ -1139,6 +1150,77 @@ class EvaluationReplayTests(unittest.TestCase):
                 "CORRECTION_LOCATION_NOT_APPLICABLE",
                 json.loads(arm.reason_codes_json),
             )
+
+    def test_p1_h4_owner_direction_conflict_rejects_track_a(self):
+        pin, _ = self._seed_h4_correction_pin(trend="BEARISH")
+        ctx = create_context(
+            self.fx.store,
+            capture_unit_id=self.fx.capture_unit.capture_unit_id,
+            label_pin_id=pin.pin_id,
+            macro_view_class="PIT",
+            mode="REPLAY",
+        )
+        result = evaluate_p1_track_a(self.fx.store, ctx_id=ctx.ctx_id)
+        gate = self.fx.store.conn.execute(
+            """SELECT * FROM gate_results
+               WHERE ctx_id=? AND candidate_id=?
+                 AND gate_kind='H4_CONTEXT'""",
+            (ctx.ctx_id, self.fx.candidate.candidate_id),
+        ).fetchone()
+        self.assertEqual(gate["outcome"], "FAIL")
+        self.assertEqual(gate["reason_code"], "H4_OWNER_DIRECTION_CONFLICT")
+        self.assertEqual({arm.decision for arm in result.owner_arms}, {"REJECT"})
+        for arm in result.owner_arms:
+            self.assertIn("H4_CONTEXT_FAIL", json.loads(arm.reason_codes_json))
+
+    def test_p1_h4_owner_gate_rejects_unauthorized_labeler_authority(self):
+        pin, _ = self._seed_h4_correction_pin(
+            study_id="p1-h4-unauthorized",
+            labeler_id="researcher",
+            request_key="p1-h4-unauthorized-v1",
+        )
+        ctx = create_context(
+            self.fx.store,
+            capture_unit_id=self.fx.capture_unit.capture_unit_id,
+            label_pin_id=pin.pin_id,
+            macro_view_class="PIT",
+            mode="REPLAY",
+        )
+        result = evaluate_p1_track_a(self.fx.store, ctx_id=ctx.ctx_id)
+        gate = self.fx.store.conn.execute(
+            """SELECT * FROM gate_results
+               WHERE ctx_id=? AND candidate_id=?
+                 AND gate_kind='H4_CONTEXT'""",
+            (ctx.ctx_id, self.fx.candidate.candidate_id),
+        ).fetchone()
+        self.assertEqual(gate["outcome"], "NOT_EVALUABLE")
+        self.assertEqual(gate["reason_code"], "H4_OWNER_LABELER_REQUIRED")
+        self.assertEqual({arm.decision for arm in result.owner_arms}, {"ABSTAIN"})
+
+    def test_p1_h4_owner_gate_does_not_promote_engine_mode_label(self):
+        pin, _ = self._seed_h4_correction_pin(
+            study_id="p1-h4-engine-mode",
+            labeler_id="ali",
+            request_key="p1-h4-engine-mode-v1",
+            label_mode="ENGINE",
+        )
+        ctx = create_context(
+            self.fx.store,
+            capture_unit_id=self.fx.capture_unit.capture_unit_id,
+            label_pin_id=pin.pin_id,
+            macro_view_class="PIT",
+            mode="REPLAY",
+        )
+        result = evaluate_p1_track_a(self.fx.store, ctx_id=ctx.ctx_id)
+        gate = self.fx.store.conn.execute(
+            """SELECT * FROM gate_results
+               WHERE ctx_id=? AND candidate_id=?
+                 AND gate_kind='H4_CONTEXT'""",
+            (ctx.ctx_id, self.fx.candidate.candidate_id),
+        ).fetchone()
+        self.assertEqual(gate["outcome"], "NOT_EVALUABLE")
+        self.assertEqual(gate["reason_code"], "PINNED_H4_GROUP_NOT_CAUSAL")
+        self.assertEqual({arm.decision for arm in result.owner_arms}, {"ABSTAIN"})
 
     def test_p1_correction_location_excludes_late_operational_label(self):
         pin, _ = self._seed_h4_correction_pin(submitted_offset_us=1)
