@@ -8,8 +8,11 @@ Primary design artifact:
 SHA-256:
 `8f684e894cb68c5dbbd67f50e290a29cbafbcaca516d609b462dc6f110f8f601`
 
-Binding refinement:
+Binding P0 refinement:
 `P0_ARCHITECTURE_FREEZE_ADDENDUM_2026-10-01.md`
+
+Binding P1 owner entry/SL decision:
+`P1_OWNER_ENTRY_STOPLOSS_FREEZE_2026-10-02.md`
 
 Frozen P0 branch:
 `atlas2-p0` at `1867202`
