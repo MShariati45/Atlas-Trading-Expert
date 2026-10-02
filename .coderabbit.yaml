@@ -1,0 +1,124 @@
+# yaml-language-server: $schema=https://www.coderabbit.ai/integrations/schema.v2.json
+language: en-US
+tone_instructions: >-
+  Review as a careful senior trading-systems engineer. Prioritize causal correctness,
+  evidence integrity, deterministic behavior, migration safety, clean boundaries,
+  risk/execution fail-closed behavior, and regression risk. Skip cosmetic nitpicks.
+early_access: false
+enable_free_tier: true
+
+reviews:
+  profile: chill
+  request_changes_workflow: false
+  high_level_summary: true
+  high_level_summary_instructions: >-
+    Summarize the stage/change, the main correctness and safety risks, migration
+    implications, and whether the change preserves Atlas v2 boundaries.
+  review_status: true
+  commit_status: false
+  collapse_walkthrough: true
+  poem: false
+  abort_on_close: true
+  auto_review:
+    enabled: true
+    auto_incremental_review: true
+    auto_pause_after_reviewed_commits: 4
+    drafts: false
+    base_branches:
+      - main
+      - atlas2-p0
+    ignore_title_keywords:
+      - WIP
+  path_filters:
+    - "!graphify-out/**"
+    - "!**/__pycache__/**"
+    - "!runtime/**"
+  path_instructions:
+    - path: "atlas2/core/**"
+      instructions: >-
+        Treat these as frozen primitives. Flag semantic drift, unstable identity,
+        nondeterminism, float evidence, or changes that force downstream rewrites.
+    - path: "atlas2/store/**"
+      instructions: >-
+        Enforce append-only evidence, forward-only migration discipline, pinned schema
+        hashes, transaction atomicity, seal integrity, idempotency, and crash recovery.
+    - path: "atlas2/data/**"
+      instructions: >-
+        Flag lookahead, invented availability, broker/source ambiguity, incorrect
+        as-of behavior, dataset mutation, HTF leakage, or evidence/provenance loss.
+    - path: "atlas2/research/**"
+      instructions: >-
+        Protect preregistration, holdout, exposure, trial history, and confirmatory
+        eligibility. Flag any path that can inspect protected data without exposure.
+    - path: "atlas2/labels/**"
+      instructions: >-
+        Protect operational-vs-retrospective separation, immutable revisions,
+        label-set pins, abstentions, taint, and causal anchor timing.
+    - path: "atlas2/detect/**"
+      instructions: >-
+        Candidate capture must remain upstream of strategy evaluation. Flag reads of
+        news, risk, P&L, outcomes, execution, or downstream evaluation state.
+    - path: "atlas2/evaluate/**"
+      instructions: >-
+        Evaluation may consume immutable candidates and pinned context but must not
+        mutate detector evidence or silently optimize on holdout/outcome data.
+    - path: "atlas2/legacy_import/**"
+      instructions: >-
+        Legacy input is untrusted historical evidence. Require explicit provenance,
+        versioned adapters, taint where appropriate, and no legacy execution authority.
+    - path: "atlas/execution/**"
+      instructions: >-
+        Legacy execution code is not Atlas v2 authority. Flag accidental wiring into
+        P0/P1 and any live-capable path without explicit reviewed promotion.
+    - path: ".github/**"
+      instructions: >-
+        Keep automation isolated from Sigma, least-privilege, secret-safe, free of
+        paid external calls, and non-authoritative for trading decisions.
+    - path: "tests/**"
+      instructions: >-
+        Focus on negative tests, causal boundaries, raw-SQL bypasses, idempotency,
+        migrations, deterministic replay, and assertions that genuinely prove invariants.
+  pre_merge_checks:
+    custom_checks:
+      - name: Causal evidence boundary
+        mode: warning
+        instructions: >-
+          Warn if any decision-time path can observe evidence with availability after
+          the decision time, retrospective labels operationally, or outcomes before evaluation.
+      - name: Evolution without rewrite
+        mode: warning
+        instructions: >-
+          Warn if a change creates hidden coupling, duplicate business logic, an
+          in-place semantic rewrite, or makes the next stage require replacing a closed stage.
+      - name: Trading safety boundary
+        mode: warning
+        instructions: >-
+          Warn if P0/P1 gains broker order authority, live capability, model-controlled
+          risk authority, fail-open execution, or a path around explicit owner approval.
+      - name: Project isolation
+        mode: warning
+        instructions: >-
+          Warn if Atlas imports or writes Sigma WorkOffice/Alpha Lead Engine internals,
+          shared runtime state, credentials, graph data, or project-specific automation.
+  tools:
+    ruff:
+      enabled: false
+    markdownlint:
+      enabled: false
+    yamllint:
+      enabled: false
+    actionlint:
+      enabled: true
+    semgrep:
+      enabled: true
+    shellcheck:
+      enabled: true
+    checkov:
+      enabled: true
+
+chat:
+  auto_reply: false
+knowledge_base:
+  opt_out: true
+  web_search:
+    enabled: false

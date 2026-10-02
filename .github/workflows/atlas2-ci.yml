@@ -1,0 +1,44 @@
+name: Atlas v2 CI
+
+on:
+  push:
+    branches:
+      - atlas2-p0
+  pull_request:
+    branches:
+      - atlas2-p0
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: atlas2-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version:
+          - "3.12"
+          - "3.14"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Compile Atlas v2
+        run: python -m compileall -q atlas2
+
+      - name: Run Atlas v2 tests
+        run: python -m unittest discover -s tests/atlas2 -q
