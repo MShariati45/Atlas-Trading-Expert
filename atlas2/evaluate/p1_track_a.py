@@ -5,6 +5,7 @@ from dataclasses import dataclass
 import json
 
 from atlas2.core.taint import combine_taint
+from atlas2.evaluate.gates.correction_location import evaluate_correction_location
 from atlas2.evaluate.ledger import (
     _evaluate_c0_unsealed,
     _existing_strategy_arms,
@@ -38,11 +39,6 @@ _PENDING_GATES = {
         "p1-h1-context-v1",
         "NOT_EVALUABLE",
         "H1_CONTEXT_EVALUATOR_PENDING",
-    ),
-    "CORRECTION_LOCATION": (
-        "p1-correction-location-v1",
-        "NOT_APPLICABLE",
-        "CORRECTION_LOCATION_MEASUREMENT_PENDING",
     ),
     "SESSION_DAY": (
         "p1-session-day-v1",
@@ -88,17 +84,28 @@ def _decision_from_required(gates: dict[str, GateResult], strategy: StrategyVers
     return "ACCEPT", ()
 
 
-def _candidate_refs(capture, candidate) -> list[dict]:
+def _candidate_refs(capture, candidate, label_group_refs=()) -> list[dict]:
     refs = [{"kind": "SNAPSHOT", "ref": capture["snapshot_id"]}]
     refs.extend(
         {"kind": "FACT", "ref": fact_id}
         for fact_id in json.loads(candidate["evidence_refs_json"])
     )
+    refs.extend(
+        {"kind": "LABEL_GROUP", "ref": group_id}
+        for group_id in label_group_refs
+    )
     return refs
 
 
-def _gate_semantic(store, capture, candidate, gate: GateResult) -> dict:
-    return {
+def _gate_semantic(
+    store,
+    capture,
+    candidate,
+    gate: GateResult,
+    *,
+    extra_semantic: object | None = None,
+) -> dict:
+    semantic = {
         "occurrence_key": candidate["occurrence_key"],
         "gate_kind": gate.gate_kind,
         "evaluator_version_id": gate.evaluator_version_id,
@@ -113,6 +120,9 @@ def _gate_semantic(store, capture, candidate, gate: GateResult) -> dict:
         "measurements": json.loads(gate.measurements_json),
         "taint": gate.taint,
     }
+    if extra_semantic is not None:
+        semantic["source_semantic"] = extra_semantic
+    return semantic
 
 
 def _insert_pending_gate(
@@ -143,6 +153,144 @@ def _insert_pending_gate(
         "GATE",
         gate.gate_id,
         _gate_semantic(store, capture, candidate, gate),
+    )
+    return gate, digest
+
+
+def _load_h4_correction_sources(
+    store, *, context, capture
+) -> tuple[bool, tuple[dict, ...]]:
+    pin_id = context["label_pin_id"]
+    if pin_id is None:
+        return False, ()
+
+    pin = store.conn.execute(
+        "SELECT * FROM label_set_pins WHERE pin_id=?", (pin_id,)
+    ).fetchone()
+    if pin is None:
+        raise ValueError("evaluation context label pin is missing")
+    group_ids = tuple(json.loads(pin["group_ids_json"]))
+    if not group_ids:
+        return True, ()
+
+    placeholders = ",".join("?" for _ in group_ids)
+    rows = store.conn.execute(
+        f"""SELECT g.*,s.timeframe,s.instrument_id,s.dataset_id,
+                   s.visible_data_cutoff_us AS task_cutoff_us,
+                   CASE WHEN z.aggregate_id IS NULL THEN 0 ELSE 1 END AS is_sealed
+            FROM label_groups g
+            JOIN label_tasks t ON t.task_id=g.task_id
+            JOIN label_task_seeds s ON s.seed_id=t.seed_id
+            LEFT JOIN sys_seals z
+              ON z.aggregate_kind='label_groups'
+             AND z.aggregate_id=g.group_id
+            WHERE g.group_id IN ({placeholders})
+              AND s.timeframe='H4'
+              AND s.instrument_id=?
+              AND s.dataset_id=?
+              AND s.visible_data_cutoff_us<=?
+              AND g.visible_data_cutoff_us<=?
+              AND (
+                ?<>'OPERATIONAL'
+                OR (
+                  g.label_mode='OPERATIONAL'
+                  AND g.operational_available_at_us<=?
+                )
+              )
+            ORDER BY g.group_id""",
+        (
+            *group_ids,
+            capture["instrument_id"],
+            capture["dataset_id"],
+            capture["decision_time_us"],
+            capture["decision_time_us"],
+            pin["view_kind"],
+            capture["decision_time_us"],
+        ),
+    ).fetchall()
+
+    if any(not row["is_sealed"] for row in rows):
+        raise ValueError("pinned H4 label group must be sealed")
+
+    sources = []
+    for row in rows:
+        primary_row = store.conn.execute(
+            """SELECT rank,probability_ppm,trend,confidence,
+                      correction_depth_ppm,correction_class,reason
+               FROM label_interpretations
+               WHERE group_id=? AND rank=1""",
+            (row["group_id"],),
+        ).fetchone()
+        primary = dict(primary_row) if primary_row is not None else None
+        semantic = {
+            "group_id": row["group_id"],
+            "kind": row["kind"],
+            "label_mode": row["label_mode"],
+            "view_kind": pin["view_kind"],
+            "selector_policy_version": pin["selector_policy_version"],
+            "timeframe": row["timeframe"],
+            "instrument_id": row["instrument_id"],
+            "task_cutoff_us": row["task_cutoff_us"],
+            "group_taint": row["taint"],
+            "primary": primary,
+        }
+        sources.append(
+            {
+                "group_id": row["group_id"],
+                "kind": row["kind"],
+                "taint": row["taint"],
+                "primary": primary,
+                "semantic": semantic,
+            }
+        )
+    return True, tuple(sources)
+
+
+def _insert_correction_location_gate(
+    store,
+    *,
+    context,
+    capture,
+    candidate,
+) -> tuple[GateResult, str]:
+    pin_present, sources = _load_h4_correction_sources(
+        store, context=context, capture=capture
+    )
+    measured = evaluate_correction_location(
+        sources, label_pin_present=pin_present
+    )
+    taints = [context["taint"], candidate["taint"]]
+    taints.extend(source["taint"] for source in sources)
+    gate = GateResult.create(
+        ctx_id=context["ctx_id"],
+        candidate_id=candidate["candidate_id"],
+        gate_kind="CORRECTION_LOCATION",
+        evaluator_version_id="p1-correction-location-label-v1",
+        input_refs=_candidate_refs(
+            capture, candidate, measured.label_group_refs
+        ),
+        outcome="NOT_APPLICABLE",
+        reason_code=measured.reason_code,
+        error_code=None,
+        measurements=list(measured.measurements),
+        taint=int(combine_taint(*taints)),
+    )
+    insert_exact(store.conn, "gate_results", "gate_id", gate)
+    digest = _insert_evaluation_member(
+        store,
+        context["ctx_id"],
+        "GATE",
+        gate.gate_id,
+        _gate_semantic(
+            store,
+            capture,
+            candidate,
+            gate,
+            extra_semantic={
+                "label_pin_present": pin_present,
+                "h4_sources": list(measured.source_semantic),
+            },
+        ),
     )
     return gate, digest
 
@@ -313,6 +461,15 @@ def evaluate_p1_track_a(store, *, ctx_id: str) -> P1EvaluationResult:
                 )
                 gates[gate_kind] = gate
                 gate_digests[gate_kind] = digest
+
+            correction_gate, correction_digest = _insert_correction_location_gate(
+                store,
+                context=context,
+                capture=capture,
+                candidate=candidate,
+            )
+            gates["CORRECTION_LOCATION"] = correction_gate
+            gate_digests["CORRECTION_LOCATION"] = correction_digest
 
             for strategy in owner_strategies:
                 owner_arms.append(
