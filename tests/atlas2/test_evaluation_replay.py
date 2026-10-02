@@ -1,3 +1,4 @@
+import json
 import sqlite3
 import tempfile
 import unittest
@@ -12,6 +13,7 @@ from atlas2.data.ingest import ingest_source_bytes
 from atlas2.detect.capture import CandidateCaptureService
 from atlas2.evaluate.context import build_snapshot, create_context, seal_capture_unit
 from atlas2.evaluate.ledger import evaluate_c0, persist_fixture_outcome_batch
+from atlas2.evaluate.p1_track_a import evaluate_p1_track_a
 from atlas2.evaluate.relations import add_relation
 from atlas2.model.data import FactLink
 from atlas2.model.evaluation import GateResult, OutcomeBatch
@@ -872,8 +874,11 @@ class EvaluationReplayTests(unittest.TestCase):
             ),
         )
         self.assertEqual(report["authority"], "NO_ORDER")
-        self.assertEqual(report["owner_strategy_status"], "NOT_IMPLEMENTED")
-        self.assertEqual(report["entry_semantics_status"], "OWNER_DECISION_PENDING")
+        self.assertEqual(report["owner_strategy_status"], "NOT_PRESENT")
+        self.assertEqual(
+            report["entry_semantics_status"],
+            "OWNER_POLICY_FROZEN_RESEARCH_DETAILS_PENDING",
+        )
         self.assertEqual(
             report["replay_digest"],
             replay_digest_for_store(self.fx.store, self.fx.manifest.manifest_id),
@@ -908,6 +913,155 @@ class EvaluationReplayTests(unittest.TestCase):
             ValueError, "lacks confirmed capture unit"
         ):
             build_shadow_report(self.fx.store.path, partial.manifest_id)
+
+    def test_p1_track_a_integrates_without_inventing_pending_gates(self):
+        ctx = create_context(
+            self.fx.store,
+            capture_unit_id=self.fx.capture_unit.capture_unit_id,
+            label_pin_id=None,
+            macro_view_class="PIT",
+            mode="REPLAY",
+        )
+        result = evaluate_p1_track_a(self.fx.store, ctx_id=ctx.ctx_id)
+
+        self.assertEqual(len(result.c0_arms), 1)
+        self.assertEqual(len(result.owner_arms), 2)
+        self.assertEqual(result.c0_arms[0].decision, "ACCEPT")
+        self.assertEqual(
+            {arm.decision for arm in result.owner_arms},
+            {"ABSTAIN"},
+        )
+        self.assertTrue(
+            self.fx.store.conn.execute(
+                """SELECT 1 FROM sys_seals
+                   WHERE aggregate_kind='evaluation_contexts' AND aggregate_id=?""",
+                (ctx.ctx_id,),
+            ).fetchone()
+        )
+        self.assertEqual(
+            result,
+            evaluate_p1_track_a(self.fx.store, ctx_id=ctx.ctx_id),
+        )
+
+        gates = {
+            row["gate_kind"]: row
+            for row in self.fx.store.conn.execute(
+                """SELECT * FROM gate_results
+                   WHERE ctx_id=? AND candidate_id=?""",
+                (ctx.ctx_id, self.fx.candidate.candidate_id),
+            )
+        }
+        self.assertEqual(gates["DATA_QUALITY"]["outcome"], "PASS")
+        self.assertEqual(gates["M15_COORDINATION"]["outcome"], "NOT_EVALUABLE")
+        self.assertEqual(gates["H4_CONTEXT"]["outcome"], "NOT_EVALUABLE")
+        self.assertEqual(gates["H1_CONTEXT"]["outcome"], "NOT_EVALUABLE")
+        self.assertEqual(gates["CORRECTION_LOCATION"]["outcome"], "NOT_APPLICABLE")
+        self.assertEqual(gates["SESSION_DAY"]["outcome"], "NOT_EVALUABLE")
+        self.assertEqual(gates["NEWS_RISK"]["outcome"], "NOT_EVALUABLE")
+        self.assertEqual(gates["SPREAD_COST"]["outcome"], "NOT_EVALUABLE")
+
+        for arm in result.owner_arms:
+            reasons = set(json.loads(arm.reason_codes_json))
+            self.assertIn("M15_COORDINATION_NOT_EVALUABLE", reasons)
+            self.assertIn("H4_CONTEXT_NOT_EVALUABLE", reasons)
+            self.assertNotIn("H1_CONTEXT_NOT_EVALUABLE", reasons)
+            self.assertNotIn("CORRECTION_LOCATION_NOT_APPLICABLE", reasons)
+            plan = json.loads(arm.plan_json)
+            self.assertEqual(plan["execution"], "NONE")
+            self.assertTrue(plan["research_only"])
+
+    def test_p1_track_a_replay_is_deterministic_across_fresh_attempts(self):
+        ctx = create_context(
+            self.fx.store,
+            capture_unit_id=self.fx.capture_unit.capture_unit_id,
+            label_pin_id=None,
+            macro_view_class="PIT",
+            mode="REPLAY",
+        )
+        evaluate_p1_track_a(self.fx.store, ctx_id=ctx.ctx_id)
+        confirm_aggregate(
+            self.fx.store,
+            self.fx.manifest.manifest_id,
+            "capture_units",
+            self.fx.capture_unit.capture_unit_id,
+        )
+        confirm_aggregate(
+            self.fx.store,
+            self.fx.manifest.manifest_id,
+            "evaluation_contexts",
+            ctx.ctx_id,
+        )
+
+        other = Fixture(
+            Path(self.tmp.name) / "p1-track-a-second",
+            attempt_id="p1-track-a-second-attempt",
+        )
+        self.addCleanup(other.store.close)
+        other_ctx = create_context(
+            other.store,
+            capture_unit_id=other.capture_unit.capture_unit_id,
+            label_pin_id=None,
+            macro_view_class="PIT",
+            mode="REPLAY",
+        )
+        evaluate_p1_track_a(other.store, ctx_id=other_ctx.ctx_id)
+        confirm_aggregate(
+            other.store,
+            other.manifest.manifest_id,
+            "capture_units",
+            other.capture_unit.capture_unit_id,
+        )
+        confirm_aggregate(
+            other.store,
+            other.manifest.manifest_id,
+            "evaluation_contexts",
+            other_ctx.ctx_id,
+        )
+
+        self.assertEqual(
+            replay_digest_for_store(
+                self.fx.store, self.fx.manifest.manifest_id
+            ),
+            replay_digest_for_store(
+                other.store, other.manifest.manifest_id
+            ),
+        )
+        self.assertEqual(
+            render_shadow_report_json(
+                self.fx.store.path, self.fx.manifest.manifest_id
+            ),
+            render_shadow_report_json(
+                other.store.path, other.manifest.manifest_id
+            ),
+        )
+
+        report = build_shadow_report(
+            self.fx.store.path, self.fx.manifest.manifest_id
+        )
+        self.assertEqual(
+            report["owner_strategy_status"], "TRACK_A_RESEARCH_INTEGRATED"
+        )
+        self.assertEqual(
+            report["entry_semantics_status"],
+            "OWNER_POLICY_FROZEN_RESEARCH_DETAILS_PENDING",
+        )
+        strategies = report["contexts"][0]["strategies"]
+        self.assertEqual(len(strategies), 3)
+        self.assertEqual(
+            sum(
+                item["arm_count"]
+                for item in strategies
+                if item["strategy_key"] == "OWNER_TRACK_A"
+            ),
+            2,
+        )
+
+    def test_p1_track_a_refuses_to_retrofit_sealed_c0_context(self):
+        ctx, _ = self.fx.evaluate()
+        with self.assertRaisesRegex(
+            ValueError, "does not contain complete P1 Track A arms"
+        ):
+            evaluate_p1_track_a(self.fx.store, ctx_id=ctx.ctx_id)
 
     def test_cross_dataset_semantic_prefix_and_control(self):
         # T is the decision time. A revision available only after T must not alter the projection.

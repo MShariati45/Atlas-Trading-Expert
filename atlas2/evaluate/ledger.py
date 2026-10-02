@@ -87,12 +87,7 @@ def _insert_evaluation_member(store: Store, ctx_id: str, kind: str, member_id: s
     return digest
 
 
-def evaluate_c0(
-    store: Store,
-    *,
-    ctx_id: str,
-    fault_after_first_gate: bool = False,
-) -> list[ArmResult]:
+def _load_context_capture(store: Store, ctx_id: str):
     context = store.conn.execute(
         "SELECT * FROM evaluation_contexts WHERE ctx_id=?", (ctx_id,)
     ).fetchone()
@@ -103,111 +98,143 @@ def evaluate_c0(
     ).fetchone()
     if capture is None:
         raise ValueError("unknown capture unit")
+    return context, capture
+
+
+def _existing_strategy_arms(
+    store: Store, *, ctx_id: str, strategy: StrategyVersion
+) -> list[ArmResult]:
+    rows = store.conn.execute(
+        """SELECT a.* FROM arm_results a
+           JOIN candidates c ON c.candidate_id=a.candidate_id
+           WHERE a.ctx_id=? AND a.strategy_version_id=?
+           ORDER BY c.occurrence_key,a.candidate_id""",
+        (ctx_id, strategy.strategy_version_id),
+    ).fetchall()
+    return [ArmResult(**dict(row)) for row in rows]
+
+
+def _evaluate_c0_unsealed(
+    store: Store,
+    *,
+    context,
+    capture,
+    fault_after_first_gate: bool = False,
+) -> list[ArmResult]:
+    strategy = c0_strategy()
+    insert_exact(store.conn, "strategy_versions", "strategy_version_id", strategy)
+    candidates = store.conn.execute(
+        """SELECT c.*
+           FROM capture_unit_members m
+           JOIN candidates c ON c.candidate_id=m.member_id
+           WHERE m.capture_unit_id=? AND m.member_kind='CANDIDATE'
+           ORDER BY c.occurrence_key,c.candidate_id""",
+        (capture["capture_unit_id"],),
+    ).fetchall()
+    result = []
+    for index, candidate in enumerate(candidates):
+        flags = _candidate_quality_flags(
+            store, capture["dataset_id"], candidate, capture["decision_time_us"], context["mode"]
+        )
+        if flags is None:
+            outcome = "NOT_EVALUABLE"
+            reason_code = "EVIDENCE_NOT_VISIBLE"
+            flag_measurement = 0
+        else:
+            outcome = "PASS" if flags == 0 else "FAIL"
+            reason_code = None if flags == 0 else "DATA_QUALITY_FLAGGED"
+            flag_measurement = flags
+        refs = [{"kind": "SNAPSHOT", "ref": capture["snapshot_id"]}]
+        refs.extend(
+            {"kind": "FACT", "ref": fact_id}
+            for fact_id in json.loads(candidate["evidence_refs_json"])
+        )
+        gate = GateResult.create(
+            ctx_id=context["ctx_id"],
+            candidate_id=candidate["candidate_id"],
+            gate_kind="DATA_QUALITY",
+            evaluator_version_id="c0-data-quality-v1",
+            input_refs=refs,
+            outcome=outcome,
+            reason_code=reason_code,
+            error_code=None,
+            measurements=[
+                {"name": "quality_flag_union", "value": flag_measurement, "unit": "bitset"}
+            ],
+            taint=int(combine_taint(context["taint"], candidate["taint"])),
+        )
+        insert_exact(store.conn, "gate_results", "gate_id", gate)
+        gate_semantic = {
+            "occurrence_key": candidate["occurrence_key"],
+            "gate_kind": gate.gate_kind,
+            "evaluator_version_id": gate.evaluator_version_id,
+            "snapshot_visible_fact_digest": store.conn.execute(
+                "SELECT visible_fact_digest FROM market_snapshots WHERE snapshot_id=?",
+                (capture["snapshot_id"],),
+            ).fetchone()[0],
+            "fact_refs": sorted(json.loads(candidate["evidence_refs_json"])),
+            "outcome": gate.outcome,
+            "reason_code": gate.reason_code,
+            "error_code": gate.error_code,
+            "measurements": json.loads(gate.measurements_json),
+            "taint": gate.taint,
+        }
+        gate_digest = _insert_evaluation_member(
+            store, context["ctx_id"], "GATE", gate.gate_id, gate_semantic
+        )
+        if fault_after_first_gate and index == 0:
+            raise RuntimeError("P0_7_INJECTED_GATE_FAULT")
+
+        decision, reasons = decide(outcome)
+        arm = ArmResult.create(
+            candidate_id=candidate["candidate_id"],
+            strategy_version_id=strategy.strategy_version_id,
+            ctx_id=context["ctx_id"],
+            gate_refs=[{"gate_id": gate.gate_id, "role": "REQUIRED"}],
+            decision=decision,
+            reason_codes=reasons,
+            plan=json.loads(strategy.plan_json),
+            taint=gate.taint,
+        )
+        insert_exact(store.conn, "arm_results", "arm_id", arm)
+        arm_semantic = {
+            "occurrence_key": candidate["occurrence_key"],
+            "strategy_key": strategy.strategy_key,
+            "strategy_version": strategy.version,
+            "gate_content_digests": [gate_digest],
+            "decision": arm.decision,
+            "reason_codes": json.loads(arm.reason_codes_json),
+            "plan": json.loads(arm.plan_json),
+            "taint": arm.taint,
+        }
+        _insert_evaluation_member(
+            store, context["ctx_id"], "ARM", arm.arm_id, arm_semantic
+        )
+        result.append(arm)
+    return result
+
+
+def evaluate_c0(
+    store: Store,
+    *,
+    ctx_id: str,
+    fault_after_first_gate: bool = False,
+) -> list[ArmResult]:
+    context, capture = _load_context_capture(store, ctx_id)
+    strategy = c0_strategy()
     if store.conn.execute(
         "SELECT 1 FROM sys_seals WHERE aggregate_kind='evaluation_contexts' AND aggregate_id=?",
         (ctx_id,),
     ).fetchone():
-        strategy = c0_strategy()
-        rows = store.conn.execute(
-            """SELECT a.* FROM arm_results a
-               JOIN candidates c ON c.candidate_id=a.candidate_id
-               WHERE a.ctx_id=? AND a.strategy_version_id=?
-               ORDER BY c.occurrence_key,a.candidate_id""",
-            (ctx_id, strategy.strategy_version_id),
-        ).fetchall()
-        return [ArmResult(**dict(row)) for row in rows]
+        return _existing_strategy_arms(store, ctx_id=ctx_id, strategy=strategy)
 
-    strategy = c0_strategy()
     with store.transaction():
-        insert_exact(store.conn, "strategy_versions", "strategy_version_id", strategy)
-        candidates = store.conn.execute(
-            """SELECT c.*
-               FROM capture_unit_members m
-               JOIN candidates c ON c.candidate_id=m.member_id
-               WHERE m.capture_unit_id=? AND m.member_kind='CANDIDATE'
-               ORDER BY c.occurrence_key,c.candidate_id""",
-            (capture["capture_unit_id"],),
-        ).fetchall()
-        result = []
-        for index, candidate in enumerate(candidates):
-            flags = _candidate_quality_flags(
-                store, capture["dataset_id"], candidate, capture["decision_time_us"], context["mode"]
-            )
-            if flags is None:
-                outcome = "NOT_EVALUABLE"
-                reason_code = "EVIDENCE_NOT_VISIBLE"
-                flag_measurement = 0
-            else:
-                outcome = "PASS" if flags == 0 else "FAIL"
-                reason_code = None if flags == 0 else "DATA_QUALITY_FLAGGED"
-                flag_measurement = flags
-            refs = [{"kind": "SNAPSHOT", "ref": capture["snapshot_id"]}]
-            refs.extend(
-                {"kind": "FACT", "ref": fact_id}
-                for fact_id in json.loads(candidate["evidence_refs_json"])
-            )
-            gate = GateResult.create(
-                ctx_id=ctx_id,
-                candidate_id=candidate["candidate_id"],
-                gate_kind="DATA_QUALITY",
-                evaluator_version_id="c0-data-quality-v1",
-                input_refs=refs,
-                outcome=outcome,
-                reason_code=reason_code,
-                error_code=None,
-                measurements=[
-                    {"name": "quality_flag_union", "value": flag_measurement, "unit": "bitset"}
-                ],
-                taint=int(combine_taint(context["taint"], candidate["taint"])),
-            )
-            insert_exact(store.conn, "gate_results", "gate_id", gate)
-            gate_semantic = {
-                "occurrence_key": candidate["occurrence_key"],
-                "gate_kind": gate.gate_kind,
-                "evaluator_version_id": gate.evaluator_version_id,
-                "snapshot_visible_fact_digest": store.conn.execute(
-                    "SELECT visible_fact_digest FROM market_snapshots WHERE snapshot_id=?",
-                    (capture["snapshot_id"],),
-                ).fetchone()[0],
-                "fact_refs": sorted(json.loads(candidate["evidence_refs_json"])),
-                "outcome": gate.outcome,
-                "reason_code": gate.reason_code,
-                "error_code": gate.error_code,
-                "measurements": json.loads(gate.measurements_json),
-                "taint": gate.taint,
-            }
-            gate_digest = _insert_evaluation_member(
-                store, ctx_id, "GATE", gate.gate_id, gate_semantic
-            )
-            if fault_after_first_gate and index == 0:
-                raise RuntimeError("P0_7_INJECTED_GATE_FAULT")
-
-            decision, reasons = decide(outcome)
-            arm = ArmResult.create(
-                candidate_id=candidate["candidate_id"],
-                strategy_version_id=strategy.strategy_version_id,
-                ctx_id=ctx_id,
-                gate_refs=[{"gate_id": gate.gate_id, "role": "REQUIRED"}],
-                decision=decision,
-                reason_codes=reasons,
-                plan=json.loads(strategy.plan_json),
-                taint=gate.taint,
-            )
-            insert_exact(store.conn, "arm_results", "arm_id", arm)
-            arm_semantic = {
-                "occurrence_key": candidate["occurrence_key"],
-                "strategy_key": strategy.strategy_key,
-                "strategy_version": strategy.version,
-                "gate_content_digests": [gate_digest],
-                "decision": arm.decision,
-                "reason_codes": json.loads(arm.reason_codes_json),
-                "plan": json.loads(arm.plan_json),
-                "taint": arm.taint,
-            }
-            _insert_evaluation_member(
-                store, ctx_id, "ARM", arm.arm_id, arm_semantic
-            )
-            result.append(arm)
+        result = _evaluate_c0_unsealed(
+            store,
+            context=context,
+            capture=capture,
+            fault_after_first_gate=fault_after_first_gate,
+        )
         store.seal_current_transaction("evaluation_contexts", ctx_id)
         return result
 

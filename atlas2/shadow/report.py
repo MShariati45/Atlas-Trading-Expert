@@ -176,12 +176,19 @@ def build_shadow_report(
                 "strategies": strategies,
             })
 
+        owner_present = any(
+            strategy["strategy_key"] == "OWNER_TRACK_A"
+            for context in contexts
+            for strategy in context["strategies"]
+        )
         return {
             "schema": "ATLAS2_SHADOW_REPORT_V1",
             "surface": "SHADOW_REPLAY_READ_ONLY",
             "authority": "NO_ORDER",
-            "owner_strategy_status": "NOT_IMPLEMENTED",
-            "entry_semantics_status": "OWNER_DECISION_PENDING",
+            "owner_strategy_status": (
+                "TRACK_A_RESEARCH_INTEGRATED" if owner_present else "NOT_PRESENT"
+            ),
+            "entry_semantics_status": "OWNER_POLICY_FROZEN_RESEARCH_DETAILS_PENDING",
             "manifest_id": manifest_id,
             "replay_digest": digest,
             "context_count": len(contexts),
