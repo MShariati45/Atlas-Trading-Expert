@@ -12,6 +12,7 @@ from atlas2.model.data import (
     RawBlob, SourceObservation, BarFact, QuoteFact, CalendarScheduleFact,
     CalendarValueFact, FactLink, DatasetVersion, DatasetMembership,
 )
+from .audit import append_audit_current_transaction
 from .blobs import BlobStore
 from .db import connect
 from .migrate import apply_migrations
@@ -244,6 +245,20 @@ class Store:
             self.conn.execute(
                 'INSERT INTO sys_request_keys VALUES (?,?,?,?,?,?)',
                 tuple(asdict(model).values()),
+            )
+            append_audit_current_transaction(
+                self.conn,
+                event_type=action,
+                actor_kind='CLIENT',
+                actor_id=actor,
+                occurred_at_us=now,
+                subject_table=None,
+                subject_id=result_ref,
+                payload={
+                    'client_key': key,
+                    'payload_digest': digest,
+                    'result_ref': result_ref,
+                },
             )
             return model
 

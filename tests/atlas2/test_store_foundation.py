@@ -46,7 +46,6 @@ class StoreFoundationTests(unittest.TestCase):
         self.store.request('actor', 'action', 'key', {}, 'result')
         self.store.seal('run_manifests', 'm1')
         self.store.put(SourceObservation('obs_'+'1'*64, blob.blob_sha256, 'src', 'v1', 'MANUAL_IMPORT', 1, 'comp_'+'2'*64))
-        self.store.conn.execute("INSERT INTO sys_audit VALUES (1,1,'test','owner','ali',1,NULL,NULL,'{}','',?)", ('0'*64,))
         tables = ['raw_blobs', 'source_observations', 'run_manifests', 'run_attempt_starts', 'run_attempt_ends', 'sys_request_keys', 'sys_seals', 'sys_recovery_epochs', 'sys_audit', 'sys_schema_migrations']
         for table in tables:
             column = self.store.conn.execute(f'PRAGMA table_info({table})').fetchone()['name']
@@ -191,7 +190,6 @@ class StoreFoundationTests(unittest.TestCase):
         self.store.put(SourceObservation('obs_'+'1'*64, blob.blob_sha256, 's', 'v', 'MANUAL_IMPORT', 1, 'comp_'+'2'*64))
         self.store.request('a', 'b', 'c', {}, 'r')
         self.store.seal('run_attempt_starts', 'a1')
-        self.store.conn.execute("INSERT INTO sys_audit VALUES (1,1,'t','o','a',1,NULL,NULL,'{}','',?)", ('0'*64,))
         conn = sqlite3.connect(self.store.path, isolation_level=None)
         self.addCleanup(conn.close)
         conn.execute('PRAGMA recursive_triggers=OFF')

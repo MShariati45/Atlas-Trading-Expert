@@ -10,7 +10,7 @@ from .db import connect
 
 SCHEMA_DIR = Path(__file__).with_name('schema')
 # Updated only when adding a reviewed migration, never from runtime file contents.
-PINNED_HASHES: dict[str, str] = {'0001_core.sql': '4b8d67b71c181cf5b24ea9f7fdd2b4c9c46bc40a1ecdf1c213e096f1dfef5817', '0002_store.sql': '9f12c0ab09097253c1243af064e3beca401ad5695f40ede0b75dc72213221870', '0003_immutability.sql': 'ede4d88444243b43e67792407405514a7f71e87ced3e086f79ff44e7c618d23a', '0004_research.sql': '6d5124be6b6b977b764635c95df867f28a631e1461eaf1b15ce814475d53e563', '0005_data.sql': 'dec4ca3558171c12a41ef11a2d20287e922dbc0f70f54135674c3e2d42f4efd3', '0006_labels.sql': '0ee714363b03b6b209bfaa77c6ad88608bcf70eec46af777cc6cb715ac70522a', '0007_candidates.sql': '1d42015eb581624595e3ef1255fd20e1221a18c2c65667b9a3c9b19721f452da', '0008_evaluation.sql': 'ac1f6d69ffbf92e35155c260874b4c49f74f46d71d0378c9351cb48516a16ec3', '0009_legacy_import.sql': 'dcb1c5c8051d4cfb48aecc3420f91377daeedd36d5e8a53848b41b89b46a8984'}
+PINNED_HASHES: dict[str, str] = {'0001_core.sql': '4b8d67b71c181cf5b24ea9f7fdd2b4c9c46bc40a1ecdf1c213e096f1dfef5817', '0002_store.sql': '9f12c0ab09097253c1243af064e3beca401ad5695f40ede0b75dc72213221870', '0003_immutability.sql': 'ede4d88444243b43e67792407405514a7f71e87ced3e086f79ff44e7c618d23a', '0004_research.sql': '6d5124be6b6b977b764635c95df867f28a631e1461eaf1b15ce814475d53e563', '0005_data.sql': 'dec4ca3558171c12a41ef11a2d20287e922dbc0f70f54135674c3e2d42f4efd3', '0006_labels.sql': '0ee714363b03b6b209bfaa77c6ad88608bcf70eec46af777cc6cb715ac70522a', '0007_candidates.sql': '1d42015eb581624595e3ef1255fd20e1221a18c2c65667b9a3c9b19721f452da', '0008_evaluation.sql': 'ac1f6d69ffbf92e35155c260874b4c49f74f46d71d0378c9351cb48516a16ec3', '0009_legacy_import.sql': 'dcb1c5c8051d4cfb48aecc3420f91377daeedd36d5e8a53848b41b89b46a8984', '0010_hardening.sql': 'e7627a1e18a7fc22620bfc601f442ef42b517b175ae5551de627950f8c6192dd'}
 
 
 def migration_files() -> list[tuple[Path, bytes]]:
@@ -87,6 +87,8 @@ def apply_migrations(db_path: str | Path) -> None:
 
 
 def verify_schema(conn: sqlite3.Connection) -> None:
+    if conn.execute('PRAGMA application_id').fetchone()[0] != 0x41543250:
+        raise ValueError('wrong Atlas database application_id')
     files = migration_files()
     if verify_migrations(conn, files) != len(files):
         raise ValueError('incomplete migrations')
