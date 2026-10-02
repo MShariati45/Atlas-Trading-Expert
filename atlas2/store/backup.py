@@ -21,17 +21,20 @@ from .audit import (
     checkpoint_record_digest,
     external_checkpoint_record,
     read_external_checkpoints,
-    read_latest_external_checkpoint,
     verify_audit_chain,
 )
 from .blobs import BlobStore, fsync_directory
 from .db import connect
-from .migrate import verify_schema
+from .migrate import apply_migrations, verify_schema
 from .repository import Store, child_digest
 
 
 class StorageFullError(RuntimeError):
     pass
+
+
+class RecoveryForkCheckpointError(ValueError):
+    """A restored audit fork must start a new external checkpoint log."""
 
 
 def _readonly_connection(path: Path) -> sqlite3.Connection:
@@ -160,8 +163,6 @@ def backup(
         f".{destination.name}.tmp-{os.getpid()}-{time.time_ns()}"
     )
     created = False
-    published = False
-    checkpoint_published = False
     try:
         work.mkdir(mode=0o700, parents=False, exist_ok=False)
         created = True
@@ -234,12 +235,14 @@ def backup(
 
         # The backup directory becomes visible only after the package is complete.
         os.replace(work, destination)
-        published = True
         fsync_directory(destination.parent)
 
         if external_checkpoint_path is not None:
-            previous_checkpoint = read_latest_external_checkpoint(
+            checkpoint_history = read_external_checkpoints(
                 external_checkpoint_path
+            )
+            previous_checkpoint = (
+                checkpoint_history[-1] if checkpoint_history else None
             )
             if previous_checkpoint is not None:
                 snapshot = _readonly_connection(destination / "atlas.sqlite3")
@@ -247,10 +250,19 @@ def backup(
                     ancestor_hash = _audit_hash_at(
                         snapshot, previous_checkpoint["audit_seq"]
                     )
+                    if ancestor_hash != previous_checkpoint["audit_hash"]:
+                        earlier_ancestor = any(
+                            _audit_hash_at(snapshot, item["audit_seq"])
+                            == item["audit_hash"]
+                            for item in checkpoint_history[:-1]
+                        )
+                        if earlier_ancestor:
+                            raise RecoveryForkCheckpointError(
+                                "recovery fork requires a new external checkpoint log"
+                            )
+                        raise ValueError("external checkpoint lineage mismatch")
                 finally:
                     snapshot.close()
-                if ancestor_hash != previous_checkpoint["audit_hash"]:
-                    raise ValueError("external checkpoint lineage mismatch")
             manifest_digest = _file_hash(destination / "manifest.json")
             append_external_checkpoint(
                 external_checkpoint_path,
@@ -262,7 +274,6 @@ def backup(
                     previous_checkpoint=previous_checkpoint,
                 ),
             )
-            checkpoint_published = True
 
         return destination
     except BaseException as exc:
@@ -413,6 +424,12 @@ def restore(
             shutil.copyfile(source.joinpath(*path.parts), target)
             if _file_hash(target) != digest:
                 raise ValueError("restored file hash mismatch")
+
+        if manifest["format"] == 1:
+            # Format-1 backups may contain a valid older pinned schema prefix.
+            # Migrate only the copied restore target after its bytes match the
+            # manifest and before current-schema verification.
+            apply_migrations(destination / "atlas.sqlite3")
 
         verify(destination)
         conn = _readonly_connection(destination / "atlas.sqlite3")

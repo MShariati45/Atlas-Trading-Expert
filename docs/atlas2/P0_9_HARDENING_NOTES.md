@@ -29,9 +29,9 @@ Both were fixed and regression-tested. The checkpoint model was then strengthene
 
 ## Validation
 
-- Focused P0-9 hardening tests: **21/21 PASS**.
-- Python 3.14 full Atlas v2 suite: **181/181 PASS**.
-- Python 3.12 full Atlas v2 suite: **181/181 PASS**.
+- Focused P0-9 hardening tests: **23/23 PASS**.
+- Python 3.14 full Atlas v2 suite: **183/183 PASS**.
+- Python 3.12 full Atlas v2 suite: **183/183 PASS**.
 - `python3 -m compileall -q atlas2`: PASS.
 - `git diff --check`: PASS.
 - All P0-1 through P0-8 tests remain green.

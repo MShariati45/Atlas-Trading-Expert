@@ -1,7 +1,10 @@
 import errno
+import hashlib
 import importlib
 import json
 import os
+import shutil
+import sqlite3
 import tempfile
 import unittest
 from pathlib import Path
@@ -15,8 +18,11 @@ from atlas2.store.audit import (
     read_latest_external_checkpoint,
     verify_audit_chain,
 )
-from atlas2.store.backup import StorageFullError, backup, restore, verify
+from atlas2.store.backup import (
+    RecoveryForkCheckpointError, StorageFullError, backup, restore, verify,
+)
 from atlas2.store.hardening import record_hardware_baseline
+from atlas2.store import migrate
 from atlas2.store.repository import Store
 from atlas2.store.retention import BackupRetentionPolicy, DEFAULT_BACKUP_RETENTION
 
@@ -119,6 +125,48 @@ class HardeningTests(unittest.TestCase):
                 "SELECT * FROM sys_recovery_epochs ORDER BY epoch DESC LIMIT 1"
             ).fetchone()
             self.assertEqual(latest["missing_tail"], "KNOWN_RANGE")
+
+    def test_known_range_restore_requires_new_checkpoint_log_for_future_backups(self):
+        checkpoint = self.root / "checkpoint.jsonl"
+        first = backup(
+            self.store,
+            self.root / "backup-a",
+            external_checkpoint_path=checkpoint,
+        )
+        self.store.request("ali", "change", "k", {"n": 1}, "r")
+        backup(
+            self.store,
+            self.root / "backup-b",
+            external_checkpoint_path=checkpoint,
+        )
+        restored = restore(
+            first,
+            self.root / "restored",
+            external_checkpoint_path=checkpoint,
+        )
+        with Store(restored) as recovered:
+            with self.assertRaisesRegex(
+                RecoveryForkCheckpointError,
+                "recovery fork requires a new external checkpoint log",
+            ):
+                backup(
+                    recovered,
+                    self.root / "fork-backup-same-log",
+                    external_checkpoint_path=checkpoint,
+                )
+            self.assertTrue((self.root / "fork-backup-same-log").is_dir())
+            verify(self.root / "fork-backup-same-log")
+
+            fresh_log = self.root / "fork-checkpoint.jsonl"
+            saved = backup(
+                recovered,
+                self.root / "fork-backup-new-log",
+                external_checkpoint_path=fresh_log,
+            )
+            verify(saved)
+            latest = read_latest_external_checkpoint(fresh_log)
+            self.assertIsNotNone(latest)
+            self.assertEqual(latest["backup_name"], "fork-backup-new-log")
 
     def test_restore_rejects_unrelated_nonnewer_checkpoint(self):
         saved = backup(self.store, self.root / "backup")
@@ -284,6 +332,58 @@ class HardeningTests(unittest.TestCase):
         with patch("atlas2.store.audit.os.fsync", side_effect=OSError("fsync failed")):
             with self.assertRaisesRegex(OSError, "fsync failed"):
                 append_external_checkpoint(target, record)
+
+    def test_format1_restore_applies_pending_pinned_migrations(self):
+        schema9 = self.root / "schema9"
+        schema9.mkdir()
+        names = list(migrate.PINNED_HASHES)[:9]
+        pins9 = {name: migrate.PINNED_HASHES[name] for name in names}
+        for name in names:
+            shutil.copy2(migrate.SCHEMA_DIR / name, schema9 / name)
+
+        source = self.root / "format1-backup"
+        source.mkdir()
+        db = source / "atlas.sqlite3"
+        with patch.object(migrate, "SCHEMA_DIR", schema9), patch.object(
+            migrate, "PINNED_HASHES", pins9
+        ):
+            migrate.apply_migrations(db)
+
+        conn = sqlite3.connect(db)
+        try:
+            self.assertEqual(
+                conn.execute("SELECT count(*) FROM sys_schema_migrations").fetchone()[0],
+                9,
+            )
+        finally:
+            conn.close()
+
+        digest = hashlib.sha256(db.read_bytes()).hexdigest()
+        (source / "manifest.json").write_text(
+            json.dumps(
+                {"format": 1, "files": {"atlas.sqlite3": digest}},
+                sort_keys=True,
+                separators=(",", ":"),
+            ),
+            encoding="utf-8",
+        )
+
+        restored = restore(source, self.root / "format1-restored")
+        verify(restored)
+        conn = sqlite3.connect(restored / "atlas.sqlite3")
+        try:
+            self.assertEqual(
+                conn.execute("SELECT count(*) FROM sys_schema_migrations").fetchone()[0],
+                len(migrate.PINNED_HASHES),
+            )
+            self.assertIsNotNone(
+                conn.execute(
+                    "SELECT name FROM sqlite_schema "
+                    "WHERE type='table' AND name='sys_hardware_baselines'"
+                ).fetchone()
+            )
+        finally:
+            conn.close()
 
     def test_hardware_baseline_recorded_without_threshold(self):
         baseline_id, content = record_hardware_baseline(

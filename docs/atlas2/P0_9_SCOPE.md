@@ -27,11 +27,11 @@ A published P0 backup is self-contained and includes:
 - optional lockfile hash/copy;
 - tzdata version.
 
-Publication is temp/atomic at the directory level: any failure removes the incomplete destination.
+Publication is temp/atomic at the directory level: a failure before the atomic rename removes the temporary package. After the verified package is published and its parent directory is fsynced, a separate external-checkpoint failure is reported but the valid backup package is retained.
 
 ## External checkpoint
 
-At backup, the audit head may be appended to a small external checkpoint file outside the store. The record includes backup-manifest digest plus audit seq/hash. No network or paid service is required.
+At backup, the audit head may be appended to a small external checkpoint file outside the store. Records are lineage-linked and bind backup-manifest digest plus audit seq/hash. A restored KNOWN_RANGE fork must begin a new checkpoint log before future backup checkpoints are appended. No network or paid service is required.
 
 ## Restore
 
@@ -46,7 +46,7 @@ Restore:
 
 missing_tail:
 - NONE — external checkpoint exactly matches the restored backup head;
-- KNOWN_RANGE — external checkpoint seq is ahead of restored head;
+- KNOWN_RANGE — a verified external-checkpoint lineage extends beyond the restored head;
 - UNKNOWN — checkpoint is absent/behind/mismatched.
 
 ## Verification
