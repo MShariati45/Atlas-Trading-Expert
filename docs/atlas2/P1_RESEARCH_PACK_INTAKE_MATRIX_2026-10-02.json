@@ -1,0 +1,123 @@
+{
+  "schema": "atlas-research-intake-matrix-v1",
+  "date": "2026-10-02",
+  "owner": "Ali Shariati",
+  "source_pack_sha256": "27bb6fb4fcfa03e4bfe320b726872a26c5d4cf2ee6d2a4eb0643f63c0e6417f2",
+  "authority": "ADVISORY_ONLY_NO_PROMOTION",
+  "registry_rule": "ATX identifiers are aliases in existing ResearchRegistry preregistration payloads, not a second registry.",
+  "experiments": [
+    {
+      "alias": "ATX-00",
+      "subject": "replay_chronology_accounting_fidelity",
+      "decision": "PREREQUISITE_NOW",
+      "atlas_destination": "ResearchRegistry + outcome/account replay",
+      "depends_on": []
+    },
+    {
+      "alias": "ATX-01",
+      "subject": "take_pass_trade_quality_selector",
+      "decision": "FIRST_ML_LAB_AFTER_ATX00",
+      "atlas_destination": "new Lab challenger StrategyVersion; do not mutate Owner Track A",
+      "depends_on": [
+        "ATX-00",
+        "stable_owner_eligible_opportunity_set"
+      ]
+    },
+    {
+      "alias": "ATX-02",
+      "subject": "causal_trend_persistence",
+      "decision": "SECOND_WAVE_LAB",
+      "atlas_destination": "causal feature experiment",
+      "depends_on": [
+        "ATX-00",
+        "confirmation_time_adapter"
+      ]
+    },
+    {
+      "alias": "ATX-03",
+      "subject": "break_even",
+      "decision": "FIRST_MANAGEMENT_LAB_AFTER_ATX00",
+      "atlas_destination": "Track A baseline/no-BE counterfactual account replay",
+      "depends_on": [
+        "ATX-00"
+      ]
+    },
+    {
+      "alias": "ATX-04",
+      "subject": "trailing_stop",
+      "decision": "LATER_ONE_POLICY_AT_A_TIME",
+      "atlas_destination": "management challenger",
+      "depends_on": [
+        "ATX-00",
+        "owner_permitted_action_semantics"
+      ]
+    },
+    {
+      "alias": "ATX-05",
+      "subject": "partial_close",
+      "decision": "LATER_ONE_POLICY_AT_A_TIME",
+      "atlas_destination": "management challenger",
+      "depends_on": [
+        "ATX-00",
+        "owner_permitted_action_semantics"
+      ]
+    },
+    {
+      "alias": "ATX-06",
+      "subject": "time_progress_exit",
+      "decision": "LATER_ONE_POLICY_AT_A_TIME",
+      "atlas_destination": "management challenger",
+      "depends_on": [
+        "ATX-00",
+        "owner_permitted_action_semantics"
+      ]
+    },
+    {
+      "alias": "ATX-07",
+      "subject": "risk_reduction_overlay",
+      "decision": "LATER_SEPARATE_FROM_SELECTION",
+      "atlas_destination": "sizing/account-risk experiment",
+      "depends_on": [
+        "ATX-00"
+      ]
+    },
+    {
+      "alias": "ATX-08",
+      "subject": "session_news_cost_abstention",
+      "decision": "HIGH_VALUE_DATA_DEPENDENT",
+      "atlas_destination": "source-backed gate challengers",
+      "depends_on": [
+        "historical_calendar_availability",
+        "spread_cost_evidence"
+      ]
+    },
+    {
+      "alias": "ATX-09",
+      "subject": "pair_setup_specialization",
+      "decision": "LATER_AFTER_REPLICATION",
+      "atlas_destination": "preregistered subgroup experiment",
+      "depends_on": [
+        "sufficient_temporal_sample"
+      ]
+    },
+    {
+      "alias": "ATX-10",
+      "subject": "learned_management_rl",
+      "decision": "DEFER",
+      "atlas_destination": "restricted-action Lab only",
+      "depends_on": [
+        "validated_simple_management_baselines",
+        "high_fidelity_simulator"
+      ]
+    },
+    {
+      "alias": "ATX-11",
+      "subject": "delayed_monitoring_research_alerts",
+      "decision": "CONDITIONAL_LATER",
+      "atlas_destination": "monitoring/research feedback, no automatic live adaptation",
+      "depends_on": [
+        "stable_production_evaluator"
+      ]
+    }
+  ]
+}
