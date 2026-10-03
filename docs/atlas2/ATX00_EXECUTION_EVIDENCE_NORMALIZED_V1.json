@@ -1,0 +1,96 @@
+{
+  "schema": "atlas-atx00-normalized-execution-evidence-v1",
+  "authority": "LAB_ONLY_NO_ORDER",
+  "note": "Internal normalized contract. This is not a claim about any raw broker export format.",
+  "common_required": [
+    "event_id",
+    "source_sha256",
+    "locator",
+    "event_kind",
+    "time_us",
+    "source_seq"
+  ],
+  "replay_policy": {
+    "lot_matching": "FIFO_WITHIN_TRADE_ID",
+    "exit_direction_semantics": "ORIGINAL_POSITION_DIRECTION",
+    "source_seq_semantics": "GLOBAL_STRICT_SOURCE_ORDER",
+    "stop_ack_semantics": "ACK activates a requested stop only while the trade remains open",
+    "closed_trade_semantics": "active stop is cleared when open volume reaches zero"
+  },
+  "event_kinds": {
+    "ENTRY_FILL": {
+      "required": [
+        "trade_id",
+        "direction",
+        "volume_units",
+        "price"
+      ],
+      "optional": [
+        "commission_cost_micro",
+        "swap_cost_micro"
+      ],
+      "forbidden": [
+        "cash_per_price_unit_micro"
+      ]
+    },
+    "EXIT_FILL": {
+      "required": [
+        "trade_id",
+        "direction",
+        "volume_units",
+        "price",
+        "cash_per_price_unit_micro"
+      ],
+      "optional": [
+        "commission_cost_micro",
+        "swap_cost_micro"
+      ]
+    },
+    "RISK_START": {
+      "required": [
+        "commitment_id",
+        "risk_cash_micro"
+      ]
+    },
+    "RISK_END": {
+      "required": [
+        "commitment_id"
+      ]
+    },
+    "CASH_ADJUSTMENT": {
+      "required": [
+        "cash_delta_micro"
+      ]
+    },
+    "STOP_REQUEST": {
+      "required": [
+        "trade_id",
+        "request_id",
+        "stop_price"
+      ]
+    },
+    "STOP_ACK": {
+      "required": [
+        "trade_id",
+        "request_id"
+      ]
+    },
+    "STOP_REJECT": {
+      "required": [
+        "trade_id",
+        "request_id"
+      ]
+    }
+  },
+  "normalization_rules": [
+    "time_us is UTC microseconds after explicit source clock mapping",
+    "source_seq is globally unique and strictly follows source chronology after normalization",
+    "event_id and locator are unique within one normalized source bundle",
+    "trade_id is never reopened after its open volume reaches zero",
+    "request_id and commitment_id are never reused within a replay",
+    "commission_cost_micro and swap_cost_micro are non-negative incurred costs",
+    "cash_per_price_unit_micro belongs to EXIT_FILL and is the explicit account-currency conversion used for that realized exit calculation",
+    "ENTRY_FILL does not carry a P&L conversion factor in v1",
+    "one normalized bundle binds exactly one lowercase raw source SHA-256"
+  ]
+}
