@@ -1,0 +1,45 @@
+{
+  "schema": "atlas-atx00-registration-prep-v1",
+  "alias": "ATX-00",
+  "status": "ENGINEERING_PREPARED_NOT_STARTED",
+  "registry_experiment_type": "ENGINEERING",
+  "authority": "LAB_ONLY_NO_ORDER",
+  "target_implementation_commit": "7df9abb79fa710713adb5302b5151707c7483b83",
+  "source_research_pack_sha256": "27bb6fb4fcfa03e4bfe320b726872a26c5d4cf2ee6d2a4eb0643f63c0e6417f2",
+  "source_research_review_commit": "774f1b9",
+  "source_entry_stop_sha256": "45a83b5c9f0dc6240143dfff1ca3e4a0c367c635e4ef2d8e77656cee32ec0e86",
+  "baseline": {
+    "strategy_key": "OWNER_TRACK_A",
+    "version": "v1-20261002v1-BE14-ATR100000",
+    "strategy_version_id": "strat_ec39f0bb1d079d226b5636bde515354f08d82b09d0d9da49f6eaad84b3a67bbb"
+  },
+  "question": "Does replay obey current chronology and accounting?",
+  "model_search": false,
+  "current_slice": {
+    "name": "ATX00-1",
+    "scenario_set_version": "atx00-golden-v1",
+    "purpose": "Golden fidelity primitives only; not the production outcome resolver.",
+    "validation": {
+      "atx00_tests": "21/21 PASS on Python 3.14 and 3.12",
+      "focused_registry_suite": "34/34 PASS + 21 subtests on both runtimes",
+      "full_atlas_suite": "235/235 PASS + 242 subtests on both runtimes",
+      "independent_review": "PASS",
+      "static_checks": "compileall PASS; git diff --check PASS",
+      "deterministic_self_check": "PASS"
+    }
+  },
+  "confirmatory_run_allowed": false,
+  "open_required_fields": [
+    "actual_account_config_and_risk_contract",
+    "eligible_instruments_and_timeframes",
+    "historical_date_windows",
+    "dataset_and_quote_fill_hashes",
+    "historical_clock_mapping",
+    "broker_cost_model_version",
+    "management_request_acknowledgement_evidence_adapter",
+    "full_chronological_account_replay_integration",
+    "owner_governed_primary_endpoint_and_materiality_thresholds",
+    "final_holdout_or_promotion_review_plan"
+  ],
+  "rule": "Do not convert this preparation record into CONFIRMATORY/PROMOTION_REVIEW or claim ATX-00 completion until every required field is frozen and real-data/account reconciliation passes."
+}
