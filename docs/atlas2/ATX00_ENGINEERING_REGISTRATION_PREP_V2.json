@@ -1,0 +1,36 @@
+{
+  "schema": "atlas-atx00-registration-prep-v2",
+  "alias": "ATX-00",
+  "status": "ENGINEERING_ADAPTER_READY_REAL_EVIDENCE_PENDING",
+  "registry_experiment_type": "ENGINEERING",
+  "authority": "LAB_ONLY_NO_ORDER",
+  "source_research_pack_sha256": "27bb6fb4fcfa03e4bfe320b726872a26c5d4cf2ee6d2a4eb0643f63c0e6417f2",
+  "source_research_review_commit": "774f1b9",
+  "fidelity_primitives_commit": "7df9abb",
+  "real_evidence_adapter_commit": "1829a0d979167c72f919d242400b825611a9ada3",
+  "completed_engineering_fields": [
+    "golden fidelity primitives",
+    "sealed causal Atlas quote evidence adapter",
+    "normalized execution evidence contract",
+    "chronological account replay engine",
+    "management request/ack/reject lifecycle contract",
+    "risk-cap episode accounting",
+    "deterministic evidence and replay digests"
+  ],
+  "open_required_fields": [
+    "actual_account_config_and_risk_contract",
+    "eligible_instruments_and_timeframes",
+    "historical_date_windows",
+    "actual_dataset_quote_fill_source_hashes",
+    "historical_broker_server_clock_mapping",
+    "raw_broker_export_adapter_version",
+    "broker_cost_model_version",
+    "actual_management_request_acknowledgement_evidence",
+    "source_account_cash_trade_reconciliation",
+    "owner_governed_primary_endpoint_and_materiality_thresholds",
+    "final_holdout_or_promotion_review_plan"
+  ],
+  "confirmatory_run_allowed": false,
+  "next_gate": "Freeze real broker/account evidence and clock mapping, run account reconciliation, then request owner confirmation of ATX-00 endpoint/materiality fields.",
+  "rule": "Do not start take/pass ML or management-policy confirmatory promotion from this record. ATX-00 remains engineering-only until all real-evidence and owner-governed fields are frozen."
+}

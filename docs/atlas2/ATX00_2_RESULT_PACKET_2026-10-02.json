@@ -1,0 +1,53 @@
+{
+  "schema": "atlas-atx00-slice-result-v1",
+  "owner": "Ali Shariati",
+  "date": "2026-10-02",
+  "alias": "ATX-00",
+  "slice": "ATX00-2",
+  "status": "CLOSED_SLICE_ATX00_OVERALL_OPEN",
+  "authority": "LAB_ONLY_NO_ORDER",
+  "implementation_commit": "1829a0d979167c72f919d242400b825611a9ada3",
+  "source_research_pack_sha256": "27bb6fb4fcfa03e4bfe320b726872a26c5d4cf2ee6d2a4eb0643f63c0e6417f2",
+  "source_review_commit": "774f1b9",
+  "delivered": [
+    "sealed causal Atlas quote-evidence binding",
+    "dataset clock-profile consistency audit",
+    "normalized source-hashed execution evidence contract",
+    "chronological partial-fill account replay",
+    "explicit per-exit account-currency conversion",
+    "risk commitment and cap-breach episode accounting",
+    "stop request/ack/reject evidence lifecycle",
+    "deterministic evidence/replay digests"
+  ],
+  "validation": {
+    "focused_py314": "45/45 PASS + 21 subtests",
+    "focused_py312": "45/45 PASS + 21 subtests",
+    "full_py314": "246/246 PASS + 242 subtests",
+    "full_py312": "246/246 PASS + 242 subtests",
+    "compileall": "PASS",
+    "git_diff_check": "PASS",
+    "independent_final_review": "PASS"
+  },
+  "local_real_data_scan": {
+    "roots": [
+      "Atlas Project",
+      "Desktop",
+      "Downloads",
+      "Documents"
+    ],
+    "result": "NO_SUITABLE_MT5_DEAL_FILL_TICK_QUOTE_OR_ACCOUNT_HISTORY_EXPORT_FOUND",
+    "legacy_bar_event_csvs_found": true,
+    "substitution_policy": "DO_NOT_SUBSTITUTE_LEGACY_OR_SYNTHETIC_FILLS_FOR_CONFIRMATORY_REAL_EVIDENCE"
+  },
+  "remaining_atx00_dependencies": [
+    "actual broker/account quote-fill-history export with immutable source hash",
+    "explicit historical broker/server clock mapping",
+    "raw broker adapter to normalized execution-evidence-v1",
+    "actual account configuration and risk contract",
+    "broker cost-model version and account-currency conversion evidence",
+    "real management request/ack/reject evidence",
+    "full source-account cash/trade reconciliation",
+    "owner-governed primary endpoint/materiality thresholds before confirmatory claim"
+  ],
+  "next_action": "Acquire/freeze actual broker/account evidence; then run ATX00 real reconciliation before BE/no-BE or take/pass confirmatory experiments."
+}
