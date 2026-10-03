@@ -363,6 +363,27 @@ class ATX00EvidenceTests(unittest.TestCase):
                 risk_cap_cash_micro=0,
             )
 
+    def test_open_volume_intermediate_stays_int64(self):
+        max_i64 = 2**63 - 1
+        events = (
+            self._event(
+                "f1", "ENTRY_FILL", 1, 1,
+                trade_id="t1", direction="LONG",
+                volume_units=max_i64, price=100,
+            ),
+            self._event(
+                "f2", "ENTRY_FILL", 2, 2,
+                trade_id="t1", direction="LONG",
+                volume_units=1, price=100,
+            ),
+        )
+        with self.assertRaises((TypeError, ValueError, OverflowError)):
+            replay_account_evidence(
+                bind_execution_events(events),
+                starting_balance_micro=1_000,
+                risk_cap_cash_micro=0,
+            )
+
     def test_account_replay_fails_closed_on_bad_chronology_and_source_identity(self):
         exit_only = bind_execution_events((
             self._event(

@@ -22,10 +22,10 @@ Status: CLOSED — implementation, independent review, and dual-runtime validati
 Initial independent review found three concrete execution-evidence/replay gaps: canonical source hash enforcement, stop lifecycle/result visibility, and implicit FIFO/entry-conversion semantics. After those fixes, a second review found two further blockers: replay accepted a forged bundle and trade IDs could reopen after full close. Both were fixed. The final independent re-review returned **PASS** with no blocker; its one low int64 open-volume note was also fixed.
 
 Final validation:
-- Focused ATX00 evidence/fidelity/registry suite, Python 3.14: **45/45 PASS + 21 subtests**.
-- Focused ATX00 evidence/fidelity/registry suite, Python 3.12: **45/45 PASS + 21 subtests**.
-- Full Atlas v2 suite, Python 3.14: **246/246 PASS + 242 subtests**.
-- Full Atlas v2 suite, Python 3.12: **246/246 PASS + 242 subtests**.
+- Focused ATX00 evidence/fidelity/registry suite, Python 3.14: **46/46 PASS + 21 subtests**.
+- Focused ATX00 evidence/fidelity/registry suite, Python 3.12: **46/46 PASS + 21 subtests**.
+- Full Atlas v2 suite, Python 3.14: **247/247 PASS + 242 subtests**.
+- Full Atlas v2 suite, Python 3.12: **247/247 PASS + 242 subtests**.
 - `python3 -m compileall -q atlas2`: PASS.
 - `git diff --check`: PASS.
 - Trading/order authority introduced: **NO**.

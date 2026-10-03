@@ -20,10 +20,10 @@
     "deterministic evidence/replay digests"
   ],
   "validation": {
-    "focused_py314": "45/45 PASS + 21 subtests",
-    "focused_py312": "45/45 PASS + 21 subtests",
-    "full_py314": "246/246 PASS + 242 subtests",
-    "full_py312": "246/246 PASS + 242 subtests",
+    "focused_py314": "46/46 PASS + 21 subtests",
+    "focused_py312": "46/46 PASS + 21 subtests",
+    "full_py314": "247/247 PASS + 242 subtests",
+    "full_py312": "247/247 PASS + 242 subtests",
     "compileall": "PASS",
     "git_diff_check": "PASS",
     "independent_final_review": "PASS"
