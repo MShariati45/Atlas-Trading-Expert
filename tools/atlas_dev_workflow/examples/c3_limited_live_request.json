@@ -1,0 +1,19 @@
+{
+  "schema_version": "atlas-devwf.task-contract.v1",
+  "task_id": "c3-limited-live",
+  "title": "Limited Live enablement request",
+  "objective": "Request to enable Limited Live; must be routed to separate owner authorization",
+  "declared_class": "C",
+  "impact_areas": [
+    "production_live"
+  ],
+  "scope_paths": [
+    "bridges/live"
+  ],
+  "base_sha": "898e5dcbb7b434f74b2abd186b82f1abf9a3c624",
+  "target_branch": "atlas2-p1",
+  "acceptance": [
+    "n/a - routed"
+  ],
+  "execution_stage": "limited_live"
+}

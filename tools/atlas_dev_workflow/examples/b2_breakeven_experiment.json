@@ -1,0 +1,38 @@
+{
+  "schema_version": "atlas-devwf.task-contract.v1",
+  "task_id": "b2-breakeven-1r4",
+  "title": "Paired +1.4R break-even management challenger",
+  "objective": "Evaluate break-even at +1.4R as a challenger against the 2R baseline arm; no promotion",
+  "declared_class": "B",
+  "impact_areas": [
+    "entry_stop_target_management"
+  ],
+  "scope_paths": [
+    "atlas2/evaluate/arms",
+    "tests/atlas2"
+  ],
+  "base_sha": "898e5dcbb7b434f74b2abd186b82f1abf9a3c624",
+  "target_branch": "atlas2-p1",
+  "acceptance": [
+    "python3 -m unittest discover -s tests/atlas2"
+  ],
+  "experiment": {
+    "experiment_id": "EXP-BE-1R4-001",
+    "prereg_digest": "0000000000000000000000000000000000000000000000000000000000000000",
+    "evaluator_digest": "0000000000000000000000000000000000000000000000000000000000000000",
+    "evaluator_frozen": true,
+    "baseline": "2R target, no break-even (baseline arm)",
+    "challenger": "2R target, break-even at +1.4R (under validation)",
+    "search_set": [
+      "challenger-v1"
+    ],
+    "dataset_windows": [
+      "2019-2022 train",
+      "2023 OOS"
+    ],
+    "cost_model": "broker-native spread + commission v1",
+    "holdout_rules": "instrument x interval grant only",
+    "stopping_rules": "single preregistered inspection",
+    "failed_result_persistence": true
+  }
+}

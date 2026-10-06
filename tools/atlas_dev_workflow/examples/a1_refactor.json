@@ -1,0 +1,19 @@
+{
+  "schema_version": "atlas-devwf.task-contract.v1",
+  "task_id": "a1-units-refactor",
+  "title": "Refactor atlas2 core unit helpers",
+  "objective": "Simplify atlas2/core/units.py internals without changing behaviour",
+  "declared_class": "A",
+  "impact_areas": [
+    "refactor"
+  ],
+  "scope_paths": [
+    "atlas2/core/units.py",
+    "tests/atlas2"
+  ],
+  "base_sha": "898e5dcbb7b434f74b2abd186b82f1abf9a3c624",
+  "target_branch": "atlas2-p1",
+  "acceptance": [
+    "python3 -m unittest discover -s tests/atlas2"
+  ]
+}
